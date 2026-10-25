@@ -28,25 +28,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		46D172022F96D1D900647BC5 /* C-Tab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C-Tab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		46D1720F2F96D1DA00647BC5 /* C-TabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "C-TabTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		46D172192F96D1DA00647BC5 /* C-TabUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "C-TabUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D172022F96D1D900647BC5 /* Nodal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nodal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D1720F2F96D1DA00647BC5 /* NodalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		46D172192F96D1DA00647BC5 /* NodalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		46D172042F96D1D900647BC5 /* C-Tab */ = {
+		46D172042F96D1D900647BC5 /* Nodal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "C-Tab";
+			path = Nodal;
 			sourceTree = "<group>";
 		};
-		46D172122F96D1DA00647BC5 /* C-TabTests */ = {
+		46D172122F96D1DA00647BC5 /* NodalTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "C-TabTests";
+			path = NodalTests;
 			sourceTree = "<group>";
 		};
-		46D1721C2F96D1DA00647BC5 /* C-TabUITests */ = {
+		46D1721C2F96D1DA00647BC5 /* NodalUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "C-TabUITests";
+			path = NodalUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -80,9 +80,9 @@
 		46D171F92F96D1D900647BC5 = {
 			isa = PBXGroup;
 			children = (
-				46D172042F96D1D900647BC5 /* C-Tab */,
-				46D172122F96D1DA00647BC5 /* C-TabTests */,
-				46D1721C2F96D1DA00647BC5 /* C-TabUITests */,
+				46D172042F96D1D900647BC5 /* Nodal */,
+				46D172122F96D1DA00647BC5 /* NodalTests */,
+				46D1721C2F96D1DA00647BC5 /* NodalUITests */,
 				46D172032F96D1D900647BC5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,9 +90,9 @@
 		46D172032F96D1D900647BC5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				46D172022F96D1D900647BC5 /* C-Tab.app */,
-				46D1720F2F96D1DA00647BC5 /* C-TabTests.xctest */,
-				46D172192F96D1DA00647BC5 /* C-TabUITests.xctest */,
+				46D172022F96D1D900647BC5 /* Nodal.app */,
+				46D1720F2F96D1DA00647BC5 /* NodalTests.xctest */,
+				46D172192F96D1DA00647BC5 /* NodalUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		46D172012F96D1D900647BC5 /* C-Tab */ = {
+		46D172012F96D1D900647BC5 /* Nodal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46D172232F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-Tab" */;
+			buildConfigurationList = 46D172232F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "Nodal" */;
 			buildPhases = (
 				46D171FE2F96D1D900647BC5 /* Sources */,
 				46D171FF2F96D1D900647BC5 /* Frameworks */,
@@ -113,19 +113,19 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				46D172042F96D1D900647BC5 /* C-Tab */,
+				46D172042F96D1D900647BC5 /* Nodal */,
 			);
-			name = "C-Tab";
+			name = Nodal;
 			packageProductDependencies = (
 				46C0D125305497EF0013DFF4 /* Kingfisher */,
 			);
 			productName = "C-Tab";
-			productReference = 46D172022F96D1D900647BC5 /* C-Tab.app */;
+			productReference = 46D172022F96D1D900647BC5 /* Nodal.app */;
 			productType = "com.apple.product-type.application";
 		};
-		46D1720E2F96D1DA00647BC5 /* C-TabTests */ = {
+		46D1720E2F96D1DA00647BC5 /* NodalTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46D172262F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-TabTests" */;
+			buildConfigurationList = 46D172262F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "NodalTests" */;
 			buildPhases = (
 				46D1720B2F96D1DA00647BC5 /* Sources */,
 				46D1720C2F96D1DA00647BC5 /* Frameworks */,
@@ -137,18 +137,18 @@
 				46D172112F96D1DA00647BC5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				46D172122F96D1DA00647BC5 /* C-TabTests */,
+				46D172122F96D1DA00647BC5 /* NodalTests */,
 			);
-			name = "C-TabTests";
+			name = NodalTests;
 			packageProductDependencies = (
 			);
 			productName = "C-TabTests";
-			productReference = 46D1720F2F96D1DA00647BC5 /* C-TabTests.xctest */;
+			productReference = 46D1720F2F96D1DA00647BC5 /* NodalTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		46D172182F96D1DA00647BC5 /* C-TabUITests */ = {
+		46D172182F96D1DA00647BC5 /* NodalUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46D172292F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-TabUITests" */;
+			buildConfigurationList = 46D172292F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "NodalUITests" */;
 			buildPhases = (
 				46D172152F96D1DA00647BC5 /* Sources */,
 				46D172162F96D1DA00647BC5 /* Frameworks */,
@@ -160,13 +160,13 @@
 				46D1721B2F96D1DA00647BC5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				46D1721C2F96D1DA00647BC5 /* C-TabUITests */,
+				46D1721C2F96D1DA00647BC5 /* NodalUITests */,
 			);
-			name = "C-TabUITests";
+			name = NodalUITests;
 			packageProductDependencies = (
 			);
 			productName = "C-TabUITests";
-			productReference = 46D172192F96D1DA00647BC5 /* C-TabUITests.xctest */;
+			productReference = 46D172192F96D1DA00647BC5 /* NodalUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 46D171FD2F96D1D900647BC5 /* Build configuration list for PBXProject "C-Tab" */;
+			buildConfigurationList = 46D171FD2F96D1D900647BC5 /* Build configuration list for PBXProject "Nodal" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -211,9 +211,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46D172012F96D1D900647BC5 /* C-Tab */,
-				46D1720E2F96D1DA00647BC5 /* C-TabTests */,
-				46D172182F96D1DA00647BC5 /* C-TabUITests */,
+				46D172012F96D1D900647BC5 /* Nodal */,
+				46D1720E2F96D1DA00647BC5 /* NodalTests */,
+				46D172182F96D1DA00647BC5 /* NodalUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -269,12 +269,12 @@
 /* Begin PBXTargetDependency section */
 		46D172112F96D1DA00647BC5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 46D172012F96D1D900647BC5 /* C-Tab */;
+			target = 46D172012F96D1D900647BC5 /* Nodal */;
 			targetProxy = 46D172102F96D1DA00647BC5 /* PBXContainerItemProxy */;
 		};
 		46D1721B2F96D1DA00647BC5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 46D172012F96D1D900647BC5 /* C-Tab */;
+			target = 46D172012F96D1D900647BC5 /* Nodal */;
 			targetProxy = 46D1721A2F96D1DA00647BC5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -413,6 +413,7 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -446,6 +447,7 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,7 +489,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C-Tab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/C-Tab";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nodal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nodal";
 			};
 			name = Debug;
 		};
@@ -509,7 +511,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C-Tab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/C-Tab";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nodal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nodal";
 			};
 			name = Release;
 		};
@@ -556,7 +558,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		46D171FD2F96D1D900647BC5 /* Build configuration list for PBXProject "C-Tab" */ = {
+		46D171FD2F96D1D900647BC5 /* Build configuration list for PBXProject "Nodal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46D172212F96D1DA00647BC5 /* Debug */,
@@ -565,7 +567,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46D172232F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-Tab" */ = {
+		46D172232F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "Nodal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46D172242F96D1DA00647BC5 /* Debug */,
@@ -574,7 +576,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46D172262F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-TabTests" */ = {
+		46D172262F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "NodalTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46D172272F96D1DA00647BC5 /* Debug */,
@@ -583,7 +585,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46D172292F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "C-TabUITests" */ = {
+		46D172292F96D1DA00647BC5 /* Build configuration list for PBXNativeTarget "NodalUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46D1722A2F96D1DA00647BC5 /* Debug */,
