@@ -33,9 +33,38 @@
 		46D172192F96D1DA00647BC5 /* NodalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		46B1F6CA308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Development.xcconfig,
+			);
+			target = 46D1720E2F96D1DA00647BC5 /* NodalTests */;
+		};
+		46B1F6CB308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Development.xcconfig,
+			);
+			target = 46D172182F96D1DA00647BC5 /* NodalUITests */;
+		};
+		46B1F76B308E660400BB407A /* Exceptions for "Nodal" folder in "Nodal" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 46D172012F96D1D900647BC5 /* Nodal */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		46D172042F96D1D900647BC5 /* Nodal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				46B1F76B308E660400BB407A /* Exceptions for "Nodal" folder in "Nodal" target */,
+				46B1F6CA308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalTests" target */,
+				46B1F6CB308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalUITests" target */,
+			);
 			path = Nodal;
 			sourceTree = "<group>";
 		};
@@ -282,6 +311,8 @@
 /* Begin XCBuildConfiguration section */
 		46D172212F96D1DA00647BC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 46D172042F96D1D900647BC5 /* Nodal */;
+			baseConfigurationReferenceRelativePath = Resources/Development.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -347,6 +378,8 @@
 		};
 		46D172222F96D1DA00647BC5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 46D172042F96D1D900647BC5 /* Nodal */;
+			baseConfigurationReferenceRelativePath = Resources/Development.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -405,6 +438,8 @@
 		};
 		46D172242F96D1DA00647BC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 46D172042F96D1D900647BC5 /* Nodal */;
+			baseConfigurationReferenceRelativePath = Resources/Development.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -413,6 +448,7 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Nodal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -439,6 +475,8 @@
 		};
 		46D172252F96D1DA00647BC5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 46D172042F96D1D900647BC5 /* Nodal */;
+			baseConfigurationReferenceRelativePath = Resources/Development.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -447,6 +485,7 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Nodal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
