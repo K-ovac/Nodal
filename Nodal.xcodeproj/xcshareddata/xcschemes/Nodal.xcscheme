@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2640"
+   LastUpgradeVersion = "2700"
    version = "2.2">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
       <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "46D172012F96D1D900647BC5"
-               BuildableName = "C-Tab.app"
-               BlueprintName = "C-Tab"
-               ReferencedContainer = "container:C-Tab.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -79,9 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "46D172012F96D1D900647BC5"
-            BuildableName = "C-Tab.app"
-            BlueprintName = "C-Tab"
-            ReferencedContainer = "container:C-Tab.xcodeproj">
+            BuildableName = "Nodal.app"
+            ReferencedContainer = "container:Nodal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -91,22 +76,12 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "46D172012F96D1D900647BC5"
-            BuildableName = "C-Tab.app"
-            BlueprintName = "C-Tab"
-            ReferencedContainer = "container:C-Tab.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "46D172012F96D1D900647BC5"
-            BuildableName = "C-Tab.app"
-            BlueprintName = "C-Tab"
+            BlueprintIdentifier = "46D1720E2F96D1DA00647BC5"
+            BuildableName = "C-TabTests.xctest"
+            BlueprintName = "C-TabTests"
             ReferencedContainer = "container:C-Tab.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
