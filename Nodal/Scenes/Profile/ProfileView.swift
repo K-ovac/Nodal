@@ -13,7 +13,6 @@ struct ProfileView: View {
     
     //MARK: - Properties
     
-    @Environment(\.dismiss)private var dismiss
     @StateObject private var viewModel = ProfileViewModel()
     @State private var selectedLink: ProfileLink?
     
@@ -32,15 +31,9 @@ struct ProfileView: View {
                 Text("profile.appVersion.title \(Constants.appVersion)")
             }
             .foregroundStyle(.primary)
-            .navigationTitle("profile.title")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                }
+                leadingToolbar
+                trailingToolbar
             }
             
             .task {
@@ -53,6 +46,36 @@ struct ProfileView: View {
 //MARK: - Extension ProfileView
 
 extension ProfileView {
+    
+    private var leadingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            HStack {
+                Image(systemName: "gearshape")
+                Text("Profile & Settings")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header20)
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            .padding(.horizontal, 8)
+        }
+    }
+    
+    private var trailingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+//                        dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "pencil.line")
+                    Text("Edit")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body13)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
+                
+            }
+        }
+    }
     
     //MARK: - Private Destination method
     

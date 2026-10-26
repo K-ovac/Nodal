@@ -58,9 +58,6 @@ struct HomeView: View {
             }
             .listStyle(.inset)
             
-            .navigationTitle("markets.title")
-            .navigationBarTitleDisplayMode(.large)
-            
             // MARK: - ToolBar
             
             .toolbar {
@@ -99,14 +96,17 @@ extension HomeView {
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button {
-                viewModel.profilePresented.toggle()
-            } label: {
-                Image(systemName: "person.fill")
-            } .sheet(isPresented: $viewModel.profilePresented) {
-                ProfileView()
-                    .presentationDetents([.large])
+            HStack {
+                Image("nodal")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                Text("markets.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header20)
+                    .fixedSize(horizontal: true, vertical: false)
             }
+            .padding(.horizontal, 8)
         }
     }
     

@@ -21,12 +21,12 @@ struct TabListView: View {
             HomeView()
                 .tag(0)
                 .tabItem {
-                    Image(systemName: "house")
+                    Image(systemName: "lines.measurement.horizontal.aligned.bottom")
                 }
-            Text("tabList.portfolio.title")
+            ProfileView()
                 .tag(1)
                 .tabItem {
-                    Image(systemName: "folder.fill")
+                    Image(systemName: "person")
                 }
             Text("tabList.watchlist.title")
                 .tag(2)

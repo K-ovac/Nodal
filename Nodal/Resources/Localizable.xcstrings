@@ -730,22 +730,11 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Markets"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Marchés"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Маркет"
+            "value" : "Nodal"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "markets.topCoins.showMoreButton.title" : {
       "extractionState" : "manual",
