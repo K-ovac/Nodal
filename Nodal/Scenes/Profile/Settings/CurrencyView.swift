@@ -21,6 +21,8 @@ struct CurrencyView: View {
                 HStack {
                     Image(systemName: currency.icon)
                     Text(currency.id)
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body18)
                     
                     Spacer()
                     

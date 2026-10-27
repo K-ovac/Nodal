@@ -23,8 +23,8 @@ struct LanguageView: View {
                         .resizable()
                         .frame(width: 25, height: 25)
                     Text(lang.title)
-                        .foregroundStyle(.primary)
-                        .font(.body)
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body18)
                     
                     Spacer()
                     

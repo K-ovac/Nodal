@@ -36,10 +36,10 @@ struct SettingRow: View {
             //icon
             Image(systemName: iconName)
                 .font(.title3)
-                .frame(width: 30, alignment: .center)
+                .frame(width: 28, alignment: .center)
             //title
             Text(title)
-                .font(.body)
+                .font(Font.body18)
             
             Spacer()
             
@@ -48,7 +48,7 @@ struct SettingRow: View {
             if let value {
                 HStack {
                     Text(value)
-                        .font(.subheadline)
+                        .font(Font.secondary14)
                         .foregroundStyle(.secondary)
                     Image(systemName: "chevron.right")
                         .resizable()

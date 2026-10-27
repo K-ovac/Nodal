@@ -28,7 +28,8 @@ struct AppThemeView: View {
                             Image(systemName: theme.icon)
                                 .font(.title3)
                             Text(theme.rawValue)
-                                .font(.body)
+                                .foregroundStyle(Color.primary)
+                                .font(Font.body18)
                             
                             Spacer()
                             
