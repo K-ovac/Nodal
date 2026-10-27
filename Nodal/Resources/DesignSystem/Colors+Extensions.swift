@@ -15,6 +15,15 @@ extension Color {
     static var background = color(dark: "08070B", light: "F5F4F8")
     static var card = color(dark: "13111C", opDark: 0.9, light: "FFFFFF", opLight: 0.85)
     static var navigation = color(dark: "14111F", opDark: 0.65, light: "FFFFFF", opLight: 0.75)
+    static var gradient = LinearGradient(
+        colors: [
+            solarGold,
+            orangeNeon,
+            deepBurgundy
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
     
     static var solarGold = Color(hex: "FFD700")
     static var orangeNeon = Color(hex: "FF4500")

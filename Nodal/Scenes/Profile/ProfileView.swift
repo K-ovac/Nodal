@@ -20,25 +20,21 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
-                    Section {
-                        ProfileRow()
-                    }
+            ScrollView {
+                VStack(alignment: .leading) {
+                    profileCard
                     settingsSection
                     linksSection
                 }
-                Text("profile.appVersion.title \(Constants.appVersion)")
             }
-            .foregroundStyle(.primary)
+            .background(Color.background)
             .toolbar {
                 leadingToolbar
                 trailingToolbar
             }
-            
-            .task {
-                await viewModel.getProfile()
-            }
+        }
+        .task {
+            await viewModel.getProfile()
         }
     }
 }
@@ -63,13 +59,13 @@ extension ProfileView {
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-//                        dismiss()
+                //                        dismiss()
             } label: {
                 HStack {
                     Image(systemName: "pencil.line")
                     Text("Edit")
                         .foregroundStyle(Color.primary)
-                        .font(Font.body13)
+                        .font(Font.header15)
                         .fixedSize(horizontal: true, vertical: false)
                 }
                 
@@ -93,8 +89,22 @@ extension ProfileView {
     
     //MARK: - Settings Section
     
+    private var profileCard: some View {
+        ProfileRow()
+            .clipShape(
+                RoundedRectangle(cornerRadius: 16)
+            )
+            .padding(.horizontal)
+            .padding(.top)
+    }
+    
     private var settingsSection: some View {
-        Section {
+        VStack(alignment: .leading) {
+            Text("APP PREFERENCES")
+                .font(Font.secondary14.bold())
+                .foregroundStyle(Color.gray)
+                .padding(.top)
+            
             ForEach(viewModel.profileSettings) { setting in
                 NavigationLink {
                     destinationView(
@@ -102,37 +112,65 @@ extension ProfileView {
                         title: setting.title
                     )
                 } label: {
-                    SettingRow(
-                        iconName: setting.iconName,
-                        title: setting.title,
-                        value: setting.value
-                    )
+                    VStack {
+                        SettingRow(
+                            iconName: setting.iconName,
+                            title: setting.title,
+                            value: setting.value
+                        )
+                    }
+                    
                 }
             }
+            .foregroundStyle(.primary)
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            )
         }
+        .padding(.horizontal)
     }
     
     //MARK: - Links Section
     
     private var linksSection: some View {
-        Section {
+        
+        
+        VStack(alignment: .leading) {
+            Text("LEGAL & SUPPORT")
+                .font(Font.secondary14.bold())
+                .foregroundStyle(Color.gray)
+                .padding(.top)
+            
             ForEach(viewModel.profileLinks) { link in
                 SettingRow(
                     iconName: link.iconName,
                     title: LocalizedStringKey(link.title),
                     value: nil
                 )
-                    .clipShape(Rectangle())
-                    .onTapGesture {
-                        selectedLink = link
+                .clipShape(Rectangle())
+                .onTapGesture {
+                    selectedLink = link
+                }
+                .sheet(item: $selectedLink) { link in
+                    if let url = URL(string: link.link) {
+                        SafariView(url: url)
                     }
-                    .sheet(item: $selectedLink) { link in 
-                        if let url = URL(string: link.link) {
-                            SafariView(url: url)
-                        }
-                    }
+                }
             }
+            .foregroundStyle(.primary)
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+            )
         }
+        .padding(.horizontal)
     }
 }
 

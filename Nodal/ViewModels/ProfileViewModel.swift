@@ -44,13 +44,13 @@ final class ProfileViewModel: ObservableObject {
         profileSettings = [
             ProfileSetting(
                 title: "profile.currency.title",
-                iconName: "dollarsign.circle",
+                iconName: "dollarsign",
                 value: selectedCurrency,
                 destination: .currency
             ),
             ProfileSetting(
                 title: "profile.appTheme.title",
-                iconName: "lightbulb.min",
+                iconName: "flashlight.on.fill",
                 value: selectedTheme,
                 destination: .appTheme
             ),

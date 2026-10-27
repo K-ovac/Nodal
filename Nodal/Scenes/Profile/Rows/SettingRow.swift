@@ -46,12 +46,19 @@ struct SettingRow: View {
             //show value
             
             if let value {
-                Text(value)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                HStack {
+                    Text(value)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 6, height: 6)
+                        .foregroundStyle(Color.secondary)
+                }
             } else {
                 Image(systemName: "arrow.up.forward.app")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.solarGold)
             }
         }
     }

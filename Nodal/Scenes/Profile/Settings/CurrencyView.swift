@@ -26,7 +26,14 @@ struct CurrencyView: View {
                     
                     if selectedCurrency == currency {
                         Image(systemName: "checkmark")
-                            .foregroundStyle(.blue)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 10, height: 10)
+                            .foregroundStyle(Color.black)
+                            
+                            .padding(8)
+                            .background(Color.gradient)
+                            .clipShape(.circle)
                     }
                 }
                 .contentShape(Rectangle())

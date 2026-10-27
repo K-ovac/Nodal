@@ -12,7 +12,7 @@ struct TabListView: View {
     
     //MARK: - Properties
     
-    @State private var selected: Int = 0
+    @State private var selected: Int = 1
     
     //MARK: - Body
     
@@ -21,24 +21,42 @@ struct TabListView: View {
             HomeView()
                 .tag(0)
                 .tabItem {
-                    Image(systemName: "lines.measurement.horizontal.aligned.bottom")
+                    VStack {
+                        Image(systemName: "lines.measurement.horizontal.aligned.bottom")
+                        Text("Market")
+                    }
+                    
                 }
             ProfileView()
                 .tag(1)
                 .tabItem {
-                    Image(systemName: "person")
+                    VStack {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+                    
                 }
             Text("tabList.watchlist.title")
                 .tag(2)
                 .tabItem {
-                    Image(systemName: "star")
+                    VStack {
+                        Image(systemName: "star")
+                        Text("Watchlist")
+                    }
+                    
                 }
             Text("tabList.settings.title")
                 .tag(3)
                 .tabItem {
-                    Image(systemName: "gear")
+                    VStack {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
+                    
                 }
         }
+        .tint(.orangeNeon)
+        .toolbarBackground(Color.gradient)
     }
 }
 
