@@ -31,8 +31,8 @@ extension AppTheme {
     
     var icon: String {
         switch self {
-        case .light: return "sun.max.fill"
-        case .dark: return "moon.fill"
+        case .light: return "sun.max"
+        case .dark: return "moon"
         }
     }
 }

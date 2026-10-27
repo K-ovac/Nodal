@@ -64,7 +64,7 @@ final class ProfileViewModel: ObservableObject {
         profileLinks = [
             ProfileLink(
                 title: "profile.privacyPolicy.title",
-                iconName: "document",
+                iconName: "safari",
                 link: LinksConstants.privacyPolicy
             ),
             ProfileLink(
