@@ -74,6 +74,7 @@ struct CoinDetailsView: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingToolBar
+            trailingToolbar
         }
         
         // MARK: - Task fetchCoinDetails
@@ -115,6 +116,17 @@ extension CoinDetailsView {
         }
     }
     
+    private var trailingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                //
+            } label: {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(Color.solarGold)
+            }
+        }
+    }
+    
     // MARK: - Coin Details
     
     private var coinDetails: some View {
@@ -129,11 +141,11 @@ extension CoinDetailsView {
     
     @ViewBuilder
     private var coinDetailsContent: some View {
-        warningTitle
         tokenMetricsView
         coinStatistics
         aboutToken
         coinLinks
+        warningTitle
     }
     
     // MARK: - Warning Title
