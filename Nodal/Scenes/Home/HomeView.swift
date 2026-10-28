@@ -101,7 +101,7 @@ extension HomeView {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
-                Text("markets.title")
+                Text("NODAL")
                     .foregroundStyle(Color.primary)
                     .font(Font.header20)
                     .fixedSize(horizontal: true, vertical: false)
@@ -110,12 +110,27 @@ extension HomeView {
         }
     }
     
+    @ViewBuilder
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.topListPresented.toggle()
             } label: {
                 Image(systemName: "magnifyingglass")
+            }
+            
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                // TODO
+            } label: {
+                Text(viewModel.selectedCurrency)
+                    .font(Font.hashes.bold())
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(Color.orangeNeon.opacity(0.1))
+                    .clipShape(.capsule)
             }
         }
     }

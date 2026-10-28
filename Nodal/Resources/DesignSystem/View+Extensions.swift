@@ -8,15 +8,22 @@
 import SwiftUI
 
 extension View {
-    func stylePreset() -> some View {
-        self
+    func stylePreset(isSelected: Bool = false) -> some View {
+        let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
+        
+        return self
             .foregroundStyle(.primary)
             .padding(8)
             .background(Color.navigation)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(shape)
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 2)
+                shape
+                    .strokeBorder(
+                        isSelected
+                        ? Color.orangeNeon.opacity(0.6)
+                        : Color.gray.opacity(0.25),
+                        lineWidth: 1
+                    )
             )
     }
 }

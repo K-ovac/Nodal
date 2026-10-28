@@ -55,7 +55,7 @@ final class ProfileViewModel: ObservableObject {
                 destination: .language),
             ProfileSetting(
                 title: "profile.appTheme.title",
-                iconName: "flashlight.on.fill",
+                iconName: "paintbrush",
                 value: selectedTheme,
                 destination: .appTheme
             ),

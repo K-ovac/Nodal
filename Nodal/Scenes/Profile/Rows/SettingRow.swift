@@ -36,7 +36,7 @@ struct SettingRow: View {
             //icon
             Image(systemName: iconName)
                 .font(.title3)
-                .frame(width: 28, alignment: .center)
+                .frame(width: 20, alignment: .center)
             //title
             Text(title)
                 .font(Font.body18)

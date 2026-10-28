@@ -24,6 +24,7 @@ struct TabListView: View {
                     VStack {
                         Image(systemName: "lines.measurement.horizontal.aligned.bottom")
                         Text("Market")
+                            .font(Font.tabCapsule)
                     }
                     
                 }
@@ -33,6 +34,7 @@ struct TabListView: View {
                     VStack {
                         Image(systemName: "gear")
                         Text("Settings")
+                            .font(Font.tabCapsule)
                     }
                     
                 }
@@ -42,6 +44,7 @@ struct TabListView: View {
                     VStack {
                         Image(systemName: "star")
                         Text("Watchlist")
+                            .font(Font.tabCapsule)
                     }
                     
                 }
@@ -51,6 +54,7 @@ struct TabListView: View {
                     VStack {
                         Image(systemName: "person")
                         Text("profile.title")
+                            .font(Font.tabCapsule)
                     }
                     
                 }

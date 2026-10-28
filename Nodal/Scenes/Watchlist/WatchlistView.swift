@@ -49,7 +49,7 @@ extension WatchlistView {
                     .foregroundStyle(Color.solarGold)
                 Text("Favorive Coins(4)")
                     .fixedSize()
-                    .font(Font.header15)
+                    .font(Font.header20)
             }
             .padding(.horizontal, 8)
         }
@@ -70,20 +70,22 @@ extension WatchlistView {
     // MARK: - Index Card
     
     private var indexCard: some View {
-        WatchlistIndexRow(index: <#WatchlistModel#>)
-            .clipShape(
-                RoundedRectangle(cornerRadius: 16)
-            )
+//        WatchlistIndexRow(index: <#WatchlistModel#>)
+//            .clipShape(
+//                RoundedRectangle(cornerRadius: 16)
+//            )
+        EmptyView()
     }
     
     // MARK: - Coins Section
     
     private var coinCard: some View {
-        WatchlistCoinRow(
-            coin: <#TokenList#>,
-            currency: <#String#>,
-            removeAction: <#() -> Void#>
-        )
+//        WatchlistCoinRow(
+//            coin: <#TokenList#>,
+//            currency: <#String#>,
+//            removeAction: <#() -> Void#>
+//        )
+        EmptyView()
     }
 }
 
