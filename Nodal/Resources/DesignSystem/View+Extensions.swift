@@ -12,11 +12,11 @@ extension View {
         self
             .foregroundStyle(.primary)
             .padding(8)
-            .background(Color.gray.opacity(0.1))
+            .background(Color.navigation)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 2)
             )
     }
 }

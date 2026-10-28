@@ -12,7 +12,7 @@ struct TabListView: View {
     
     //MARK: - Properties
     
-    @State private var selected: Int = 3
+    @State private var selected: Int = 2
     
     //MARK: - Body
     
@@ -36,7 +36,7 @@ struct TabListView: View {
                     }
                     
                 }
-            Text("tabList.watchlist.title")
+            WatchlistView()
                 .tag(2)
                 .tabItem {
                     VStack {

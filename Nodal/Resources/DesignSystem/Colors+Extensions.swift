@@ -17,9 +17,9 @@ extension Color {
     static var navigation = color(dark: "14111F", opDark: 0.65, light: "FFFFFF", opLight: 0.75)
     static var gradient = LinearGradient(
         colors: [
-            solarGold,
-            orangeNeon,
-            deepBurgundy
+            solarGold.opacity(0.85),
+            orangeNeon.opacity(0.85),
+            deepBurgundy.opacity(0.85)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
