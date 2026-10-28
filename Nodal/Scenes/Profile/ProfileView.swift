@@ -116,7 +116,7 @@ extension ProfileView {
                     title: setting.title,
                     value: setting.value
                 )
-                .stylePreset()
+                .cellStyle(for: setting, in: viewModel.profileSettings)
                 .onTapGesture {
                     selectedSetting = setting
                 }
@@ -145,7 +145,7 @@ extension ProfileView {
                     title: LocalizedStringKey(link.title),
                     value: nil
                 )
-                .stylePreset()
+                .cellStyle(for: link, in: viewModel.profileLinks)
                 .onTapGesture {
                     selectedLink = link
                 }

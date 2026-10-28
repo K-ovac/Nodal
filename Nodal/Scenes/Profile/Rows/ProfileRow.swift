@@ -73,7 +73,3 @@ struct ProfileRow: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-
-#Preview {
-    ProfileRow()
-}

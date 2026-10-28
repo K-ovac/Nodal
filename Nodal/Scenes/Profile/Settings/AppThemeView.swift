@@ -79,7 +79,7 @@ extension AppThemeView {
                             .clipShape(.circle)
                     }
                 }
-                .stylePreset()
+                .cellStyle(for: theme, in: AppTheme.allCases)
                 .onTapGesture {
                     withAnimation {
                         selectedTheme = theme

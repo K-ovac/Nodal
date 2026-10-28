@@ -17,7 +17,7 @@ struct Profile {
 
 // MARK: - Profile Setting
 
-struct ProfileSetting: Identifiable {
+struct ProfileSetting: Identifiable, Equatable {
     let id = UUID()
     let title: LocalizedStringKey
     let iconName: String
@@ -34,7 +34,7 @@ enum SettingsDestination {
 
 // MARK: - Profile Link
 
-struct ProfileLink: Identifiable {
+struct ProfileLink: Identifiable, Equatable {
     let id = UUID()
     let title: String
     let iconName: String

@@ -78,7 +78,7 @@ extension LanguageView {
                             .clipShape(.circle)
                     }
                 }
-                .stylePreset()
+                .cellStyle(for: lang, in: Language.allCases)
                 .onTapGesture {
                     withAnimation {
                         selectedLanguage = lang

@@ -77,7 +77,7 @@ extension CurrencyView {
                             .clipShape(.circle)
                     }
                 }
-                .stylePreset()
+                .cellStyle(for: currency, in: CurrencyPrice.allCases)
                 .onTapGesture {
                     withAnimation {
                         selectedCurrency = currency

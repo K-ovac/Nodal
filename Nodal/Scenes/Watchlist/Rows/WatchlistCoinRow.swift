@@ -79,6 +79,5 @@ struct WatchlistCoinRow: View {
                     removeAction()
                 }
         }
-        .stylePreset()
     }
 }
