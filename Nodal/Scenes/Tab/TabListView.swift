@@ -12,7 +12,7 @@ struct TabListView: View {
     
     //MARK: - Properties
     
-    @State private var selected: Int = 1
+    @State private var selected: Int = 3
     
     //MARK: - Body
     
@@ -27,12 +27,12 @@ struct TabListView: View {
                     }
                     
                 }
-            ProfileView()
+            Text("tabList.settings.title")
                 .tag(1)
                 .tabItem {
                     VStack {
-                        Image(systemName: "person")
-                        Text("Profile")
+                        Image(systemName: "gear")
+                        Text("Settings")
                     }
                     
                 }
@@ -45,12 +45,12 @@ struct TabListView: View {
                     }
                     
                 }
-            Text("tabList.settings.title")
+            ProfileView()
                 .tag(3)
                 .tabItem {
                     VStack {
-                        Image(systemName: "gear")
-                        Text("Settings")
+                        Image(systemName: "person")
+                        Text("profile.title")
                     }
                     
                 }

@@ -64,6 +64,7 @@ struct ProfileRow: View {
                                     .stroke(Color.cautionPermit, lineWidth: 2)
                             )
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .padding()

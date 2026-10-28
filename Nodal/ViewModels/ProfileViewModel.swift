@@ -49,16 +49,17 @@ final class ProfileViewModel: ObservableObject {
                 destination: .currency
             ),
             ProfileSetting(
+                title: "profile.language.title",
+                iconName: "translate",
+                value: selectedLanguage.title,
+                destination: .language),
+            ProfileSetting(
                 title: "profile.appTheme.title",
                 iconName: "flashlight.on.fill",
                 value: selectedTheme,
                 destination: .appTheme
             ),
-            ProfileSetting(
-                title: "profile.language.title",
-                iconName: "translate",
-                value: selectedLanguage.title,
-                destination: .language),
+            
         ]
         
         profileLinks = [

@@ -40,6 +40,7 @@ struct SettingRow: View {
             //title
             Text(title)
                 .font(Font.body18)
+                .foregroundStyle(Color.primary)
             
             Spacer()
             
@@ -47,7 +48,7 @@ struct SettingRow: View {
             
             if let value {
                 HStack {
-                    Text(value)
+                    Text(value.uppercased())
                         .font(Font.secondary14)
                         .foregroundStyle(.secondary)
                     Image(systemName: "chevron.right")

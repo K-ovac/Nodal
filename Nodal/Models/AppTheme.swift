@@ -10,8 +10,8 @@ import SwiftUI
 // MARK: - App Theme
 
 enum AppTheme: String, CaseIterable, Identifiable {
-    case light = "Light"
-    case dark = "Dark"
+    case light = "Light Pearl"
+    case dark = "Obsidian"
     
 }
 

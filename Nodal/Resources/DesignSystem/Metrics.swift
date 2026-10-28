@@ -5,7 +5,7 @@
 //  Created by Максим Лозебной on 21.04.2026.
 //
 
-import Foundation
+import SwiftUI
 
 enum Metrics {
     enum Spacing {
