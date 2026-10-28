@@ -10,6 +10,7 @@ import SwiftUI
 //TODO: - переработать
 
 struct LanguageView: View {
+    @Environment(\.dismiss) var dismiss
     @AppStorage(Keys.language.value)
     private var selectedLanguage: Language = .en
     
@@ -17,33 +18,73 @@ struct LanguageView: View {
     
     var body: some View {
         List {
+            languageSection
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
+        .toolbar {
+            leadingToolBar
+            trailingToolBar
+        }
+    }
+}
+
+extension LanguageView {
+    private var leadingToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Text(title)
+                .padding(.horizontal, 8)
+                .foregroundStyle(Color.primary)
+                .font(Font.header20)
+                .fixedSize(horizontal: true, vertical: false)
+        }
+    }
+    
+    private var trailingToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+            }
+        }
+    }
+    
+    private var languageSection: some View {
+        LazyVStack(spacing: 4) {
             ForEach(Language.allCases) { lang in
                 HStack {
                     Image(lang.icon)
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .scaledToFill()
+                        .frame(width: 20, height: 20)
+                        
                     Text(lang.title)
-                        .foregroundStyle(.primary)
-                        .font(.body)
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body18)
                     
                     Spacer()
                     
                     if selectedLanguage == lang {
                         Image(systemName: "checkmark")
-                            .foregroundStyle(.blue)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 10, height: 10)
+                            .foregroundStyle(Color.black)
+                        
+                            .padding(8)
+                            .background(Color.gradient)
+                            .clipShape(.circle)
                     }
                 }
-                .contentShape(Rectangle())
+                .stylePreset()
                 .onTapGesture {
-                    selectedLanguage = lang
-                    
-                    print("LANG:", selectedLanguage)
-
-                    print("DEFAULTS:", UserDefaults.standard.string(forKey: Keys.language.value) as Any)
+                    withAnimation {
+                        selectedLanguage = lang
+                    }
                 }
             }
         }
-        .navigationTitle(title)
-        .scrollDisabled(true)
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Максим Лозебной on 21.04.2026.
 //
 
-import Foundation
+import SwiftUI
 
 enum Metrics {
     enum Spacing {
@@ -18,6 +18,7 @@ enum Metrics {
         static let cr8: CGFloat = 8
         static let cr12: CGFloat = 12
         static let cr16: CGFloat = 16
+        static let cr20: CGFloat = 20
     }
     
     enum Sizes {

@@ -58,7 +58,7 @@ struct NetworkClient: NetworkRouting {
         request.httpMethod = method
         
         let allHeaders = headers.merging(
-            [RequestConstants.apiHeader: RequestConstants.apiKey]
+            [AppEnviropment.apiHeader: AppEnviropment.apiKey]
         ) { _, new in new }
         
         allHeaders.forEach { key, value in

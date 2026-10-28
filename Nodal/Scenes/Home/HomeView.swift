@@ -58,9 +58,6 @@ struct HomeView: View {
             }
             .listStyle(.inset)
             
-            .navigationTitle("markets.title")
-            .navigationBarTitleDisplayMode(.large)
-            
             // MARK: - ToolBar
             
             .toolbar {
@@ -99,23 +96,41 @@ extension HomeView {
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button {
-                viewModel.profilePresented.toggle()
-            } label: {
-                Image(systemName: "person.fill")
-            } .sheet(isPresented: $viewModel.profilePresented) {
-                ProfileView()
-                    .presentationDetents([.large])
+            HStack {
+                Image("nodal")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                Text("NODAL")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header20)
+                    .fixedSize(horizontal: true, vertical: false)
             }
+            .padding(.horizontal, 8)
         }
     }
     
+    @ViewBuilder
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.topListPresented.toggle()
             } label: {
                 Image(systemName: "magnifyingglass")
+            }
+            
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                // TODO
+            } label: {
+                Text(viewModel.selectedCurrency)
+                    .font(Font.hashes.bold())
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(Color.orangeNeon.opacity(0.1))
+                    .clipShape(.capsule)
             }
         }
     }

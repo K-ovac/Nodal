@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "c-tracker_icon_1-light.png",
+      "filename" : "nodal-icon.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "c-tracker_icon_1-dark.png",
+      "filename" : "nodal-icon 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

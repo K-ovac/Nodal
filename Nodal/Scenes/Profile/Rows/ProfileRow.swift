@@ -13,30 +13,67 @@ struct ProfileRow: View {
     
     // MARK: - Body
     
+    
+    
     var body: some View {
-        HStack {
-            Image(systemName: "person.circle.fill")
-                .resizable()
-                .frame(width: 50, height: 50)
-                .foregroundStyle(.gray)
-            VStack(alignment: .leading, spacing: 3) {
-                Text("profile.username.title")
-                    .font(.headline)
-                Text("profile.email.title")
-                    .font(.subheadline)
-            }
-            Spacer()
-            HStack {
-                Button {
+        ZStack {
+            Color.gradient
+            
+            VStack {
+                HStack(spacing: 16) {
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 24, height: 24)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.black.opacity(0.4)
+                        ))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.cautionPermit, lineWidth: 2)
+                        )
                     
-                } label: {
-                    HStack {
-                        Text("profile.signButton.title")
-                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                    VStack(alignment: .leading) {
+                        Text("Aleksey K.")
+                            .font(.header20.bold())
+                            .foregroundStyle(.white)
+                        Text("kovac.eth")
+                            .font(Font.body18)
+                            .foregroundStyle(.white)
                     }
-                    .foregroundStyle(.red)
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("log out")
+                    } label: {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 12, height: 12)
+                            .foregroundStyle(Color.white)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.black.opacity(0.4)
+                            ))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.cautionPermit, lineWidth: 2)
+                            )
+                    }
+                    .buttonStyle(.plain)
                 }
             }
+            .padding()
+            
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    ProfileRow()
 }

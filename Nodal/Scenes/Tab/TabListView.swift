@@ -12,7 +12,7 @@ struct TabListView: View {
     
     //MARK: - Properties
     
-    @State private var selected: Int = 0
+    @State private var selected: Int = 2
     
     //MARK: - Body
     
@@ -21,24 +21,46 @@ struct TabListView: View {
             HomeView()
                 .tag(0)
                 .tabItem {
-                    Image(systemName: "house")
-                }
-            Text("tabList.portfolio.title")
-                .tag(1)
-                .tabItem {
-                    Image(systemName: "folder.fill")
-                }
-            Text("tabList.watchlist.title")
-                .tag(2)
-                .tabItem {
-                    Image(systemName: "star")
+                    VStack {
+                        Image(systemName: "lines.measurement.horizontal.aligned.bottom")
+                        Text("Market")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
             Text("tabList.settings.title")
+                .tag(1)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                            .font(Font.tabCapsule)
+                    }
+                    
+                }
+            WatchlistView()
+                .tag(2)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "star")
+                        Text("Watchlist")
+                            .font(Font.tabCapsule)
+                    }
+                    
+                }
+            ProfileView()
                 .tag(3)
                 .tabItem {
-                    Image(systemName: "gear")
+                    VStack {
+                        Image(systemName: "person")
+                        Text("profile.title")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
         }
+        .tint(.orangeNeon)
+        .toolbarBackground(Color.gradient)
     }
 }
 
