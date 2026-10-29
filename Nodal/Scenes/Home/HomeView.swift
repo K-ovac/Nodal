@@ -272,7 +272,3 @@ extension HomeView {
         }
     }
 }
-
-#Preview {
-        TabListView()
-}

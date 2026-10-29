@@ -39,36 +39,17 @@ struct CoinDetailsView: View {
     // MARK: - Body
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            // MARK: - Coin Details
-            
-            List {
-                coinDetails
-                    .listRowSeparator(.hidden)
-            }
-            .listStyle(.inset)
-            
-            // MARK: - Show Stat DescriptionView
-            
-            if let stat = selectedStat {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        selectedStat = nil
-                    }
-
-                DescriptionView(
-                    title: stat.title,
-                    text: stat.description,
-                    onClose: { selectedStat = nil }
-                )
-                .background(.background)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .padding()
-                
-            }
+        
+        // MARK: - Coin Details
+        
+        List {
+            coinDetails
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
         }
+        .listStyle(.plain)
+        .background(Color.background)
+        
         .navigationBarBackButtonHidden()
         
         .toolbar(.hidden, for: .tabBar)
@@ -139,13 +120,14 @@ extension CoinDetailsView {
     
     // MARK: - CoinDetailsContent
     
-    @ViewBuilder
     private var coinDetailsContent: some View {
-        tokenMetricsView
-        coinStatistics
-        aboutToken
-        coinLinks
-        warningTitle
+        LazyVStack(alignment: .leading) {
+            tokenMetricsView
+            coinStatistics
+            aboutToken
+            coinLinks
+            warningTitle
+        }
     }
     
     // MARK: - Warning Title
@@ -203,12 +185,9 @@ extension CoinDetailsView {
             header: Text("coinDetails.statistics.header.title")
         ) {
             if let coinMetadata = viewModel.coinDetails {
-                CoinStatisticsView(
+                CoinStatisticsRow(
                     currency: viewModel.selectedCurrency,
-                    coinMetadata: coinMetadata,
-                    onSelect: { stat in
-                        selectedStat = stat
-                    }
+                    coinMetadata: coinMetadata
                 )
             }
         }
