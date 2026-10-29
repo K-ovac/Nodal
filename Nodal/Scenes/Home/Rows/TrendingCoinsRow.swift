@@ -25,47 +25,71 @@ struct TrendingCoinsRow: View {
     // MARK: - Body
         
     var body: some View {
-        HStack {
-            
-            // MARK: - Coin Image
-            
-            if let url = URL(string: coin.small) {
-                KFImage(url)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .clipShape(Circle())
+        LazyVStack(alignment: .leading) {
+            HStack(alignment: .center) {
+                
+                // MARK: - Coin Image
+                
+                if let url = URL(string: coin.small) {
+                    KFImage(url)
+                        .resizable()
+                        .frame(width: 28, height: 28)
+                        .clipShape(.circle)
+                }
+                
+                LazyVStack(alignment: .leading, spacing: -2) {
+                    Text(coin.symbol)
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15)
+                        .lineLimit(1)
+                    Text("Name")
+                        .foregroundStyle(Color.secondary)
+                        .font(Font.secondary11.bold())
+                        .lineLimit(1)
+                }
+                
+                Spacer()
+                
+                // MARK: - Coin price change percentage
+                
+                Text(
+                    String(
+                        format: "%.2f%%",
+                        coin.data.priceChangePercentage24h.currency(for: currency) ?? 0
+                    )
+                )
+                .foregroundStyle(Color.orangeNeon)
+                .font(Font.hashes12.bold())
+                .padding(4)
+                .background(
+                    (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentBackgroundColor
+                )
+                .clipShape(Metrics.shapeCr8)
+                .overlay(
+                    Metrics.shapeCr8
+                        .strokeBorder(
+                            (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentBorderColor,
+                            lineWidth: 0.5
+                        )
+                )
             }
             
             // MARK: - Coin Price
-            
-            Text(
-                coin.data.price.formatted(
-                    .currency(code: currency)
+            LazyVStack(alignment: .leading) {
+                Text("Price")
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.secondary11.bold())
+                
+                Text(
+                    coin.data.price.formatted(
+                        .currency(code: currency)
+                    )
                 )
-            )
-            
-            Spacer()
-            
-            // MARK: - Coin price change percentage
-            
-            Text(
-                String(
-                    format: "%.2f%%",
-                    coin.data.priceChangePercentage24h.currency(for: currency) ?? 0
-                )
-            )
-            .padding(4)
-            .frame(alignment: .center)
-            .foregroundStyle(.white.opacity(0.8))
-            .background((coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentChangeColor)
-            .cornerRadius(8)
+                .foregroundStyle(Color.primary)
+                .font(Font.hashes16.bold())
+            }
             
         }
-        .padding(4)
-        .background(.gray.opacity(0.3))
-        .cornerRadius(8)
-        .foregroundStyle(.primary)
-        .font(.body)
-        .bold()
+        .cellStyle(position: .single)
     }
 }

@@ -32,5 +32,6 @@ extension Font {
     
     // MARK: - QUOTES / HASHES / RPC TELEMETRY
     
-    static var hashes = Font.custom("JetBrainsMonoRoman-Medium", size: 16)
+    static var hashes16 = Font.custom("JetBrainsMonoRoman-Medium", size: 16)
+    static var hashes12 = Font.custom("JetBrainsMonoRoman-Medium", size: 12)
 }

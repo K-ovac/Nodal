@@ -159,7 +159,3 @@ extension ProfileView {
         }
     }
 }
-
-#Preview {
-    TabListView()
-}

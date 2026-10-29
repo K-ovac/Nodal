@@ -33,7 +33,7 @@ struct TopListRow: View {
                 String(token.marketCapRank)
             )
             .foregroundStyle(Color.secondary)
-            .font(Font.hashes)
+            .font(Font.hashes16)
             .frame(width: 20, alignment: .center)
             
             // MARK: - Coin Icon
@@ -89,7 +89,7 @@ struct TopListRow: View {
                         )
                     )
                 )   //coin price
-                .font(Font.hashes.bold())
+                .font(Font.hashes16.bold())
                 .foregroundStyle(.primary)
                 
                 Text(
@@ -107,8 +107,4 @@ struct TopListRow: View {
         .padding(.trailing, 8)
         
     }
-}
-
-#Preview {
-    TabListView()
 }

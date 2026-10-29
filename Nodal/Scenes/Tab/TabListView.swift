@@ -63,7 +63,3 @@ struct TabListView: View {
         .toolbarBackground(Color.gradient)
     }
 }
-
-#Preview {
-    TabListView()
-}

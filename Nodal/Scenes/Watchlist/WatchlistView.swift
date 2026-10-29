@@ -88,7 +88,3 @@ extension WatchlistView {
         EmptyView()
     }
 }
-
-#Preview {
-    TabListView()
-}

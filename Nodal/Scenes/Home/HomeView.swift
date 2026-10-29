@@ -130,7 +130,7 @@ extension HomeView {
                 // TODO
             } label: {
                 Text(viewModel.selectedCurrency)
-                    .font(Font.hashes.bold())
+                    .font(Font.hashes16.bold())
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
                     .background(Color.orangeNeon.opacity(0.1))
@@ -218,6 +218,7 @@ extension HomeView {
                         .font(.body.bold())
                     
                 }
+                .buttonStyle(.plain)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .contentShape(Rectangle())
                 .padding(.vertical, 8)
@@ -250,8 +251,3 @@ extension HomeView {
         }
     }
 }
-
-#Preview {
-        TabListView()
-}
-
