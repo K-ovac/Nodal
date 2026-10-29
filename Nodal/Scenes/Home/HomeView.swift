@@ -104,7 +104,7 @@ extension HomeView {
                 Image("nodal")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 24, height: 24)
+                    .frame(width: 22, height: 22)
                 Text("NODAL")
                     .foregroundStyle(Color.primary)
                     .font(Font.header20)
@@ -165,14 +165,24 @@ extension HomeView {
     // MARK: - Trending Coins Section
     
     private var trandingCoinsSection: some View {
-        Section(
-            header: Text("markets.trendingCoins.title")
-        ) {
+        Section {
             StateView(
                 content: trendingCoinsContent,
                 state: viewModel.trendingCoinsState,
                 retryAction: viewModel.fetchTrendingCoins
             )
+        } header: {
+            LazyHStack(spacing: 4) {
+                Image(systemName: "flame")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Color.orangeNeon)
+                Text("markets.trendingCoins.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.ticker16.bold())
+            }
+            .padding(.bottom)
         }
     }
     
@@ -200,9 +210,7 @@ extension HomeView {
     // MARK: - TopList Section
     
     private var topListSection: some View {
-        Section(
-            header: Text("markets.topCoins.title")
-        ) {
+        Section {
             StateView(
                 content: topListContent,
                 state: viewModel.topListState,
@@ -224,8 +232,21 @@ extension HomeView {
                 .padding(.vertical, 8)
                 .background(Color.gradient)
                 .clipShape(.capsule)
-                
             }
+        } header: {
+            LazyHStack(spacing: 4) {
+                Image("vertical.equalize")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 16, height: 18)
+                    .foregroundStyle(Color.solarGold)
+                Text("markets.topCoins.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.ticker16.bold())
+            }
+            .padding(.bottom)
+            
         }
     }
     
@@ -250,4 +271,8 @@ extension HomeView {
                 )
         }
     }
+}
+
+#Preview {
+        TabListView()
 }

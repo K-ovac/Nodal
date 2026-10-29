@@ -22,37 +22,48 @@ struct TabListView: View {
                 .tag(0)
                 .tabItem {
                     VStack {
-                        Image(systemName: "lines.measurement.horizontal.aligned.bottom")
+                        Image("vertical.equalize")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
                         Text("Market")
                             .font(Font.tabCapsule)
                     }
                     
                 }
-            Text("tabList.settings.title")
+            
+            WatchlistView()
                 .tag(1)
                 .tabItem {
                     VStack {
-                        Image(systemName: "gear")
-                        Text("Settings")
-                            .font(Font.tabCapsule)
-                    }
-                    
-                }
-            WatchlistView()
-                .tag(2)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "star")
+                        Image("star")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
                         Text("Watchlist")
                             .font(Font.tabCapsule)
                     }
                     
                 }
+            
+            Text("tabList.settings.title")
+                .tag(2)
+                .tabItem {
+                    VStack {
+                        Image("signGuard")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
+                        Text("Sign Guard")
+                            .font(Font.tabCapsule)
+                    }
+                    
+                }
+            
             ProfileView()
                 .tag(3)
                 .tabItem {
                     VStack {
-                        Image(systemName: "person")
+                        Image("person")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
                         Text("profile.title")
                             .font(Font.tabCapsule)
                     }

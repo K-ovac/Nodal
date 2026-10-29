@@ -788,19 +788,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🔥 Trending Coins"
+            "value" : "Trending Coins"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🔥 Coins Pièces Tendance"
+            "value" : "Coins Pièces Tendance"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "🔥 Коины в тренде"
+            "value" : "Коины в тренде"
           }
         }
       }
