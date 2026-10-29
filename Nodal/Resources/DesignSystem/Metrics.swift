@@ -26,4 +26,6 @@ enum Metrics {
         static let tabHeight: CGFloat = 56
         static let tabWidth: CGFloat = 100
     }
+    
+    static let shapeCr8 = RoundedRectangle(cornerRadius: CornerRadius.cr8, style: .continuous)
 }

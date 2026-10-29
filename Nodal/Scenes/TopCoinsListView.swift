@@ -35,8 +35,8 @@ struct TopCoinsListView: View {
                     )
                 )
         }
-        .listStyle(.grouped)
-        .scrollContentBackground(.hidden)
+        .listStyle(.plain)
+        .background(Color.background)
         
         .navigationDestination(item: $viewModel.selectedCoinId) { coinId in
             CoinDetailsView(coinId: coinId)
@@ -106,19 +106,15 @@ extension TopCoinsListView {
                     viewModel.topListRows()
                 )
         ) { coin in
-            HStack {
-                Text(String(coin.marketCapRank))
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .frame(minWidth: 20, alignment: .center)
-                
-                TopListRow(token: coin, currency: viewModel.selectedCurrency)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        viewModel.selectedCoinId = coin.id
-                    }
-            }
-            
+            TopListRow(token: coin, currency: viewModel.selectedCurrency)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.selectedCoinId = coin.id
+                }
+                .cellStyle(
+                    for: coin,
+                    in: filteredCoins
+                )
         }
     }
 }

@@ -30,6 +30,7 @@ struct HomeView: View {
                 
                 globalMetricsSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
                             top: 0, leading: 16, bottom: 0, trailing: 16
@@ -40,9 +41,10 @@ struct HomeView: View {
                 
                 trandingCoinsSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
-                            top: 16, leading: 16, bottom: 0, trailing: 16
+                            top: 0, leading: 16, bottom: 0, trailing: 16
                         )
                     )
                 
@@ -50,13 +52,15 @@ struct HomeView: View {
                 
                 topListSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
                             top: 0, leading: 16, bottom: 0, trailing: 16
                         )
                     )
             }
-            .listStyle(.inset)
+            .listStyle(.plain)
+            .background(Color.background)
             
             // MARK: - ToolBar
             
@@ -210,16 +214,16 @@ extension HomeView {
                     viewModel.topListPresented.toggle()
                 } label: {
                     Text("markets.topCoins.showMoreButton.title")
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(Color.white)
                         .font(.body.bold())
                     
                 }
-                .contentShape(Rectangle())
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(.gray.opacity(0.3))
-                .clipShape(.capsule)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .contentShape(Rectangle())
+                .padding(.vertical, 8)
+                .background(Color.gradient)
+                .clipShape(.capsule)
+                
             }
         }
     }
@@ -239,6 +243,10 @@ extension HomeView {
                 .onTapGesture {
                     selectedCoinId = item.id
                 }
+                .cellStyle(
+                    for: item,
+                    in: viewModel.topList
+                )
         }
     }
 }

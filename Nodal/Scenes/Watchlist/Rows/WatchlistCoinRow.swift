@@ -79,5 +79,6 @@ struct WatchlistCoinRow: View {
                     removeAction()
                 }
         }
+        .cellStyle(position: .single)
     }
 }

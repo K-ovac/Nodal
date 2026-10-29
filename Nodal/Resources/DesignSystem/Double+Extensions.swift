@@ -9,6 +9,6 @@ import SwiftUI
 
 extension Double {
     var percentChangeColor: Color {
-        self >= 0 ? .green : .red
+        self >= 0 ? Color.enclaveSafe : Color.drainerAlert
     }
 }

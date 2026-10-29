@@ -105,7 +105,7 @@ extension View {
                         isSelected
                         ? Color.orangeNeon.opacity(0.6)
                         : Color.gray.opacity(0.25),
-                        lineWidth: 1
+                        lineWidth: 0.5
                     )
             )
     }

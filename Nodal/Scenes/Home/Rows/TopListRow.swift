@@ -27,40 +27,61 @@ struct TopListRow: View {
     // MARK: - Body
     
     var body: some View {
-        HStack {
+        HStack(spacing: 4) {
+            
+            Text(
+                String(token.marketCapRank)
+            )
+            .foregroundStyle(Color.secondary)
+            .font(Font.hashes)
+            .frame(width: 20, alignment: .center)
             
             // MARK: - Coin Icon
             
             if let url = URL(string: token.image) {
                 KFImage(url)
                     .resizable()
-                    .frame(width: 30, height: 30)
+                    .scaledToFill()
+                    .frame(width: 32, height: 32)
                     .clipShape(.circle)
             }
             
             // MARK: - Coin symbol & Market cap.
             
-            VStack(alignment: .leading) {
-                Text(
-                    token.symbol.uppercased()
-                )  //token name
-                .font(.body.bold())
-                .foregroundStyle(.primary)
-                
-                Text(
-                    token.marketCap.formatted(
-                        .number.notation(.compactName)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: 4) {
+                    //coin name
+                    Text(
+                        token.symbol.uppercased()
                     )
-                ) //token market cap
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+                    .font(Font.header15.bold())
+                    .foregroundStyle(.primary)
+                    
+                    //coin market cap
+                    Text(
+                        token.marketCap.formatted(
+                            .number.notation(.compactName)
+                        )
+                    )
+                    .font(Font.secondary11.bold())
+                    .foregroundStyle(Color.drainerAlert)
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 2)
+                    .background(Color.drainerAlert.opacity(0.1))
+                    .clipShape(Metrics.shapeCr8)
+                }
+                
+                //coin name
+                Text(token.name)
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.secondary11.bold())
             }
             
             Spacer()
             
             // MARK: - Coin Price & Price change percentage
             
-            HStack {
+            VStack(alignment: .trailing) {
                 Text(
                     String(
                         token.currentPrice.formatted(
@@ -68,7 +89,7 @@ struct TopListRow: View {
                         )
                     )
                 )   //coin price
-                .font(.body.bold())
+                .font(Font.hashes.bold())
                 .foregroundStyle(.primary)
                 
                 Text(
@@ -76,12 +97,18 @@ struct TopListRow: View {
                         format: "%.2f%%", (token.priceChangePercentage24h ?? 0)
                     )
                 ) //coin price change percentage
-                .font(.body.bold())
+                .font(Font.secondary11.bold())
                 .foregroundStyle(
                     (token.priceChangePercentage24h ?? 0).percentChangeColor
                 )
                 .frame(minWidth: 75, alignment: .trailing)
             }
         }
+        .padding(.trailing, 8)
+        
     }
+}
+
+#Preview {
+    TabListView()
 }
