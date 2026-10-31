@@ -185,9 +185,9 @@ extension CoinDetailsView {
             header: Text("coinDetails.statistics.header.title")
         ) {
             if let coinMetadata = viewModel.coinDetails {
-                CoinStatisticsRow(
+                CoinStatisticsView(
                     currency: viewModel.selectedCurrency,
-                    coinMetadata: coinMetadata
+                    coinMarketdata: coinMetadata.marketData
                 )
             }
         }
