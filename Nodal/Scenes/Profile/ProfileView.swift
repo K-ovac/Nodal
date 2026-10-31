@@ -55,7 +55,7 @@ extension ProfileView {
             HStack {
                 Image(systemName: "gearshape")
                     .foregroundStyle(Color.solarGold)
-                Text("Profile & Settings")
+                Text("profile.title")
                     .foregroundStyle(Color.primary)
                     .font(Font.header20)
                     .fixedSize(horizontal: true, vertical: false)
@@ -71,7 +71,7 @@ extension ProfileView {
             } label: {
                 HStack {
                     Image(systemName: "pencil.line")
-                    Text("Edit")
+                    Text("profile.editButton.title")
                         .foregroundStyle(Color.primary)
                         .font(Font.header15)
                         .fixedSize(horizontal: true, vertical: false)
@@ -106,7 +106,7 @@ extension ProfileView {
     
     private var settingsSection: some View {
         LazyVStack(alignment: .leading, spacing: 4) {
-            Text("APP PREFERENCES")
+            Text("profile.settings.title")
                 .font(Font.secondary14.bold())
                 .foregroundStyle(Color.gray)
             
@@ -135,7 +135,7 @@ extension ProfileView {
     
     private var linksSection: some View {
         LazyVStack(alignment: .leading, spacing: 4) {
-            Text("LEGAL & SUPPORT")
+            Text("profile.links.title")
                 .font(Font.secondary14.bold())
                 .foregroundStyle(Color.gray)
             

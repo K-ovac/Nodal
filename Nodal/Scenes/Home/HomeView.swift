@@ -105,7 +105,7 @@ extension HomeView {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 22, height: 22)
-                Text("NODAL")
+                Text("markets.title")
                     .foregroundStyle(Color.primary)
                     .font(Font.header20)
                     .fixedSize(horizontal: true, vertical: false)

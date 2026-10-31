@@ -13,9 +13,7 @@ import Kingfisher
 struct CoinMetricsView: View {
     
     // MARK: - Properties
-    
-    @State private var isPresented: Bool = false
-    
+        
     private let coinMetadata: CoinMetadata
     private let currency: String
     
@@ -37,100 +35,69 @@ struct CoinMetricsView: View {
         
         VStack(alignment: .leading) {
             
-            // MARK: - Coin Image, Symbol, Name, Rank
-            
-            HStack {
-                if let url = URL(string: coinMetadata.image.small) {
-                    KFImage(url)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .clipShape(.circle)
-                }
-                
-                Text(coinMetadata.symbol.uppercased())                                             //coin symbol
-                    .font(.title.bold())
-                    .foregroundStyle(.primary)
-                Text(coinMetadata.name)                                         //coin name
-                    .lineLimit(1)
-                    .font(.title2.bold())
-                    .foregroundStyle(.secondary)
-                
-                Spacer()
-                
-                // MARK: - Coin M.Cap Rank to TopList
-                
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    HStack {
-                        Image("rankingStar")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(.secondary)
-                        Text(                                               //coin m cap rank
-                            "No." +
-                            String(coinMetadata.marketData.marketCapRank)
-                        )
-                        .foregroundStyle(.green)
-                        .font(.callout.bold())
-                        .underline()
-                    }
-                }
-                .contentShape(Rectangle())
-                .foregroundStyle(.secondary)
-            }
-            
-            Spacer()
+            coinName
             
             // MARK: - Coin Price Data
             
             HStack {
                 
-                // Price
-                VStack(alignment: .leading) {
-                    Text("coinMetrics.lastPrice.title")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    Text(
-                        coinMetadata.marketData.currentPrice.currency(for: currency)
-                            .formatted(
-                                .currency(code: currency)
-                            )
-                    )
-                    .font(.title.bold())
-                }
+                Text(
+                    coinMetadata.marketData.currentPrice.currency(for: currency)
+                        .formatted(
+                            .currency(code: currency)
+                        )
+                )
+                .foregroundStyle(Color.primary)
+                .font(Font.hashes20.bold())
                 
                 Spacer()
                 
-                //Price change percentage 24h
-                VStack(alignment: .trailing) {
-                    Text("coinMetrics.percentageChange24h.title")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    Text(
-                        String(
-                            format: "%.2f%%",
-                            coinMetadata.marketData.priceChangePercentage24h ?? 0
-                        )
+                Text(
+                    String(
+                        format: "%.2f%%",
+                        coinMetadata.marketData.priceChangePercentage24h ?? 0
                     )
-                    .foregroundStyle(
-                        (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                            .percentChangeColor
-                    )
-                    .font(.title.bold())
-                }
+                )
+                .foregroundStyle(
+                    (coinMetadata.marketData.priceChangePercentage24h ?? 0)
+                        .percentChangeColor
+                )
+                .font(Font.hashes16.bold())
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background((coinMetadata.marketData.priceChangePercentage24h ?? 0).percentBackgroundColor)
+                .clipShape(Metrics.shapeCr8)
+                .overlay(Metrics.shapeCr8.strokeBorder((coinMetadata.marketData.priceChangePercentage24h ?? 0).percentBorderColor))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .foregroundStyle(.primary)
+            .cellStyle(position: .single)
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        
-        .navigationDestination(isPresented: $isPresented) {
-            TopCoinsListView()
-        }
-        .cellStyle(position: .single)
     }
+}
+
+
+extension CoinMetricsView {
+    private var coinName: some View {
+        HStack {
+            if let url = URL(string: coinMetadata.image.small) {
+                KFImage(url)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 32, height: 32)
+                    .clipShape(.circle)
+            }
+            
+            Text(coinMetadata.name)
+                .foregroundStyle(Color.primary)
+                .font(Font.header20.bold())
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+#Preview {
+    CoinDetailsView(coinId: "bitcoin")
 }

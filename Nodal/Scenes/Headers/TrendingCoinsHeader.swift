@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: - next
+
 struct TrendingCoinsHeader: View {
     var body: some View {
         

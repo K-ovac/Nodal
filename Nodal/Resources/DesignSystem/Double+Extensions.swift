@@ -19,4 +19,19 @@ extension Double {
     var percentBackgroundColor: Color {
         self >= 0 ? Color.solarGold.opacity(0.2) : Color.drainerAlert.opacity(0.2)
     }
+    
+    var percentChange: String {
+        String(
+            format: "%.2f%%",
+            self
+        )
+    }
+    
+    var statValue: String {
+        self
+            .formatted(
+                .number
+                    .notation(.compactName)
+            )
+    }
 }

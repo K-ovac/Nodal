@@ -25,6 +25,16 @@ extension Color {
         endPoint: .bottomTrailing
     )
     
+    static var progressGradient = LinearGradient(
+        colors: [
+            solarGold.opacity(0.85),
+            orangeNeon.opacity(0.85),
+            deepBurgundy.opacity(0.85)
+        ],
+        startPoint: .leading,
+        endPoint: .trailing
+    )
+    
     static var solarGold = Color(hex: "FFD700")
     static var orangeNeon = Color(hex: "FF4500")
     static var deepBurgundy = Color(hex: "800020")

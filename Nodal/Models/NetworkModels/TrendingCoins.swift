@@ -12,6 +12,7 @@ struct TrendingCoin: Codable, Hashable {
     let symbol: String
     let small: String
     let data: TrendingCoinData
+    let name: String
 }
 
 // MARK: - Trending Coins Data

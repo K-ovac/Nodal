@@ -25,7 +25,7 @@ struct TabListView: View {
                         Image("vertical.equalize")
                             .renderingMode(.template)
                             .foregroundStyle(Color.orangeNeon)
-                        Text("Market")
+                        Text("tabList.markets.title")
                             .font(Font.tabCapsule)
                     }
                     
@@ -38,7 +38,7 @@ struct TabListView: View {
                         Image("star")
                             .renderingMode(.template)
                             .foregroundStyle(Color.orangeNeon)
-                        Text("Watchlist")
+                        Text("tabList.watchlist.title")
                             .font(Font.tabCapsule)
                     }
                     
@@ -51,7 +51,7 @@ struct TabListView: View {
                         Image("signGuard")
                             .renderingMode(.template)
                             .foregroundStyle(Color.orangeNeon)
-                        Text("Sign Guard")
+                        Text("tabList.signGuard.title")
                             .font(Font.tabCapsule)
                     }
                     
@@ -64,7 +64,7 @@ struct TabListView: View {
                         Image("person")
                             .renderingMode(.template)
                             .foregroundStyle(Color.orangeNeon)
-                        Text("profile.title")
+                        Text("tabList.profile.title")
                             .font(Font.tabCapsule)
                     }
                     

@@ -36,10 +36,10 @@ struct ProfileRow: View {
                         )
                     
                     VStack(alignment: .leading) {
-                        Text("Aleksey K.")
+                        Text("profile.card.username")
                             .font(.header20.bold())
                             .foregroundStyle(.white)
-                        Text("kovac.eth")
+                        Text("profile.card.email")
                             .font(Font.body18)
                             .foregroundStyle(.white)
                     }

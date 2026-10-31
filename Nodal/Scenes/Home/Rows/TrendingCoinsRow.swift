@@ -42,7 +42,7 @@ struct TrendingCoinsRow: View {
                         .foregroundStyle(Color.primary)
                         .font(Font.header15)
                         .lineLimit(1)
-                    Text("Name")
+                    Text(coin.name)
                         .foregroundStyle(Color.secondary)
                         .font(Font.secondary11.bold())
                         .lineLimit(1)
@@ -76,7 +76,7 @@ struct TrendingCoinsRow: View {
             
             // MARK: - Coin Price
             LazyVStack(alignment: .leading) {
-                Text("Price")
+                Text("markets.trendCoins.price.title")
                     .foregroundStyle(Color.secondary)
                     .font(Font.secondary11.bold())
                 
@@ -92,4 +92,8 @@ struct TrendingCoinsRow: View {
         }
         .cellStyle(position: .single)
     }
+}
+
+#Preview {
+    TabListView()
 }

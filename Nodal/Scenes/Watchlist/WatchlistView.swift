@@ -47,7 +47,7 @@ extension WatchlistView {
                     .scaledToFill()
                     .frame(width: 18, height: 18)
                     .foregroundStyle(Color.solarGold)
-                Text("Favorive Coins(4)")
+                Text("watchlist.title")
                     .fixedSize()
                     .font(Font.header20)
             }
@@ -60,7 +60,7 @@ extension WatchlistView {
             Button {
                 print("add tapped")
             } label: {
-                Text("+Add")
+                Text("watchlist.addCoinButton.title")
                     .foregroundStyle(Color.primary)
                     .font(Font.header15)
             }

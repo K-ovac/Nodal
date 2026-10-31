@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - Coin Statistics
 
 enum CoinStatistics: String, CaseIterable, Identifiable {
-    case marketCap, circulatingSupply, fullyDilutedValuation, totalVolume
+    case marketCap, fullyDilutedValuation, totalVolume, ath
     
     var id: String { rawValue }
     
@@ -18,43 +18,18 @@ enum CoinStatistics: String, CaseIterable, Identifiable {
     
     var title: LocalizedStringKey {
         switch self {
+        
         case .marketCap:
-            "coinDetails.stat.marketCap"
-        case .circulatingSupply:
-            "coinDetails.stat.circulatingSupply"
+            "coinDetails.stat.marketCap.title"
+        
         case .fullyDilutedValuation:
-            "coinDetails.stat.fullyDilutedValuation"
-        case .totalVolume:
-            "coinDetails.stat.tradingVolume"
-        }
-    }
-    
-    // MARK: - Stat Description
-    
-    var description: LocalizedStringKey {
-        switch self {
-        case .marketCap:
-            return "coinDetails.stat.description.marketCap"
-        case .circulatingSupply:
-            return "coinDetails.stat.description.circulatingSupply"
-        case .fullyDilutedValuation:
-            return "coinDetails.stat.description.fullyDilutedValuation"
-        case .totalVolume:
-            return "coinDetails.stat.description.totalVolume"
-        }
-    }
-    
-    var subText: LocalizedStringKey {
-        switch self {
+            "coinDetails.stat.fdv.title"
             
-        case .marketCap:
-            return "Market Dominance:"
-        case .circulatingSupply:
-            return "from ATH"
-        case .fullyDilutedValuation:
-            return "MCap/FDV:"
         case .totalVolume:
-            return "Vol/MCap:"
+            "coinDetails.stat.totalVolume.title"
+        
+        case .ath:
+            "coinDetails.stat.ath.title"
         }
     }
 }

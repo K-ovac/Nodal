@@ -34,12 +34,12 @@ struct WatchlistIndexRow: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 14, height: 14)
-                        Text("WATCHLIST INDEX 24h")
+                        Text("watchlist.index.title")
                             .font(Font.secondary14.bold())
                         
                         Spacer()
                         
-                        Text("NODE ALERT ACTIVE")
+                        Text("watchlist.index.nodeStatus.title")
                             .font(Font.body13.bold())
                             .foregroundStyle(Color.solarGold)
                             .padding(.vertical, 4)
@@ -53,13 +53,16 @@ struct WatchlistIndexRow: View {
                     
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
-                            Text("+8.62% 24h")
+                            //percentage 24h
+                            Text("﹪")
                                 .font(Font.header20.bold())
                             
                             HStack {
-                                Text("Top Gainer:")
+                                Text("watchlist.index.topGainer.title")
                                     .font(Font.secondary14)
-                                Text("SUI(+14.2%)")
+                                
+                                // TODO: - Top Gainer & Percentage 24h
+                                Text("📈")
                                     .font(Font.secondary14.bold())
                             }
                         }
@@ -67,9 +70,9 @@ struct WatchlistIndexRow: View {
                         Spacer()
                         
                         VStack(alignment: .trailing) {
-                            Text("Tracked")
+                            Text("watchlist.index.trackedCoins.title")
                                 .font(Font.secondary14)
-                            Text("\(index.trackedCoins) coins")
+                            Text("\(index.trackedCoins) watchlist.index.trackedCoins.count")
                                 .font(Font.body18.bold())
                         }
                     }

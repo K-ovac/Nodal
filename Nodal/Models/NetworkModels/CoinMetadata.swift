@@ -55,6 +55,11 @@ struct CoinMarketData: Codable {
     let maxSupply: Int?
     let high24h: CoinCurrentPrice
     let low24h: CoinCurrentPrice
+    let marketCapChangePercentage24h: Double?
+    let ath: CoinCurrentPrice
+    let athChangePercentage: CoinCurrentPrice
+    let atl: CoinCurrentPrice
+    let atlChangePercentage: CoinCurrentPrice
     
     enum CodingKeys: String, CodingKey {
         case currentPrice = "current_price"
@@ -68,6 +73,11 @@ struct CoinMarketData: Codable {
         case maxSupply = "max_supply"
         case high24h = "high_24h"
         case low24h = "low_24h"
+        case marketCapChangePercentage24h = "market_cap_change_percentage_24h"
+        case ath
+        case athChangePercentage = "ath_change_percentage"
+        case atl
+        case atlChangePercentage = "atl_change_percentage"
     }
 }
 
