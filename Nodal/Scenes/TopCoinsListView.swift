@@ -37,12 +37,17 @@ struct TopCoinsListView: View {
         }
         .listStyle(.plain)
         .background(Color.background)
+        .navigationBarBackButtonHidden()
         
         .navigationDestination(item: $viewModel.selectedCoinId) { coinId in
             CoinDetailsView(coinId: coinId)
         }
         
         .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            leadingToolbar
+            principicalToolBar
+        }
         .searchable(
             text: $searchText,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -63,6 +68,20 @@ struct TopCoinsListView: View {
 // MARK: - Extension TopCoinsListView
 
 extension TopCoinsListView {
+    
+    private var leadingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            BackButtonView()
+        }
+    }
+    
+    private var principicalToolBar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text("topListCoins.title")
+                .foregroundStyle(Color.primary)
+                .font(Font.header15.bold())
+        }
+    }
     
     // MARK: - Search Promt
     
@@ -117,4 +136,8 @@ extension TopCoinsListView {
                 )
         }
     }
+}
+
+#Preview {
+    TabListView()
 }

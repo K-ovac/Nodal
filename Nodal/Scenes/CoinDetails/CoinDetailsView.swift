@@ -291,8 +291,3 @@ extension CoinDetailsView {
         }
     }
 }
-
-#Preview {
-//    CoinDetailsView(coinId: "the-open-network")
-    TabListView()
-}
