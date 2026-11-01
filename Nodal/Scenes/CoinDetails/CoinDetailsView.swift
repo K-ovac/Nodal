@@ -12,9 +12,7 @@ import SwiftUI
 struct CoinDetailsView: View {
     
     // MARK: - Properties
-    
-    @Environment(\.dismiss) private var dismiss
-    
+        
     @State private var isExpanded: Bool = false
     @State private var isPresented: Bool = false
     @State private var showWebsite: Bool = false
@@ -83,20 +81,7 @@ extension CoinDetailsView {
     
     private var leadingToolBar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 8, height: 8)
-                    Text("coinDetails.backButton.title")
-                        .foregroundStyle(Color.primary)
-                        .font(Font.body13.bold())
-                        .fixedSize(horizontal: true, vertical: false)
-                }
-            }
+            BackButtonView()
         }
     }
     
