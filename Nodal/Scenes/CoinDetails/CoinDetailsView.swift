@@ -16,8 +16,9 @@ struct CoinDetailsView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var isExpanded: Bool = false
+    @State private var isPresented: Bool = false
     @State private var showWebsite: Bool = false
-    @State private var selectedStat: CoinStatistics?
+    @State private var showBlockExplorer: Bool = false
     @StateObject private var viewModel: CoinDetailsViewModel
     
     private let coinId: String
@@ -55,7 +56,12 @@ struct CoinDetailsView: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingToolBar
+            principicalToolbar
             trailingToolbar
+        }
+        
+        .navigationDestination(isPresented: $isPresented) {
+            TopCoinsListView()
         }
         
         // MARK: - Task fetchCoinDetails
@@ -80,18 +86,15 @@ extension CoinDetailsView {
             Button {
                 dismiss()
             } label: {
-                
-                HStack(spacing: 4) {
+                HStack {
                     Image(systemName: "chevron.left")
-                        .padding(.trailing, 8)
-                    Image("hamburger")
-                        .renderingMode(.template)
                         .resizable()
-                        .frame(width: 25, height: 25)
-                    Text(
-                        "\(viewModel.coinDetails?.symbol ?? "Coin")/\(viewModel.selectedCurrency)"
-                            .uppercased()
-                    )
+                        .scaledToFill()
+                        .frame(width: 8, height: 8)
+                    Text("coinDetails.backButton.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body13.bold())
+                        .fixedSize(horizontal: true, vertical: false)
                 }
             }
         }
@@ -103,8 +106,38 @@ extension CoinDetailsView {
                 //
             } label: {
                 Image(systemName: "star.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 16, height: 16)
                     .foregroundStyle(Color.solarGold)
             }
+        }
+    }
+    
+    private var principicalToolbar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Button {
+                isPresented.toggle()
+            } label: {
+                LazyHStack {
+                    Text(
+                        (viewModel.coinDetails?.symbol ?? "coin")
+                            .uppercased()
+                    )
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15.bold())
+                    Text(
+                        "#" + String(viewModel.coinDetails?.marketData.marketCapRank ?? 0)
+                    )
+                    .foregroundStyle(Color.solarGold)
+                    .font(Font.hashes12)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.solarGold.opacity(0.1))
+                    .clipShape(.capsule)
+                }
+            }
+            .applyLiquidGlassEffect()
         }
     }
     
@@ -163,22 +196,31 @@ extension CoinDetailsView {
                         .lineLimit(1)
                         .padding(.bottom, 4)
                     
-                    Text(coinMetadata.description.en)
-                        .foregroundStyle(Color.secondary)
-                        .font(Font.body13)
-                        .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
+                    if coinMetadata.description.en != "" {
+                        Text(coinMetadata.description.en)
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.body13)
+                            .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
+                    } else {
+                        Text("coinDetails.abouToken.empty.title")
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.body13)
+                    }
                     
                     Button {
                         isExpanded.toggle()
                     } label: {
-                        Text(
-                            isExpanded ?
-                             "coinDetails.aboutToken.button.title.less"
-                             : "coinDetails.aboutToken.button.title.more"
-                        )
-                        .foregroundStyle(Color.secondary)
-                        .font(Font.secondary11)
+                        if coinMetadata.description.en != "" {
+                            Text(
+                                isExpanded ?
+                                 "coinDetails.aboutToken.button.title.less"
+                                 : "coinDetails.aboutToken.button.title.more"
+                            )
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.secondary11)
+                        }
                     }
+                    .clipShape(Rectangle())
                     .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
                     .font(Font.secondary11)
@@ -195,8 +237,14 @@ extension CoinDetailsView {
                         SafariView(url: url)
                     }
                 }
+                .sheet(isPresented: $showBlockExplorer) {
+                    if let url = URL(string: coinMetadata.links.blockchainSite[0]) {
+                        SafariView(url: url)
+                    }
+                }
             }
         }
+        .padding(.top, 8)
     }
     
     // MARK: - Coin Stats
@@ -213,27 +261,53 @@ extension CoinDetailsView {
             Text("coinDetails.stat.title")
                 .foregroundStyle(Color.secondary)
                 .font(Font.header15.bold())
+                .padding(.bottom, -4)
+                .padding(.top, 4)
         }
     }
     
     // MARK: - Coin Links
     
     private var coinLinks: some View {
-        Button {
-            showWebsite.toggle()
-        } label: {
-            HStack() {
-                Image(systemName: "globe")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 13, height: 13)
-                    .foregroundStyle(Color.solarGold)
-                Text("coinDetails.links.website.title")
-                    .foregroundStyle(Color.primary)
-                    .font(Font.body13.bold())
+        LazyHStack {
+            Button {
+                showWebsite.toggle()
+            } label: {
+                HStack() {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 13, height: 13)
+                        .foregroundStyle(Color.solarGold)
+                    Text("coinDetails.links.website.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.secondary11.bold())
+                }
             }
+            .buttonStyle(.plain)
+            .cellStyle(position: .single)
+            
+            Button {
+                showBlockExplorer.toggle()
+            } label: {
+                HStack() {
+                    Image(systemName: "link")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 13, height: 13)
+                        .foregroundStyle(Color.drainerAlert)
+                    Text("coinDetails.links.blockExplorer.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.secondary11.bold())
+                }
+            }
+            .buttonStyle(.plain)
+            .cellStyle(position: .single)
         }
-        .buttonStyle(.plain)
-        .cellStyle(position: .single)
     }
+}
+
+#Preview {
+//    CoinDetailsView(coinId: "the-open-network")
+    TabListView()
 }

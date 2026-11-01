@@ -29,5 +29,5 @@ enum Metrics {
     
     static let shapeCr8 = RoundedRectangle(cornerRadius: CornerRadius.cr8, style: .continuous)
     
-    
+    static let shapeCapsule = Capsule(style: .continuous)
 }

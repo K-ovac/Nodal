@@ -58,7 +58,7 @@ struct TrendingCoinsRow: View {
                         coin.data.priceChangePercentage24h.currency(for: currency) ?? 0
                     )
                 )
-                .foregroundStyle(Color.orangeNeon)
+                .foregroundStyle((coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentChangeColor)
                 .font(Font.hashes12.bold())
                 .padding(4)
                 .background(

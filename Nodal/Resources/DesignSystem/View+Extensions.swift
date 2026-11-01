@@ -50,11 +50,20 @@ extension View {
         )
     }
     
+    @ViewBuilder
+    func applyLiquidGlassEffect() -> some View {
+        if #available(iOS 26.0, *) {
+            self.buttonStyle(.glass)
+        } else {
+            self
+        }
+    }
+    
     private func stylePreset(
         position: CellPosition,
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
-        innerRadius: CGFloat = 0
+        innerRadius: CGFloat = 0,
     ) -> some View {
         let radii: RectangleCornerRadii = {
             switch position {

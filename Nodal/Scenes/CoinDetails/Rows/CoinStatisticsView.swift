@@ -15,17 +15,7 @@ struct CoinStatisticsView: View {
     private let currency: String
     private let coinMarketdata: CoinMarketData
     
-    // MARK: - Init
-    
-    init(
-        currency: String,
-        coinMarketdata: CoinMarketData,
-    ) {
-        self.currency = currency
-        self.coinMarketdata = coinMarketdata
-    }
-    
-    // MARK: - Private
+    // MARK: - Сalculated Values
     
     private var circulatingSupplyPercent: String {
         coinMarketdata.maxSupply != nil
@@ -53,6 +43,16 @@ struct CoinStatisticsView: View {
         return result.percentChange
     }
     
+    // MARK: - Init
+    
+    init(
+        currency: String,
+        coinMarketdata: CoinMarketData,
+    ) {
+        self.currency = currency
+        self.coinMarketdata = coinMarketdata
+    }
+    
     // MARK: - Body
     
     var body: some View {
@@ -68,9 +68,7 @@ struct CoinStatisticsView: View {
                             subtitle: "coinDetails.stat.mCap.subtitle \((coinMarketdata.marketCapChangePercentage24h ?? 0).percentChange)",
                             subtitleColor: Color.solarGold
                         )
-                        
-                        // TODO: добавить значение подтекста
-                        
+                                                
                     case .fullyDilutedValuation:
                         statValue(
                             title: stat.title,
@@ -78,8 +76,6 @@ struct CoinStatisticsView: View {
                             subtitle: "coinDetails.stat.fdv.subtitle: \(fdvSubtitle)",  //here
                             subtitleColor: Color.gray
                         )
-
-                        // TODO: добавить значение подтекста
                         
                     case .totalVolume:
                         statValue(
@@ -98,6 +94,7 @@ struct CoinStatisticsView: View {
                         )
                     }
             }
+            .padding(4)
             .frame(maxWidth: .infinity, alignment: .leading)
             .cellStyle(position: .single)
         }
@@ -133,19 +130,19 @@ extension CoinStatisticsView {
             
             Text(subtitle)
                 .foregroundStyle(subtitleColor)
-                .font(Font.secondary11.bold())
+                .font(Font.hashes12.bold())
         }
     }
     
     // MARK: - Circulating Supply
     
     private var circulatingSupply: some View {
-        VStack(alignment: .leading) {
+        LazyVStack(alignment: .leading) {
             HStack {
                 
                 Text("coinDetails.stat.circSupply.title")
                     .foregroundStyle(Color.secondary)
-                    .font(Font.body13.bold())
+                    .font(Font.hashes12.bold())
                 
                 Text(coinMarketdata.circulatingSupply.statValue)
                     .bold()
@@ -179,17 +176,18 @@ extension CoinStatisticsView {
                     "coinDetails.stat.maxSupply.title \(maxSupply))"
                 )
                 .foregroundStyle(Color.secondary)
-                .font(Font.body13.bold())
+                .font(Font.hashes12.bold())
                 
                 Spacer()
                 
                 Text(
-                    "coinDetails.stat.atl.title \((coinMarketdata.atl.currency(for: currency)).statValue))"
+                    "coinDetails.stat.atl.title \((coinMarketdata.atl.currency(for: currency)).formatted(.currency(code: currency))))"
                 )
                 .foregroundStyle(Color.secondary)
-                .font(Font.body13.bold())
+                .font(Font.hashes12.bold())
             }
         }
+        .padding(4)
         .cellStyle(position: .single)
     }
 }

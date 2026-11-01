@@ -13,11 +13,11 @@ extension Double {
     }
     
     var percentBorderColor: Color {
-        self >= 0 ? Color.solarGold : Color.drainerAlert
+        self >= 0 ? Color.enclaveSafe : Color.drainerAlert
     }
     
     var percentBackgroundColor: Color {
-        self >= 0 ? Color.solarGold.opacity(0.2) : Color.drainerAlert.opacity(0.2)
+        self >= 0 ? Color.enclaveSafe.opacity(0.25) : Color.drainerAlert.opacity(0.25)
     }
     
     var percentChange: String {

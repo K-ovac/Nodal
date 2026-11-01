@@ -96,6 +96,7 @@ struct CoinCurrentPrice: Codable {
 struct CoinLinks: Codable {
     let homepage: [String]
     let whitepaper: String
+    let blockchainSite: [String]
     let reposUrl: CoinReposUrl
     let twitterScreenName: String
     
@@ -104,6 +105,7 @@ struct CoinLinks: Codable {
         case whitepaper
         case reposUrl = "repos_url"
         case twitterScreenName = "twitter_screen_name"
+        case blockchainSite = "blockchain_site"
     }
 }
 
