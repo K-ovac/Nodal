@@ -10,8 +10,8 @@ import SwiftUI
 // MARK: - App Theme
 
 enum AppTheme: String, CaseIterable, Identifiable {
-    case light = "Light"
-    case dark = "Dark"
+    case light = "Light Pearl"
+    case dark = "Obsidian"
     
 }
 
@@ -31,8 +31,8 @@ extension AppTheme {
     
     var icon: String {
         switch self {
-        case .light: return "sun.max.fill"
-        case .dark: return "moon.fill"
+        case .light: return "sun.max"
+        case .dark: return "moon"
         }
     }
 }

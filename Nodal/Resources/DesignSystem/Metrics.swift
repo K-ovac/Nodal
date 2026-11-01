@@ -5,7 +5,7 @@
 //  Created by Максим Лозебной on 21.04.2026.
 //
 
-import Foundation
+import SwiftUI
 
 enum Metrics {
     enum Spacing {
@@ -18,11 +18,21 @@ enum Metrics {
         static let cr8: CGFloat = 8
         static let cr12: CGFloat = 12
         static let cr16: CGFloat = 16
+        static let cr20: CGFloat = 20
     }
     
     enum Sizes {
         static let size0: CGFloat = 0
         static let tabHeight: CGFloat = 56
         static let tabWidth: CGFloat = 100
+    }
+    
+    static let shapeCr8 = RoundedRectangle(cornerRadius: CornerRadius.cr8, style: .continuous)
+    static let shapeCr16 = RoundedRectangle(cornerRadius: CornerRadius.cr16, style: .continuous)
+    
+    static let shapeCapsule = Capsule(style: .continuous)
+    
+    static func columns(count: Int = 2) -> [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: count)
     }
 }

@@ -103,7 +103,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func trendingCoinsRows() -> Int {
-        4
+        6
     }
     
     func topCoinsRows() -> Int {

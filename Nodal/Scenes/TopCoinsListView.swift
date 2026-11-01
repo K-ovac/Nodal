@@ -35,14 +35,19 @@ struct TopCoinsListView: View {
                     )
                 )
         }
-        .listStyle(.grouped)
-        .scrollContentBackground(.hidden)
+        .listStyle(.plain)
+        .background(Color.background)
+        .navigationBarBackButtonHidden()
         
         .navigationDestination(item: $viewModel.selectedCoinId) { coinId in
             CoinDetailsView(coinId: coinId)
         }
         
         .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            leadingToolbar
+            principicalToolBar
+        }
         .searchable(
             text: $searchText,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -63,6 +68,20 @@ struct TopCoinsListView: View {
 // MARK: - Extension TopCoinsListView
 
 extension TopCoinsListView {
+    
+    private var leadingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            BackButtonView()
+        }
+    }
+    
+    private var principicalToolBar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text("topListCoins.title")
+                .foregroundStyle(Color.primary)
+                .font(Font.header15.bold())
+        }
+    }
     
     // MARK: - Search Promt
     
@@ -106,19 +125,19 @@ extension TopCoinsListView {
                     viewModel.topListRows()
                 )
         ) { coin in
-            HStack {
-                Text(String(coin.marketCapRank))
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .frame(minWidth: 20, alignment: .center)
-                
-                TopListRow(token: coin, currency: viewModel.selectedCurrency)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        viewModel.selectedCoinId = coin.id
-                    }
-            }
-            
+            TopListRow(token: coin, currency: viewModel.selectedCurrency)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    viewModel.selectedCoinId = coin.id
+                }
+                .cellStyle(
+                    for: coin,
+                    in: filteredCoins
+                )
         }
     }
+}
+
+#Preview {
+    TabListView()
 }

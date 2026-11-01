@@ -36,22 +36,30 @@ struct SettingRow: View {
             //icon
             Image(systemName: iconName)
                 .font(.title3)
-                .frame(width: 30, alignment: .center)
+                .frame(width: 20, alignment: .center)
             //title
             Text(title)
-                .font(.body)
+                .font(Font.body18)
+                .foregroundStyle(Color.primary)
             
             Spacer()
             
             //show value
             
             if let value {
-                Text(value)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                HStack {
+                    Text(value.uppercased())
+                        .font(Font.secondary14)
+                        .foregroundStyle(.secondary)
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 6, height: 6)
+                        .foregroundStyle(Color.secondary)
+                }
             } else {
                 Image(systemName: "arrow.up.forward.app")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.solarGold)
             }
         }
     }

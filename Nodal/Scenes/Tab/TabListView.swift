@@ -21,27 +21,56 @@ struct TabListView: View {
             HomeView()
                 .tag(0)
                 .tabItem {
-                    Image(systemName: "house")
+                    VStack {
+                        Image("vertical.equalize")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
+                        Text("tabList.markets.title")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
-            Text("tabList.portfolio.title")
+            
+            WatchlistView()
                 .tag(1)
                 .tabItem {
-                    Image(systemName: "folder.fill")
+                    VStack {
+                        Image("star")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
+                        Text("tabList.watchlist.title")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
-            Text("tabList.watchlist.title")
+            
+            Text("tabList.settings.title")
                 .tag(2)
                 .tabItem {
-                    Image(systemName: "star")
+                    VStack {
+                        Image("signGuard")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
+                        Text("tabList.signGuard.title")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
-            Text("tabList.settings.title")
+            
+            ProfileView()
                 .tag(3)
                 .tabItem {
-                    Image(systemName: "gear")
+                    VStack {
+                        Image("person")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.orangeNeon)
+                        Text("tabList.profile.title")
+                            .font(Font.tabCapsule)
+                    }
+                    
                 }
         }
+        .tint(.orangeNeon)
+        .toolbarBackground(Color.gradient)
     }
-}
-
-#Preview {
-    TabListView()
 }

@@ -30,6 +30,7 @@ struct HomeView: View {
                 
                 globalMetricsSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
                             top: 0, leading: 16, bottom: 0, trailing: 16
@@ -40,9 +41,10 @@ struct HomeView: View {
                 
                 trandingCoinsSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
-                            top: 16, leading: 16, bottom: 0, trailing: 16
+                            top: 0, leading: 16, bottom: 0, trailing: 16
                         )
                     )
                 
@@ -50,16 +52,15 @@ struct HomeView: View {
                 
                 topListSection
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .listRowInsets(
                         EdgeInsets(
                             top: 0, leading: 16, bottom: 0, trailing: 16
                         )
                     )
             }
-            .listStyle(.inset)
-            
-            .navigationTitle("markets.title")
-            .navigationBarTitleDisplayMode(.large)
+            .listStyle(.plain)
+            .background(Color.background)
             
             // MARK: - ToolBar
             
@@ -99,23 +100,41 @@ extension HomeView {
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button {
-                viewModel.profilePresented.toggle()
-            } label: {
-                Image(systemName: "person.fill")
-            } .sheet(isPresented: $viewModel.profilePresented) {
-                ProfileView()
-                    .presentationDetents([.large])
+            HStack {
+                Image("nodal")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 22, height: 22)
+                Text("markets.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header20)
+                    .fixedSize(horizontal: true, vertical: false)
             }
+            .padding(.horizontal, 8)
         }
     }
     
+    @ViewBuilder
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.topListPresented.toggle()
             } label: {
                 Image(systemName: "magnifyingglass")
+            }
+            
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                // TODO
+            } label: {
+                Text(viewModel.selectedCurrency)
+                    .font(Font.hashes16.bold())
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(Color.orangeNeon.opacity(0.1))
+                    .clipShape(.capsule)
             }
         }
     }
@@ -146,14 +165,24 @@ extension HomeView {
     // MARK: - Trending Coins Section
     
     private var trandingCoinsSection: some View {
-        Section(
-            header: Text("markets.trendingCoins.title")
-        ) {
+        Section {
             StateView(
                 content: trendingCoinsContent,
                 state: viewModel.trendingCoinsState,
                 retryAction: viewModel.fetchTrendingCoins
             )
+        } header: {
+            LazyHStack(spacing: 4) {
+                Image(systemName: "flame")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Color.orangeNeon)
+                Text("markets.trendingCoins.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.ticker16.bold())
+            }
+            .padding(.bottom)
         }
     }
     
@@ -181,9 +210,7 @@ extension HomeView {
     // MARK: - TopList Section
     
     private var topListSection: some View {
-        Section(
-            header: Text("markets.topCoins.title")
-        ) {
+        Section {
             StateView(
                 content: topListContent,
                 state: viewModel.topListState,
@@ -195,17 +222,31 @@ extension HomeView {
                     viewModel.topListPresented.toggle()
                 } label: {
                     Text("markets.topCoins.showMoreButton.title")
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(Color.white)
                         .font(.body.bold())
                     
                 }
-                .contentShape(Rectangle())
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(.gray.opacity(0.3))
-                .clipShape(.capsule)
+                .buttonStyle(.plain)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .contentShape(Rectangle())
+                .padding(.vertical, 8)
+                .background(Color.gradient)
+                .clipShape(.capsule)
             }
+        } header: {
+            LazyHStack(spacing: 4) {
+                Image("vertical.equalize")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 16, height: 18)
+                    .foregroundStyle(Color.solarGold)
+                Text("markets.topCoins.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.ticker16.bold())
+            }
+            .padding(.bottom)
+            
         }
     }
     
@@ -224,11 +265,10 @@ extension HomeView {
                 .onTapGesture {
                     selectedCoinId = item.id
                 }
+                .cellStyle(
+                    for: item,
+                    in: viewModel.topList
+                )
         }
     }
 }
-
-#Preview {
-        TabListView()
-}
-

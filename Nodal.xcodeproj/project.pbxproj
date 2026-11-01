@@ -28,30 +28,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		46B1F813308F9FBB00BB407A /* JetBrainsMono-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-OFL.txt"; sourceTree = "<group>"; };
+		46B1F814308FA00B00BB407A /* PlusJakartaSans-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "PlusJakartaSans-OFL.txt"; sourceTree = "<group>"; };
+		46B1F81B308FA05200BB407A /* SpaceGrotesk-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SpaceGrotesk-OFL.txt"; sourceTree = "<group>"; };
 		46D172022F96D1D900647BC5 /* Nodal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nodal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D1720F2F96D1DA00647BC5 /* NodalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D172192F96D1DA00647BC5 /* NodalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		46B1F6CA308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/Development.xcconfig,
-			);
-			target = 46D1720E2F96D1DA00647BC5 /* NodalTests */;
-		};
-		46B1F6CB308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Resources/Development.xcconfig,
-			);
-			target = 46D172182F96D1DA00647BC5 /* NodalUITests */;
-		};
 		46B1F76B308E660400BB407A /* Exceptions for "Nodal" folder in "Nodal" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Development.xcconfig,
+				Resources/Info.plist,
 			);
 			target = 46D172012F96D1D900647BC5 /* Nodal */;
 		};
@@ -62,8 +52,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				46B1F76B308E660400BB407A /* Exceptions for "Nodal" folder in "Nodal" target */,
-				46B1F6CA308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalTests" target */,
-				46B1F6CB308E4B9B00BB407A /* Exceptions for "Nodal" folder in "NodalUITests" target */,
 			);
 			path = Nodal;
 			sourceTree = "<group>";
@@ -106,9 +94,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46B1F812308F9F9C00BB407A /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				46B1F813308F9FBB00BB407A /* JetBrainsMono-OFL.txt */,
+				46B1F814308FA00B00BB407A /* PlusJakartaSans-OFL.txt */,
+				46B1F81B308FA05200BB407A /* SpaceGrotesk-OFL.txt */,
+			);
+			path = Licenses;
+			sourceTree = "<group>";
+		};
 		46D171F92F96D1D900647BC5 = {
 			isa = PBXGroup;
 			children = (
+				46B1F812308F9F9C00BB407A /* Licenses */,
 				46D172042F96D1D900647BC5 /* Nodal */,
 				46D172122F96D1DA00647BC5 /* NodalTests */,
 				46D1721C2F96D1DA00647BC5 /* NodalUITests */,
@@ -206,7 +205,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					46D172012F96D1D900647BC5 = {
 						CreatedOnToolsVersion = 26.2;
@@ -316,6 +315,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -370,6 +370,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -383,6 +384,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -430,6 +432,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
@@ -448,8 +451,9 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Nodal/Info.plist;
+				INFOPLIST_FILE = Nodal/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -485,8 +489,9 @@
 				DEVELOPMENT_TEAM = 588S8Z6KT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Nodal/Info.plist;
+				INFOPLIST_FILE = Nodal/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nodal;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

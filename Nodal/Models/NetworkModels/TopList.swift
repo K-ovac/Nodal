@@ -7,7 +7,7 @@
 
 // MARK: - Token List
 
-struct TokenList: Codable, Identifiable {
+struct TokenList: Codable, Identifiable, Equatable {
     let id: String
     let symbol: String
     let name: String

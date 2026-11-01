@@ -13,11 +13,19 @@ import Kingfisher
 struct CoinMetricsView: View {
     
     // MARK: - Properties
-    
-    @State private var isPresented: Bool = false
-    
+        
     private let coinMetadata: CoinMetadata
     private let currency: String
+    
+    private let nodalVerified = 98.9.percentChange
+    
+    private var priceTrend: Image {
+        guard let trend = coinMetadata.marketData.priceChangePercentage24h else { return Image("xmark") }
+        
+        return trend >= 0
+        ? Image("uptrend")
+        : Image("downtrend")
+    }
     
     // MARK: - Init
     
@@ -33,110 +41,169 @@ struct CoinMetricsView: View {
     
     var body: some View {
         
-        // MARK: - ZStack
-        
-        ZStack {
-            Rectangle()
-                .frame(maxHeight: .infinity)
-                .cornerRadius(12)
-                .foregroundStyle(Color.gray)
-                .opacity(0.1)
+        VStack(alignment: .leading, spacing: 0) {
             
-            VStack(alignment: .leading) {
-                
-                // MARK: - Coin Image, Symbol, Name, Rank
-                
-                HStack {
-                    if let url = URL(string: coinMetadata.image.small) {
-                        KFImage(url)
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .clipShape(.circle)
+            // MARK: - Coin Price Data
+            
+            coinName
+                .padding(.bottom)
+            
+            ForEach(CoinMetrics.allCases) { metric in
+                LazyVStack {
+                    switch metric {
+                    
+                    case .price: priceAndPercent
+                    
+                    case .lowHighRange: lowHighRange
                     }
-                    
-                    Text(coinMetadata.symbol.uppercased())                                             //coin symbol
-                        .font(.title.bold())
-                        .foregroundStyle(.primary)
-                    Text(coinMetadata.name)                                         //coin name
-                        .lineLimit(1)
-                        .font(.title2.bold())
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    // MARK: - Coin M.Cap Rank to TopList
-                    
-                    Button {
-                        isPresented.toggle()
-                    } label: {
-                        HStack {
-                            Image("rankingStar")
-                                .renderingMode(.template)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(.secondary)
-                            Text(                                               //coin m cap rank
-                                "No." +
-                                String(coinMetadata.marketData.marketCapRank)
-                            )
-                            .foregroundStyle(.green)
-                            .font(.callout.bold())
-                            .underline()
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .foregroundStyle(.secondary)
                 }
+                .padding(4)
+                .cellStyle(for: metric, in: CoinMetrics.allCases)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+// MARK: - Extension CoinMetricsView
+
+extension CoinMetricsView {
+    
+    // MARK: - Coin name, Image, Nodal status
+    
+    private var coinName: some View {
+        LazyHStack {
+            if let url = URL(string: coinMetadata.image.small) {
+                KFImage(url)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 36, height: 36)
+                    .clipShape(.circle)
+            }
+            
+            LazyVStack(alignment: .leading, spacing: 0) {
+                Text(coinMetadata.name)
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header20.bold())
+                    .lineLimit(1)
+                
+                // TODO: - доработка с модулем Sign Guard
+                
+                LazyHStack(spacing: 4) {
+                    Image("signGuard")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 12, height: 12)
+                        .foregroundStyle(Color.enclaveSafe)
+                    
+                    Text("coinDetails.metrics.nodalStatus.title (\(nodalVerified))")
+                        .foregroundStyle(Color.enclaveSafe)
+                        .font(Font.hashes12.bold())
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    // MARK: - Price and Percent
+    
+    private var priceAndPercent: some View {
+        HStack {
+            
+            Text(
+                coinMetadata.marketData.currentPrice.currency(for: currency)
+                    .formatted(
+                        .currency(code: currency)
+                    )
+            )
+            .foregroundStyle(Color.primary)
+            .font(Font.hashes20.bold())
+            
+            Spacer()
+            
+            LazyHStack {
+                priceTrend
+                .renderingMode(.template)
+                
+                Text("\((coinMetadata.marketData.priceChangePercentage24h ?? 0).percentChange) coinDetails.metrics.percentage24h.title")
+            }
+            .foregroundStyle(
+                (coinMetadata.marketData.priceChangePercentage24h ?? 0)
+                    .percentChangeColor
+            )
+            .font(Font.hashes12.bold())
+            .lineLimit(1)
+            .padding(.vertical, 2)
+            .padding(.horizontal, 8)
+            .background(
+                (coinMetadata.marketData.priceChangePercentage24h ?? 0)
+                    .percentBackgroundColor)
+            .overlay(
+                Metrics.shapeCapsule
+                    .strokeBorder(
+                        (coinMetadata.marketData.priceChangePercentage24h ?? 0)
+                            .percentBorderColor))
+            .clipShape(.capsule)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    // MARK: - Low/High Range
+    
+    private var lowHighRange: some View {
+        LazyVStack(alignment: .leading) {
+            HStack {
+                
+                Text("coinDetails.metrics.low24h.title")
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.hashes12.bold())
+                
+                Text(coinMetadata.marketData.low24h.currency(for: currency).formatted(.currency(code: currency)))
+                    .bold()
+                    .foregroundStyle(Color.primary)
+                    .font(Font.hashes12.bold())
                 
                 Spacer()
                 
-                // MARK: - Coin Price Data
+                Text("coinDetails.metrics.lowHighRange.title")
+                    .foregroundStyle(Color.solarGold)
+                    .font(Font.hashes12.bold())
                 
-                HStack {
-                    
-                    // Price
-                    VStack(alignment: .leading) {
-                        Text("coinMetrics.lastPrice.title")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                        Text(
-                            coinMetadata.marketData.currentPrice.currency(for: currency)
-                                .formatted(
-                                    .currency(code: currency)
-                                )
-                        )
-                        .font(.title.bold())
-                    }
-                    
-                    Spacer()
-                    
-                    //Price change percentage 24h
-                    VStack(alignment: .trailing) {
-                        Text("coinMetrics.percentageChange24h.title")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                        Text(
-                            String(
-                                format: "%.2f%%",
-                                coinMetadata.marketData.priceChangePercentage24h ?? 0
-                            )
-                        )
-                        .foregroundStyle(
-                            (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                                .percentChangeColor
-                        )
-                        .font(.title.bold())
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.primary)
+                Spacer()
                 
+                Text("coinDetails.metrics.high24h.title")
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.hashes12.bold())
+                
+                Text(coinMetadata.marketData.high24h.currency(for: currency).formatted(.currency(code: currency)))
+                    .bold()
+                    .foregroundStyle(Color.primary)
+                    .font(Font.hashes12.bold())
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-        }
-        .navigationDestination(isPresented: $isPresented) {
-            TopCoinsListView()
+            
+            Spacer()
+            
+            ProgressView(
+                value: coinMetadata.marketData.currentPrice.currency(for: currency),
+                total: coinMetadata.marketData.high24h.currency(for: currency)
+            )
+            .padding(.bottom, 4)
+            .progressViewStyle(.linear)
+            .tint(Color.progressGradient)
+            .scaleEffect(
+                x: 1,
+                y: 1.5,
+                anchor: .center
+            )
         }
     }
+}
+
+// MARK: - Enum CoinMetrics
+
+private enum CoinMetrics: String, Identifiable, CaseIterable {
+    case price, lowHighRange
+    
+    var id: String { rawValue }
 }

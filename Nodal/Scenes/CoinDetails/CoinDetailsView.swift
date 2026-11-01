@@ -12,12 +12,11 @@ import SwiftUI
 struct CoinDetailsView: View {
     
     // MARK: - Properties
-    
-    @Environment(\.dismiss) private var dismiss
-    
+        
     @State private var isExpanded: Bool = false
+    @State private var isPresented: Bool = false
     @State private var showWebsite: Bool = false
-    @State private var selectedStat: CoinStatistics?
+    @State private var showBlockExplorer: Bool = false
     @StateObject private var viewModel: CoinDetailsViewModel
     
     private let coinId: String
@@ -39,41 +38,28 @@ struct CoinDetailsView: View {
     // MARK: - Body
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-            // MARK: - Coin Details
-            
-            List {
-                coinDetails
-                    .listRowSeparator(.hidden)
-            }
-            .listStyle(.inset)
-            
-            // MARK: - Show Stat DescriptionView
-            
-            if let stat = selectedStat {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        selectedStat = nil
-                    }
-
-                DescriptionView(
-                    title: stat.title,
-                    text: stat.description,
-                    onClose: { selectedStat = nil }
-                )
-                .background(.background)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .padding()
-                
-            }
+        
+        // MARK: - Coin Details
+        
+        List {
+            coinDetails
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
         }
+        .listStyle(.plain)
+        .background(Color.background)
+        
         .navigationBarBackButtonHidden()
         
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingToolBar
+            principicalToolbar
+            trailingToolbar
+        }
+        
+        .navigationDestination(isPresented: $isPresented) {
+            TopCoinsListView()
         }
         
         // MARK: - Task fetchCoinDetails
@@ -95,23 +81,48 @@ extension CoinDetailsView {
     
     private var leadingToolBar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
+            BackButtonView()
+        }
+    }
+    
+    private var trailingToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
             Button {
-                dismiss()
+                //
             } label: {
-                
-                HStack(spacing: 4) {
-                    Image(systemName: "chevron.left")
-                        .padding(.trailing, 8)
-                    Image("hamburger")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 25, height: 25)
+                Image(systemName: "star.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 16, height: 16)
+                    .foregroundStyle(Color.solarGold)
+            }
+        }
+    }
+    
+    private var principicalToolbar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Button {
+                isPresented.toggle()
+            } label: {
+                LazyHStack {
                     Text(
-                        "\(viewModel.coinDetails?.symbol ?? "Coin")/\(viewModel.selectedCurrency)"
+                        (viewModel.coinDetails?.symbol ?? "coin")
                             .uppercased()
                     )
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15.bold())
+                    Text(
+                        "#" + String(viewModel.coinDetails?.marketData.marketCapRank ?? 0)
+                    )
+                    .foregroundStyle(Color.solarGold)
+                    .font(Font.hashes12)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.solarGold.opacity(0.1))
+                    .clipShape(.capsule)
                 }
             }
+            .applyLiquidGlassEffect()
         }
     }
     
@@ -127,13 +138,13 @@ extension CoinDetailsView {
     
     // MARK: - CoinDetailsContent
     
-    @ViewBuilder
     private var coinDetailsContent: some View {
-        warningTitle
-        tokenMetricsView
-        coinStatistics
-        aboutToken
-        coinLinks
+        LazyVStack(alignment: .leading) {
+            tokenMetricsView
+            coinStatistics
+            aboutToken
+            warningTitle
+        }
     }
     
     // MARK: - Warning Title
@@ -141,10 +152,11 @@ extension CoinDetailsView {
     private var warningTitle: some View {
         Text("coinDetails.warningTitle.title")
             .foregroundStyle(.secondary)
-            .font(.footnote)
+            .font(Font.secondary11)
+            .padding(.top, 8)
     }
     
-    // MARK: - Coin Metrics
+    // TODO: - !!!
     
     private var tokenMetricsView: some View {
         Section {
@@ -163,70 +175,119 @@ extension CoinDetailsView {
         Section {
             if let coinMetadata = viewModel.coinDetails {
                 VStack(alignment: .leading) {
-                    Text(coinMetadata.description.en)
-                        .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
+                    Text("coinDetails.description.title (\(coinMetadata.name))")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15.bold())
+                        .lineLimit(1)
+                        .padding(.bottom, 4)
                     
-                    Button(
-                        isExpanded ?
-                        "coinDetails.aboutToken.button.title.less"
-                        : "coinDetails.aboutToken.button.title.more"
-                    ) {
-                        isExpanded.toggle()
+                    if coinMetadata.description.en != "" {
+                        Text(coinMetadata.description.en)
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.body13)
+                            .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
+                    } else {
+                        Text("coinDetails.abouToken.empty.title")
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.body13)
                     }
+                    
+                    Button {
+                        isExpanded.toggle()
+                    } label: {
+                        if coinMetadata.description.en != "" {
+                            Text(
+                                isExpanded ?
+                                 "coinDetails.aboutToken.button.title.less"
+                                 : "coinDetails.aboutToken.button.title.more"
+                            )
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.secondary11)
+                        }
+                    }
+                    .clipShape(Rectangle())
+                    .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
+                    .font(Font.secondary11)
+                    .padding(.bottom, 4)
+                    
+                    coinLinks
                 }
+                .padding(8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        } header: {
-            if let coinMetadata = viewModel.coinDetails {
-                Text("coinDetails.description.header.title \(coinMetadata.name)?")
+                .cellStyle(position: .single)
+                
+                .sheet(isPresented: $showWebsite) {
+                    if let url = URL(string: coinMetadata.links.homepage[0]) {
+                        SafariView(url: url)
+                    }
+                }
+                .sheet(isPresented: $showBlockExplorer) {
+                    if let url = URL(string: coinMetadata.links.blockchainSite[0]) {
+                        SafariView(url: url)
+                    }
+                }
             }
         }
+        .padding(.top, 8)
     }
     
     // MARK: - Coin Stats
     
     private var coinStatistics: some View {
-        Section(
-            header: Text("coinDetails.statistics.header.title")
-        ) {
+        Section {
             if let coinMetadata = viewModel.coinDetails {
                 CoinStatisticsView(
                     currency: viewModel.selectedCurrency,
-                    coinMetadata: coinMetadata,
-                    onSelect: { stat in
-                        selectedStat = stat
-                    }
+                    coinMarketdata: coinMetadata.marketData
                 )
             }
+        } header: {
+            Text("coinDetails.stat.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.header15.bold())
+                .padding(.bottom, -4)
+                .padding(.top, 4)
         }
     }
     
     // MARK: - Coin Links
     
     private var coinLinks: some View {
-        Section {
-            if let coinMetadata = viewModel.coinDetails {
-                Button {
-                    showWebsite = true
-                } label: {
-                    HStack() {
-                        Image(systemName: "globe")
-                            .foregroundStyle(.white)
-                        Text("coinDetails.links.website.title")
-                            .foregroundStyle(.white)
-                            .font(.body)
-                    }
-                    .padding(4)
-                }
-                .background(.secondary.opacity(0.6))
-                .clipShape(.capsule)
-                .sheet(isPresented: $showWebsite) {
-                    if let url = URL(string: coinMetadata.links.homepage[0]) {
-                        SafariView(url: url)
-                    }
+        LazyHStack {
+            Button {
+                showWebsite.toggle()
+            } label: {
+                HStack() {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 13, height: 13)
+                        .foregroundStyle(Color.solarGold)
+                    Text("coinDetails.links.website.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.secondary11.bold())
                 }
             }
+            .buttonStyle(.plain)
+            .cellStyle(position: .single)
+            
+            Button {
+                showBlockExplorer.toggle()
+            } label: {
+                HStack() {
+                    Image(systemName: "link")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 13, height: 13)
+                        .foregroundStyle(Color.drainerAlert)
+                    Text("coinDetails.links.blockExplorer.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.secondary11.bold())
+                }
+            }
+            .buttonStyle(.plain)
+            .cellStyle(position: .single)
         }
     }
 }

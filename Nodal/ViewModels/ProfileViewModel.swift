@@ -44,27 +44,28 @@ final class ProfileViewModel: ObservableObject {
         profileSettings = [
             ProfileSetting(
                 title: "profile.currency.title",
-                iconName: "dollarsign.circle",
+                iconName: "dollarsign",
                 value: selectedCurrency,
                 destination: .currency
-            ),
-            ProfileSetting(
-                title: "profile.appTheme.title",
-                iconName: "lightbulb.min",
-                value: selectedTheme,
-                destination: .appTheme
             ),
             ProfileSetting(
                 title: "profile.language.title",
                 iconName: "translate",
                 value: selectedLanguage.title,
                 destination: .language),
+            ProfileSetting(
+                title: "profile.appTheme.title",
+                iconName: "paintbrush",
+                value: selectedTheme,
+                destination: .appTheme
+            ),
+            
         ]
         
         profileLinks = [
             ProfileLink(
                 title: "profile.privacyPolicy.title",
-                iconName: "document",
+                iconName: "safari",
                 link: LinksConstants.privacyPolicy
             ),
             ProfileLink(
