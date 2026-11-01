@@ -28,6 +28,11 @@ enum Metrics {
     }
     
     static let shapeCr8 = RoundedRectangle(cornerRadius: CornerRadius.cr8, style: .continuous)
+    static let shapeCr16 = RoundedRectangle(cornerRadius: CornerRadius.cr16, style: .continuous)
     
     static let shapeCapsule = Capsule(style: .continuous)
+    
+    static func columns(count: Int = 2) -> [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: count)
+    }
 }

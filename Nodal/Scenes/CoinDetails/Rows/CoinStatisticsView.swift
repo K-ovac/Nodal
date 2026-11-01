@@ -189,5 +189,6 @@ extension CoinStatisticsView {
         }
         .padding(4)
         .cellStyle(position: .single)
+        .frame(maxHeight: .infinity)
     }
 }
