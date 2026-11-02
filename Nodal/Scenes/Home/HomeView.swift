@@ -103,7 +103,7 @@ extension HomeView {
             HStack {
                 Image("nodal")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
                     .frame(width: 22, height: 22)
                 Text("markets.title")
                     .foregroundStyle(Color.primary)
