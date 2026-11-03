@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+// MARK: - LaunchView
+
 struct LaunchView: View {
     
+    // MARK: - Binding
+    
     @Binding var isReady: Bool
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
