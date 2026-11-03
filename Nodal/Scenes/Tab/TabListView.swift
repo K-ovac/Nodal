@@ -71,6 +71,6 @@ struct TabListView: View {
                 }
         }
         .tint(.orangeNeon)
-        .toolbarBackground(Color.gradient)
+        .toolbarBackground(Color.linearGradient)
     }
 }

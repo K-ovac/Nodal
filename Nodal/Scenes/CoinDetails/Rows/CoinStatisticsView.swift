@@ -163,7 +163,7 @@ extension CoinStatisticsView {
                 total: Double(coinMarketdata.maxSupply ?? 0)
             )
             .progressViewStyle(.linear)
-            .tint(Color.progressGradient)
+            .tint(Color.linearGradient)
             .scaleEffect(
                 x: 1,
                 y: 1.5,

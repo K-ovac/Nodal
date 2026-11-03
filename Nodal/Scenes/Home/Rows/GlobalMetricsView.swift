@@ -25,7 +25,7 @@ struct GlobalMetricsView: View {
     
     var body: some View {
         ZStack {
-            Color.gradient.opacity(0.25)
+            Color.linearGradient.opacity(0.25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             LazyVStack(alignment: .leading, spacing: 4) {
@@ -105,7 +105,7 @@ extension GlobalMetricsView {
                     value: value,
                     total: 100)
                 .progressViewStyle(.linear)
-                .tint(Color.progressGradient)
+                .tint(Color.linearGradient)
                 .scaleEffect(
                     x: 1,
                     y: 1.5,
@@ -128,8 +128,4 @@ private enum GlobalMetricsValues: String, CaseIterable, Identifiable {
     case marketCap, btcDominance, totalVolume
     
     var id: String { rawValue }
-}
-
-#Preview {
-    TabListView()
 }

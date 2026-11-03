@@ -12,28 +12,32 @@ extension Color {
     
     // MARK: - Color Properties
     
+    private static var gradientColors: [Color] = [
+        solarGold,
+        orangeNeon,
+        deepBurgundy,
+    ]
+    
     static var background = color(dark: "08070B", light: "F5F4F8")
     static var card = color(dark: "13111C", opDark: 0.9, light: "FFFFFF", opLight: 0.85)
     static var navigation = color(dark: "14111F", opDark: 0.65, light: "FFFFFF", opLight: 0.75)
-    static var gradient = LinearGradient(
-        colors: [
-            solarGold.opacity(0.85),
-            orangeNeon.opacity(0.85),
-            deepBurgundy.opacity(0.85)
-        ],
+    
+    static var linearGradient = LinearGradient(
+        colors: gradientColors,
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
     
-    static var progressGradient = LinearGradient(
-        colors: [
-            solarGold.opacity(0.85),
-            orangeNeon.opacity(0.85),
-            deepBurgundy.opacity(0.85)
-        ],
-        startPoint: .leading,
-        endPoint: .trailing
-    )
+    static var radialGradient: RadialGradient = {
+        gradientColors.append(obsidian)
+        
+        return RadialGradient(
+            colors: gradientColors,
+            center: .center,
+            startRadius: 5,
+            endRadius: 500
+        )
+    }()
     
     static var solarGold = Color(hex: "FFD700")
     static var orangeNeon = Color(hex: "FF4500")
@@ -41,6 +45,7 @@ extension Color {
     static var enclaveSafe = Color(hex: "10B981")
     static var cautionPermit = Color(hex: "F59E0B")
     static var drainerAlert = Color(hex: "EF4444")
+    static var obsidian = Color(hex: "08070B")
     
     // MARK: - Hex Init
     

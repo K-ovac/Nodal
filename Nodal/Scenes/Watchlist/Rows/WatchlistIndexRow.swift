@@ -26,7 +26,7 @@ struct WatchlistIndexRow: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.gradient
+                Color.linearGradient
                 
                 VStack(alignment: .leading) {
                     HStack {

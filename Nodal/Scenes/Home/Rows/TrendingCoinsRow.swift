@@ -93,7 +93,3 @@ struct TrendingCoinsRow: View {
         .cellStyle(position: .single)
     }
 }
-
-#Preview {
-    TabListView()
-}

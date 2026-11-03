@@ -19,14 +19,20 @@ struct C_TabApp: App {
     @AppStorage(Keys.language.value)
     private var selectedLanguage: Language = .en
     
+    @State private var isReady: Bool = false
+    
     // MARK: - Body
     
     var body: some Scene {
         WindowGroup {
-            TabListView()
-                .preferredColorScheme(selectedTheme.colorScheme)
-                .environment(\.locale, Locale(identifier: selectedLanguage.id))
-                .id(selectedLanguage)
+            if isReady {
+                TabListView()
+                    .preferredColorScheme(selectedTheme.colorScheme)
+                    .environment(\.locale, Locale(identifier: selectedLanguage.id))
+                    .id(selectedLanguage)
+            } else {
+                LaunchView(isReady: $isReady)
+            }
         }
     }
 }

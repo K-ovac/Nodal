@@ -74,7 +74,7 @@ extension LanguageView {
                             .foregroundStyle(Color.black)
                         
                             .padding(8)
-                            .background(Color.gradient)
+                            .background(Color.linearGradient)
                             .clipShape(.circle)
                     }
                 }

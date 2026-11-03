@@ -101,10 +101,10 @@ extension HomeView {
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             HStack {
-                Image("nodal")
+                Image("nodalIcon")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 22, height: 22)
+                    .frame(width: 24, height: 24)
                 Text("markets.title")
                     .foregroundStyle(Color.primary)
                     .font(Font.header20)
@@ -230,7 +230,7 @@ extension HomeView {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .contentShape(Rectangle())
                 .padding(.vertical, 8)
-                .background(Color.gradient)
+                .background(Color.linearGradient)
                 .clipShape(.capsule)
             }
         } header: {

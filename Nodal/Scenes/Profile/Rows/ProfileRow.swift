@@ -17,7 +17,7 @@ struct ProfileRow: View {
     
     var body: some View {
         ZStack {
-            Color.gradient
+            Color.linearGradient
             
             VStack {
                 HStack(spacing: 16) {
