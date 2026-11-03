@@ -154,4 +154,17 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+//    private func toTopList(for coin: TrendingCoinItem) -> TokenList {
+//        TokenList(
+//            id: coin.item.id,
+//            symbol: coin.item.symbol,
+//            name: coin.item.name,
+//            image: coin.item.small,
+//            currentPrice: coin.item.data.price,
+//            marketCap: <#T##Double#>,
+//            marketCapRank: coin.item.marketCapRank,
+//            priceChangePercentage24h: coin.item.data.priceChangePercentage24h.currency(for: selectedCurrency)
+//        )
+//    }
 }

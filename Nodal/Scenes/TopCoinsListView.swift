@@ -18,6 +18,7 @@ struct TopCoinsListView: View {
             networkClient: NetworkClient()
         ))
     @State private var searchText: String = ""
+    @State private var selectedList: TokenLists = .top
         
     // MARK: - Body
     
@@ -100,13 +101,7 @@ extension TopCoinsListView {
     
     private var topListSection: some View {
         Section(
-            header: TopListHeader(
-                rankCtrypto: $viewModel.rankCrypto,
-                priceChange: $viewModel.priceChange,
-                actionSort: viewModel.toggleSort(by:),
-                currentSort: viewModel.currentSortType,
-                sortDirection: viewModel.sortDirection
-            )
+            header: TopListHeader(selectedList: selectedList)
         ) {
             StateView(
                 content: topListContent,
@@ -136,8 +131,4 @@ extension TopCoinsListView {
                 )
         }
     }
-}
-
-#Preview {
-    TabListView()
 }

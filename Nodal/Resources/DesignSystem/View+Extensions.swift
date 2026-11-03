@@ -40,11 +40,13 @@ extension View {
     
     func cellStyle(
         position: CellPosition,
+        isSelected: Bool = false,
         outerRadius: CGFloat = 16,
         innerRadius: CGFloat = 0
     ) -> some View {
         self.stylePreset(
             position: position,
+            isSelected: isSelected,
             outerRadius: outerRadius,
             innerRadius: innerRadius
         )

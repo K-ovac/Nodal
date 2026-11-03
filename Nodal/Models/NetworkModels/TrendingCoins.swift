@@ -13,6 +13,12 @@ struct TrendingCoin: Codable, Hashable {
     let small: String
     let data: TrendingCoinData
     let name: String
+    let marketCapRank: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id, symbol, small, data, name
+        case marketCapRank = "market_cap_rank"
+    }
 }
 
 // MARK: - Trending Coins Data

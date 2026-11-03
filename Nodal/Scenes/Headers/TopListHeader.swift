@@ -7,109 +7,68 @@
 
 import SwiftUI
 
+enum TokenLists: String, Identifiable, CaseIterable {
+    case top, trending
+    
+    var id: String { rawValue }
+    
+    var title: LocalizedStringKey {
+        switch self {
+        case .top: return "topListCoins.top.title"
+        case .trending: return "topListCoins.trending.title"
+        }
+    }
+}
+
 // MARK: - TopListHeader
 
 struct TopListHeader: View {
     
     // MARK: - Properties
     
-    @Binding var rankCtrypto: RankCrypto
-    @Binding var priceChange: PriceChange
+    @State private var selectedList: TokenLists
     
-    let actionSort: (SortTypes) -> Void
-    let currentSort: SortTypes?
-    let sortDirection: SortDirection
+    init(selectedList: TokenLists) {
+        self.selectedList = selectedList
+    }
 
     // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 10) {
-            HStack {
-                
-                // MARK: - Rank Crypto
-                
-                ZStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .foregroundStyle(.gray)
-                        .opacity(0.3)
-                    Picker("topList.header.byRank.title", selection: $rankCtrypto) {
-                        ForEach(RankCrypto.allCases) { rank in
-                            Text(rank.id).tag(rank)
-                        }
+        ScrollView(.horizontal) {
+            LazyHGrid(rows: Metrics.columns(count: 1)) {
+                ForEach(TokenLists.allCases) { list in
+                    var isListSelected: Bool {
+                        selectedList == list
+                        ? true
+                        : false
                     }
-                }
-                
-                // MARK: - Price Change
-                
-                ZStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .foregroundStyle(.gray)
-                        .opacity(0.3)
-                    
-                    Picker("topList.header.priceChange.title", selection: $priceChange) {
-                        ForEach(PriceChange.allCases) { change in
-                            Text(change.id).tag(change)
-                        }
-                    }
-                }
-            } .frame(height: 35)
-                .foregroundStyle(.primary)
-            
-            HStack {
-                
-                // MARK: - Sort by M. Cap Rank
-                
-                Button {
-                    actionSort(.marketCap)
-                } label: {
-                    Text("topList.header.mCap.title")
-                        .font(.system(size: 11, weight: .regular))
-                    sortImage(for: .marketCap)
-                }
-                
-                Spacer()
-                
-                HStack(spacing: 10) {
-                    
-                    // MARK: - Sort by Price
                     
                     Button {
-                        actionSort(.price)
+                        selectedList = list
                     } label: {
-                        Text("topList.header.price.title")
-                            .font(.system(size: 11, weight: .regular))
-                        sortImage(for: .price)
+                        Text(list.title)
+                            .foregroundStyle(
+                                !isListSelected
+                                ? Color.primary
+                                : Color.orangeNeon
+                            )
+                            .font(Font.body13.bold())
+                            .padding(.horizontal, 8)
                     }
                     
-                    // MARK: - Sort by Percent Change
-                    
-                    Button {
-                        actionSort(.percentChange)
-                    } label: {
-                        Text("topList.header.percentageChange24h.title")
-                            .font(.system(size: 11, weight: .regular))
-                        sortImage(for: .percentChange)
-                    } .padding(.leading, 20)
+                    .cellStyle(
+                        position: .single,
+                        isSelected: isListSelected
+                    )
                 }
-            }.foregroundStyle(.primary)
+            }
         }
+        
+        .padding(.bottom, 8)
     }
 }
 
-// MARK: - Extension TopListHeader
-
-extension TopListHeader {
-    
-    // MARK: - Private Method Sirt Image
-    
-    private func sortImage(for type: SortTypes) -> some View {
-        Image(
-            systemName: currentSort == type
-            ? (sortDirection == .descending ? "chevron.down" : "chevron.up") 
-            : "chevron.down"
-        )
-        .resizable()
-        .frame(width: 8, height: 6)
-        .foregroundStyle(currentSort == type ? .blue : .secondary)
-    }
+#Preview {
+    TabListView()
 }
