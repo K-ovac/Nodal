@@ -108,7 +108,7 @@ extension View {
         return self
             .foregroundStyle(.primary)
             .padding(8)
-            .background(Color.navigation)
+            .background(Color.card)
             .clipShape(shape)
             .overlay(
                 shape

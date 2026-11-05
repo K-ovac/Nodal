@@ -56,7 +56,7 @@ struct TopCoinsListView: View {
         }
         .searchable(
             text: $searchText,
-            placement: .navigationBarDrawer(displayMode: .always),
+            placement: .navigationBarDrawer(displayMode: .automatic),
             prompt: "Solana, SOL"
         )
         
@@ -118,6 +118,8 @@ extension TopCoinsListView {
     
     // MARK: - Top List Content
     
+    // TODO: - доработать отображение трендовых коинов
+    
     private var topListContent: some View {
         ForEach(
             filteredCoins
@@ -136,4 +138,8 @@ extension TopCoinsListView {
                 )
         }
     }
+}
+
+#Preview {
+    TabListView()
 }

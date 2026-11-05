@@ -42,7 +42,3 @@ struct TrendingCoinsHeader: View {
         .padding(.bottom, 4)
     }
 }
-
-#Preview {
-    TabListView()
-}
