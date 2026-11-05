@@ -76,8 +76,9 @@ struct HomeView: View {
                     coinId: coinId
                 )
             }
-            .navigationDestination(isPresented: $viewModel.topListPresented) {
-                TopCoinsListView()
+            .navigationDestination(item: $viewModel.selectedList) { list in
+                
+                TopCoinsListView(selectedList: list)
             }
             
             // MARK: - FetchData
@@ -118,7 +119,7 @@ extension HomeView {
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-                viewModel.topListPresented.toggle()
+                viewModel.selectedList = .top
             } label: {
                 Image(systemName: "magnifyingglass")
             }
@@ -165,24 +166,16 @@ extension HomeView {
     // MARK: - Trending Coins Section
     
     private var trandingCoinsSection: some View {
-        Section {
+        Section(
+            header: TrendingCoinsHeader {
+                viewModel.selectedList = .trending
+            }
+        ) {
             StateView(
                 content: trendingCoinsContent,
                 state: viewModel.trendingCoinsState,
                 retryAction: viewModel.fetchTrendingCoins
             )
-        } header: {
-            LazyHStack(spacing: 4) {
-                Image(systemName: "flame")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 12, height: 12)
-                    .foregroundStyle(Color.orangeNeon)
-                Text("markets.trendingCoins.title")
-                    .foregroundStyle(Color.primary)
-                    .font(Font.ticker16.bold())
-            }
-            .padding(.bottom)
         }
     }
     
@@ -210,7 +203,9 @@ extension HomeView {
     // MARK: - TopList Section
     
     private var topListSection: some View {
-        Section {
+        Section(
+            header: TopCoinsHeader()
+        ) {
             StateView(
                 content: topListContent,
                 state: viewModel.topListState,
@@ -219,11 +214,11 @@ extension HomeView {
             
             if viewModel.topListState.isLoaded {
                 Button {
-                    viewModel.topListPresented.toggle()
+                    viewModel.selectedList = .top
                 } label: {
                     Text("markets.topCoins.showMoreButton.title")
-                        .foregroundStyle(Color.white)
-                        .font(.body.bold())
+                        .foregroundStyle(Color.white.opacity(0.85))
+                        .font(.body18.bold())
                     
                 }
                 .buttonStyle(.plain)
@@ -233,20 +228,6 @@ extension HomeView {
                 .background(Color.linearGradient)
                 .clipShape(.capsule)
             }
-        } header: {
-            LazyHStack(spacing: 4) {
-                Image("vertical.equalize")
-                    .renderingMode(.template)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 16, height: 18)
-                    .foregroundStyle(Color.solarGold)
-                Text("markets.topCoins.title")
-                    .foregroundStyle(Color.primary)
-                    .font(Font.ticker16.bold())
-            }
-            .padding(.bottom)
-            
         }
     }
     

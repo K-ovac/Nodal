@@ -24,7 +24,7 @@ final class HomeViewModel: ObservableObject {
     @Published var rankCrypto: RankCrypto = .top100
     @Published var priceChange: PriceChange = .day
     @Published var selectedCoinId: String?
-    @Published var topListPresented = false
+    @Published var selectedList: TokenLists?
     @Published var profilePresented = false
     @Published var globalMetricsState: ViewState = .initial
     @Published var trendingCoinsState: ViewState = .initial

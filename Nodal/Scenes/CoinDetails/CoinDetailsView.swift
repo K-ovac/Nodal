@@ -59,7 +59,7 @@ struct CoinDetailsView: View {
         }
         
         .navigationDestination(isPresented: $isPresented) {
-            TopCoinsListView()
+            TopCoinsListView(selectedList: .trending)
         }
         
         // MARK: - Task fetchCoinDetails

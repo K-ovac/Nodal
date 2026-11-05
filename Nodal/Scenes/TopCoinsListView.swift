@@ -18,7 +18,12 @@ struct TopCoinsListView: View {
             networkClient: NetworkClient()
         ))
     @State private var searchText: String = ""
-    @State private var selectedList: TokenLists = .top
+    
+    private var selectedList: TokenLists
+    
+    init(selectedList: TokenLists) {
+        self.selectedList = selectedList
+    }
         
     // MARK: - Body
     
