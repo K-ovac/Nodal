@@ -19,8 +19,8 @@ extension Color {
     ]
     
     static var background = color(dark: "08070B", light: "F5F4F8")
-    static var card = color(dark: "13111C", opDark: 0.9, light: "FFFFFF", opLight: 0.85)
-    static var navigation = color(dark: "14111F", opDark: 0.65, light: "FFFFFF", opLight: 0.75)
+    static var card = color(dark: "13111C", opacityDark: 0.9, light: "FFFFFF", opacityLight: 0.85)
+    static var navigation = color(dark: "14111F", opacityDark: 0.65, light: "FFFFFF", opacityLight: 0.75)
     
     static var linearGradient = LinearGradient(
         colors: gradientColors,
@@ -29,10 +29,11 @@ extension Color {
     )
     
     static var radialGradient: RadialGradient = {
-        gradientColors.append(obsidian)
+        lazy var gradient = gradientColors
+        gradient.append(Color.obsidian)
         
         return RadialGradient(
-            colors: gradientColors,
+            colors: gradient,
             center: .center,
             startRadius: 5,
             endRadius: 500
@@ -67,13 +68,13 @@ extension Color {
     // MARK: - Private func Color Scheme
     
     private static func color(
-        dark: String, opDark: Double = 1,
-        light: String, opLight: Double = 1
+        dark: String, opacityDark: Double = 1,
+        light: String, opacityLight: Double = 1
     ) -> Color {
         Color(uiColor: UIColor { traits in
             traits.userInterfaceStyle == .dark
-            ? UIColor(Color(hex: dark)).withAlphaComponent(CGFloat(opDark))
-            : UIColor(Color(hex: light)).withAlphaComponent(CGFloat(opLight))
+            ? UIColor(Color(hex: dark)).withAlphaComponent(CGFloat(opacityDark))
+            : UIColor(Color(hex: light)).withAlphaComponent(CGFloat(opacityLight))
         })
     }
 }

@@ -25,8 +25,7 @@ struct GlobalMetricsView: View {
     
     var body: some View {
         ZStack {
-            Color.linearGradient.opacity(0.25)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Color.linearGradient.opacity(0.5)
             
             LazyVStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 4) {
@@ -74,7 +73,7 @@ struct GlobalMetricsView: View {
             .padding(8)
         }
         .clipShape(Metrics.shapeCr16)
-        .overlay(Metrics.shapeCr16.strokeBorder(Color.solarGold, lineWidth: 0.5))
+        .overlay(Metrics.shapeCr16.strokeBorder(Color.solarGold.opacity(0.25), lineWidth: 1))
     }
 }
 

@@ -97,7 +97,6 @@ extension HomeView {
         }
     }
     
-//    @ViewBuilder
     private var trailingToolbar: some ToolbarContent {
         
         ToolbarItem(placement: .topBarTrailing) {
@@ -106,9 +105,11 @@ extension HomeView {
                     viewModel.selectedList = .top
                 } label: {
                     Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 20, height: 20)
                 }
-                
-                
+                .padding(.leading, 8)
                 
                 Button {
                     // TODO
