@@ -34,6 +34,7 @@ struct WatchlistIndexRow: View {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 14, height: 14)
+                        
                         Text("watchlist.index.title")
                             .font(Font.secondary14.bold())
                         

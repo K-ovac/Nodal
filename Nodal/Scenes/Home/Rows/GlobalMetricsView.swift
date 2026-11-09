@@ -48,22 +48,22 @@ struct GlobalMetricsView: View {
                         case .marketCap:
                             metricCell(
                                 title: "markets.globalMetrics.mCap.title",
-                                value: (globalMetrics.totalMarketCap.usd ?? 0),
-                                subtitle: (globalMetrics.marketCapChangePercentage24hUsd ?? 0),
+                                value: (globalMetrics.totalMarketCap.usd ?? 0).formattedCompactCurrency(currency: CurrencyPrice.usd.id),
+                                subtitle: (globalMetrics.marketCapChangePercentage24hUsd ?? 0).formattedPercentage(),
                                 subtitleColor: Color.solarGold,
                                 isMCap: true
                             )
                         case .btcDominance:
                             metricCell(
                                 title: "markets.globalMetrics.btcDominance.title",
-                                value: (globalMetrics.marketCapPercentage.btc ?? 0),
+                                value: (globalMetrics.marketCapPercentage.btc ?? 0).formattedPercentage(isChange: false),
                                 isDominance: true
                             )
                         case .totalVolume:
                             metricCell(
                                 title: "markets.globalMetrics.totalVolume.title",
-                                value: (globalMetrics.totalVolume.usd ?? 0),
-                                subtitle: ((globalMetrics.totalVolume.usd ?? 0) * 100) / (globalMetrics.totalMarketCap.usd ?? 0),
+                                value: (globalMetrics.totalVolume.usd ?? 0).formattedCompactCurrency(currency: CurrencyPrice.usd.id),
+                                subtitle: (((globalMetrics.totalVolume.usd ?? 0) * 100) / (globalMetrics.totalMarketCap.usd ?? 0)).formattedPercentage(isChange: false),
                                 subtitleColor: Color.enclaveSafe
                             )
                         }
@@ -81,8 +81,8 @@ struct GlobalMetricsView: View {
 extension GlobalMetricsView {
     private func metricCell(
         title: LocalizedStringKey,
-        value: Double,
-        subtitle: Double = 0,
+        value: String,
+        subtitle: String = "",
         subtitleColor: Color = Color.secondary,
         isDominance: Bool = false,
         isMCap: Bool = false
@@ -92,17 +92,13 @@ extension GlobalMetricsView {
                 .foregroundStyle(Color.secondary)
                 .font(Font.secondary11.bold())
             
-            Text(
-                isDominance
-                ? value.percentChange
-                : value.statValue
-            )
-            .foregroundStyle(Color.primary)
-            .font(Font.hashes16.bold())
+            Text(value)
+                .foregroundStyle(Color.primary)
+                .font(Font.hashes16.bold())
             
             if isDominance {
                 ProgressView(
-                    value: value,
+                    value: globalMetrics.marketCapPercentage.btc,
                     total: 100)
                 .progressViewStyle(.linear)
                 .tint(Color.linearGradient)
@@ -113,12 +109,12 @@ extension GlobalMetricsView {
                 )
                 .padding(.top, 4)
             } else {
-                Text(subtitle.percentChange)
-                    .foregroundStyle(subtitle.percentChangeColor)
+                Text(subtitle)
+                    .foregroundStyle(subtitleColor)
                     .font(Font.hashes12.bold())
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(4)
         .cellStyle(position: .single)
     }
@@ -128,4 +124,8 @@ private enum GlobalMetricsValues: String, CaseIterable, Identifiable {
     case marketCap, btcDominance, totalVolume
     
     var id: String { rawValue }
+}
+
+#Preview {
+    TabListView()
 }

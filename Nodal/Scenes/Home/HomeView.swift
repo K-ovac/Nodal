@@ -78,7 +78,7 @@ struct HomeView: View {
             }
             .navigationDestination(item: $viewModel.selectedList) { list in
                 
-                TopCoinsListView(selectedList: list)
+                SearchView(selectedList: list)
             }
             
             // MARK: - FetchData

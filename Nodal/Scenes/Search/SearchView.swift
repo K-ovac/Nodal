@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - TopCoinsListView
 
-struct TopCoinsListView: View {
+struct SearchView: View {
     
     // MARK: - Properties
     
@@ -73,7 +73,7 @@ struct TopCoinsListView: View {
 
 // MARK: - Extension TopCoinsListView
 
-extension TopCoinsListView {
+extension SearchView {
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -152,8 +152,4 @@ extension TopCoinsListView {
             return viewModel.topList.filter { $0.marketCapRank % 2 == 0 }
         }
     }
-}
-
-#Preview {
-    TabListView()
 }

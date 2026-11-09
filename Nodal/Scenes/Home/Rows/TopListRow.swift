@@ -59,10 +59,8 @@ struct TopListRow: View {
                     
                     //coin market cap
                     Text(
-                        token.marketCap.formatted(
-                            .number.notation(.compactName)
-                        )
-                    )
+                        token.marketCap
+                            .formattedCompactCurrency(currency: currency))
                     .font(Font.secondary11.bold())
                     .foregroundStyle(Color.drainerAlert)
                     .padding(.horizontal, 4)
@@ -82,29 +80,24 @@ struct TopListRow: View {
             // MARK: - Coin Price & Price change percentage
             
             VStack(alignment: .trailing) {
+                //coin price
                 Text(
-                    String(
-                        token.currentPrice.formatted(
-                            .currency(code: currency)
-                        )
-                    )
-                )   //coin price
+                        token.currentPrice
+                            .formattedPrice(currency: currency)
+                )
                 .font(Font.hashes16.bold())
                 .foregroundStyle(.primary)
                 
+                //coin price change percentage
                 Text(
-                    String(
-                        format: "%.2f%%", (token.priceChangePercentage24h ?? 0)
-                    )
-                ) //coin price change percentage
+                    (token.priceChangePercentage24h ?? 0).formattedPercentage()
+                )
                 .font(Font.secondary11.bold())
                 .foregroundStyle(
                     (token.priceChangePercentage24h ?? 0).percentChangeColor
                 )
-                .frame(minWidth: 75, alignment: .trailing)
             }
         }
         .padding(.trailing, 8)
-        
     }
 }

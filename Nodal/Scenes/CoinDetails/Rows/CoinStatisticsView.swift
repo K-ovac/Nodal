@@ -19,7 +19,7 @@ struct CoinStatisticsView: View {
     
     private var circulatingSupplyPercent: String {
         coinMarketdata.maxSupply != nil
-        ? ((coinMarketdata.circulatingSupply * 100) / Double((coinMarketdata.maxSupply ?? 0))).percentChange
+        ? ((coinMarketdata.circulatingSupply * 100) / Double((coinMarketdata.maxSupply ?? 0))).formattedPercentage()
         : "∞"
     }
     
@@ -40,7 +40,7 @@ struct CoinStatisticsView: View {
         let result = (coinMarketdata.totalVolume.currency(for: currency)
           / coinMarketdata.marketCap.currency(for: currency))
         
-        return result.percentChange
+        return result.formattedPercentage(isChange: false)
     }
     
     // MARK: - Init
@@ -64,15 +64,15 @@ struct CoinStatisticsView: View {
                     case .marketCap:
                         statValue(
                             title: stat.title,
-                            value: coinMarketdata.marketCap.currency(for: currency),
-                            subtitle: "coinDetails.stat.mCap.subtitle \((coinMarketdata.marketCapChangePercentage24h ?? 0).percentChange)",
+                            value: coinMarketdata.marketCap.currency(for: currency).formattedCompactCurrency(currency: currency),
+                            subtitle: "coinDetails.stat.mCap.subtitle \((coinMarketdata.marketCapChangePercentage24h ?? 0).formattedPercentage())",
                             subtitleColor: Color.solarGold
                         )
                                                 
                     case .fullyDilutedValuation:
                         statValue(
                             title: stat.title,
-                            value: coinMarketdata.fullyDilutedValuation.currency(for: currency),
+                            value: coinMarketdata.fullyDilutedValuation.currency(for: currency).formattedCompactCurrency(currency: currency),
                             subtitle: "coinDetails.stat.fdv.subtitle: \(fdvSubtitle)",  //here
                             subtitleColor: Color.gray
                         )
@@ -80,7 +80,7 @@ struct CoinStatisticsView: View {
                     case .totalVolume:
                         statValue(
                             title: stat.title,
-                            value: coinMarketdata.totalVolume.currency(for: currency),
+                            value: coinMarketdata.totalVolume.currency(for: currency).formattedCompactCurrency(currency: currency),
                             subtitle: "coinDetails.stat.totalVolume.subtitle \(tradingVolSubtitle)", //here
                             subtitleColor: Color.enclaveSafe
                         )
@@ -88,8 +88,8 @@ struct CoinStatisticsView: View {
                     case .ath:
                         statValue(
                             title: stat.title,
-                            value: coinMarketdata.ath.currency(for: currency),
-                            subtitle: "\((coinMarketdata.athChangePercentage.currency(for: currency).percentChange)) coinDetails.stat.ath.subtitle",
+                            value: coinMarketdata.ath.currency(for: currency).formattedPrice(currency: currency),
+                            subtitle: "\((coinMarketdata.athChangePercentage.currency(for: currency).formattedPercentage())) coinDetails.stat.ath.subtitle",
                             subtitleColor: Color.orangeNeon
                         )
                     }
@@ -111,7 +111,7 @@ extension CoinStatisticsView {
     
     private func statValue(
         title: LocalizedStringKey,
-        value: Double,
+        value: String,
         subtitle: LocalizedStringKey,
         subtitleColor: Color
     ) -> some View {
@@ -120,11 +120,7 @@ extension CoinStatisticsView {
                 .foregroundStyle(Color.secondary)
                 .font(Font.secondary11.bold())
             
-            Text(value
-                .formatted(
-                    .number.notation(.compactName)
-                )
-            )
+            Text(value)
             .foregroundStyle(Color.primary)
             .font(Font.hashes16)
             
@@ -144,7 +140,7 @@ extension CoinStatisticsView {
                     .foregroundStyle(Color.secondary)
                     .font(Font.hashes12.bold())
                 
-                Text(coinMarketdata.circulatingSupply.statValue)
+                Text(coinMarketdata.circulatingSupply.formattedCompactValue())
                     .bold()
                     .foregroundStyle(Color.primary)
                     .font(Font.hashes12.bold())
@@ -191,8 +187,4 @@ extension CoinStatisticsView {
         .cellStyle(position: .single)
         .frame(maxHeight: .infinity)
     }
-}
-
-#Preview {
-    TabListView()
 }

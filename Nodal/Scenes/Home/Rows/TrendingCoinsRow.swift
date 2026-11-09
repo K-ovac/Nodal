@@ -25,7 +25,7 @@ struct TrendingCoinsRow: View {
     // MARK: - Body
         
     var body: some View {
-        LazyVStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 
                 // MARK: - Coin Image
@@ -37,11 +37,13 @@ struct TrendingCoinsRow: View {
                         .clipShape(.circle)
                 }
                 
-                LazyVStack(alignment: .leading, spacing: -2) {
+                // MARK: - Coin Symbol & Name
+                VStack(alignment: .leading, spacing: -2) {
                     Text(coin.symbol)
                         .foregroundStyle(Color.primary)
                         .font(Font.header15)
                         .lineLimit(1)
+                    
                     Text(coin.name)
                         .foregroundStyle(Color.secondary)
                         .font(Font.secondary11.bold())
@@ -53,25 +55,27 @@ struct TrendingCoinsRow: View {
                 // MARK: - Coin price change percentage
                 
                 Text(
-                    String(
-                        format: "%.2f%%",
-                        coin.data.priceChangePercentage24h.currency(for: currency) ?? 0
-                    )
+                    (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
+                        .formattedPercentage()
                 )
-                .foregroundStyle((coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentChangeColor)
+                .foregroundStyle(
+                    (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
+                        .percentChangeColor)
                 .font(Font.hashes12.bold())
                 .padding(4)
                 .background(
-                    (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentBackgroundColor
+                    (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
+                        .percentBackgroundColor
                 )
                 .clipShape(Metrics.shapeCr8)
                 .overlay(
                     Metrics.shapeCr8
                         .strokeBorder(
-                            (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0).percentBorderColor,
+                            (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
+                                .percentBorderColor,
                             lineWidth: 0.5
                         )
-                )
+                )                
             }
             
             // MARK: - Coin Price
@@ -81,9 +85,7 @@ struct TrendingCoinsRow: View {
                     .font(Font.secondary11.bold())
                 
                 Text(
-                    coin.data.price.formatted(
-                        .currency(code: currency)
-                    )
+                    coin.data.price.formattedPrice(currency: currency)
                 )
                 .foregroundStyle(Color.primary)
                 .font(Font.hashes16.bold())
@@ -92,4 +94,8 @@ struct TrendingCoinsRow: View {
         }
         .cellStyle(position: .single)
     }
+}
+
+#Preview {
+    TabListView()
 }

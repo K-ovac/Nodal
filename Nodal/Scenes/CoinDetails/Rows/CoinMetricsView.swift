@@ -17,7 +17,7 @@ struct CoinMetricsView: View {
     private let coinMetadata: CoinMetadata
     private let currency: String
     
-    private let nodalVerified = 98.9.percentChange
+    private let nodalVerified = Double.random(in: 0..<100)
     
     private var priceTrend: Image {
         guard let trend = coinMetadata.marketData.priceChangePercentage24h else { return Image("xmark") }
@@ -52,9 +52,10 @@ struct CoinMetricsView: View {
                 LazyVStack {
                     switch metric {
                     
-                    case .price: priceAndPercent
-                    
-                    case .lowHighRange: lowHighRange
+                    case .price:
+                        priceAndPercent
+                    case .lowHighRange:
+                        lowHighRange
                     }
                 }
                 .padding(4)
@@ -97,7 +98,7 @@ extension CoinMetricsView {
                         .frame(width: 12, height: 12)
                         .foregroundStyle(Color.enclaveSafe)
                     
-                    Text("coinDetails.metrics.nodalStatus.title (\(nodalVerified))")
+                    Text("coinDetails.metrics.nodalStatus.title (\(nodalVerified.formattedPercentage()))")
                         .foregroundStyle(Color.enclaveSafe)
                         .font(Font.hashes12.bold())
                 }
@@ -113,9 +114,7 @@ extension CoinMetricsView {
             
             Text(
                 coinMetadata.marketData.currentPrice.currency(for: currency)
-                    .formatted(
-                        .currency(code: currency)
-                    )
+                    .formattedPrice(currency: currency)
             )
             .foregroundStyle(Color.primary)
             .font(Font.hashes20.bold())
@@ -123,10 +122,18 @@ extension CoinMetricsView {
             Spacer()
             
             LazyHStack {
-                priceTrend
+                Image(
+                    (coinMetadata.marketData.priceChangePercentage24h ?? 0) >= 0
+                    ? "uptrend"
+                    : "downtrend"
+                )
                 .renderingMode(.template)
+                .scaledToFill()
+                .frame(width: 6, height: 6)
+                .padding(.leading, 4)
                 
-                Text("\((coinMetadata.marketData.priceChangePercentage24h ?? 0).percentChange) coinDetails.metrics.percentage24h.title")
+                
+                Text("\((coinMetadata.marketData.priceChangePercentage24h ?? 0).formattedPercentage()) coinDetails.metrics.percentage24h.title")
             }
             .foregroundStyle(
                 (coinMetadata.marketData.priceChangePercentage24h ?? 0)
@@ -199,6 +206,7 @@ extension CoinMetricsView {
         }
     }
 }
+
 
 // MARK: - Enum CoinMetrics
 

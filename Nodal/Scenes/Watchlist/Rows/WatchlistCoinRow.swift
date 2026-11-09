@@ -57,11 +57,11 @@ struct WatchlistCoinRow: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Text(coin.currentPrice.formatted(.currency(code: currency)))
+                Text(coin.currentPrice.formattedPrice(currency: currency))
                     .foregroundStyle(Color.primary)
                     .font(Font.header15.bold())
                 
-                Text(String(format: "%.2f%%", coin.priceChangePercentage24h ?? 0))
+                Text((coin.priceChangePercentage24h ?? 0).formattedPercentage())
                     .font(Font.secondary14.bold())
             }
             
