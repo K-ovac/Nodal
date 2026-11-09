@@ -80,7 +80,7 @@ struct CoinStatisticsView: View {
                     case .totalVolume:
                         statValue(
                             title: stat.title,
-                            value: coinMarketdata.circulatingSupply,
+                            value: coinMarketdata.totalVolume.currency(for: currency),
                             subtitle: "coinDetails.stat.totalVolume.subtitle \(tradingVolSubtitle)", //here
                             subtitleColor: Color.enclaveSafe
                         )
@@ -191,4 +191,8 @@ extension CoinStatisticsView {
         .cellStyle(position: .single)
         .frame(maxHeight: .infinity)
     }
+}
+
+#Preview {
+    TabListView()
 }

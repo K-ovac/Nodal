@@ -26,10 +26,10 @@ struct TopListHeader: View {
     
     // MARK: - Properties
     
-    @State private var selectedList: TokenLists
+    @Binding private var selectedList: TokenLists
     
-    init(selectedList: TokenLists) {
-        self.selectedList = selectedList
+    init(selectedList: Binding<TokenLists>) {
+        self._selectedList = selectedList
     }
 
     // MARK: - Body

@@ -19,7 +19,7 @@ struct TopCoinsListView: View {
         ))
     @State private var searchText: String = ""
     
-    private var selectedList: TokenLists
+    @State private var selectedList: TokenLists
     
     init(selectedList: TokenLists) {
         self.selectedList = selectedList
@@ -93,12 +93,12 @@ extension TopCoinsListView {
     
     private var filteredCoins: [TokenList] {
         if !searchText.isEmpty {
-            return viewModel.topList.filter {
+            return list(for: selectedList).filter {
                 $0.symbol.localizedCaseInsensitiveContains(searchText) ||
                 $0.name.localizedCaseInsensitiveContains(searchText)
             }
         } else {
-            return viewModel.topList
+            return list(for: selectedList)
         }
     }
     
@@ -106,7 +106,7 @@ extension TopCoinsListView {
     
     private var topListSection: some View {
         Section(
-            header: TopListHeader(selectedList: selectedList)
+            header: TopListHeader(selectedList: $selectedList)
         ) {
             StateView(
                 content: topListContent,
@@ -136,6 +136,20 @@ extension TopCoinsListView {
                     for: coin,
                     in: filteredCoins
                 )
+        }
+    }
+    
+    // TODO: - во ViewModel как и остальную бизнес-логику
+    
+    private func list(for list: TokenLists) -> [TokenList] {
+        switch list {
+            
+        case .top:
+            return viewModel.topList
+            
+            // TODO: - на трендовые
+        case .trending:
+            return viewModel.topList.filter { $0.marketCapRank % 2 == 0 }
         }
     }
 }

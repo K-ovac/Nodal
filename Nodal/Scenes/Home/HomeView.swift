@@ -115,27 +115,27 @@ extension HomeView {
         }
     }
     
-    @ViewBuilder
+//    @ViewBuilder
     private var trailingToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                viewModel.selectedList = .top
-            } label: {
-                Image(systemName: "magnifyingglass")
-            }
-            
-        }
         
         ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                // TODO
-            } label: {
-                Text(viewModel.selectedCurrency)
-                    .font(Font.hashes16.bold())
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 16)
-                    .background(Color.orangeNeon.opacity(0.1))
-                    .clipShape(.capsule)
+            HStack(spacing: 16) {
+                Button {
+                    viewModel.selectedList = .top
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                
+                
+                
+                Button {
+                    // TODO
+                } label: {
+                    Text(viewModel.selectedCurrency)
+                        .font(Font.hashes16.bold())
+                }
+                .background(Color.orangeNeon.opacity(0.1))
+                .clipShape(.capsule)
             }
         }
     }
@@ -221,7 +221,6 @@ extension HomeView {
                         .font(.body18.bold())
                     
                 }
-                .buttonStyle(.plain)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .contentShape(Rectangle())
                 .padding(.vertical, 8)

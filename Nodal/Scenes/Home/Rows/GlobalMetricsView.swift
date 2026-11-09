@@ -14,7 +14,7 @@ struct GlobalMetricsView: View {
     // MARK: - Properties
     
     private let globalMetrics: GlobalMetrics
-    
+        
     // MARK: - Init
     
     init(globalMetrics: GlobalMetrics) {
@@ -63,7 +63,7 @@ struct GlobalMetricsView: View {
                             metricCell(
                                 title: "markets.globalMetrics.totalVolume.title",
                                 value: (globalMetrics.totalVolume.usd ?? 0),
-                                subtitle: globalMetrics.marketCapChangePercentage24hUsd ?? 0,
+                                subtitle: ((globalMetrics.totalVolume.usd ?? 0) * 100) / (globalMetrics.totalMarketCap.usd ?? 0),
                                 subtitleColor: Color.enclaveSafe
                             )
                         }
