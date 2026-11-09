@@ -10,7 +10,7 @@ import Kingfisher
 
 // MARK: - TopListRow
 
-struct TopListRow: View {
+struct TopCoinsRow: View {
     
     // MARK: - Properties
     
@@ -94,7 +94,7 @@ struct TopListRow: View {
                 )
                 .font(Font.secondary11.bold())
                 .foregroundStyle(
-                    (token.priceChangePercentage24h ?? 0).percentChangeColor
+                    (token.priceChangePercentage24h ?? 0).itemColor()
                 )
             }
         }

@@ -137,7 +137,7 @@ extension CoinMetricsView {
             }
             .foregroundStyle(
                 (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                    .percentChangeColor
+                    .itemColor()
             )
             .font(Font.hashes12.bold())
             .lineLimit(1)
@@ -145,12 +145,12 @@ extension CoinMetricsView {
             .padding(.horizontal, 8)
             .background(
                 (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                    .percentBackgroundColor)
+                    .itemColor(isNeedOpacity: true))
             .overlay(
                 Metrics.shapeCapsule
                     .strokeBorder(
                         (coinMetadata.marketData.priceChangePercentage24h ?? 0)
-                            .percentBorderColor))
+                            .itemColor()))
             .clipShape(.capsule)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

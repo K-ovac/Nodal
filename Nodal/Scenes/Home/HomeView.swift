@@ -29,35 +29,17 @@ struct HomeView: View {
                 // MARK: - Global Metrics
                 
                 globalMetricsSection
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(
-                        EdgeInsets(
-                            top: 0, leading: 16, bottom: 0, trailing: 16
-                        )
-                    )
+                    .listRowPreset()
                 
                 // MARK: - Trending Coins
                 
                 trandingCoinsSection
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(
-                        EdgeInsets(
-                            top: 0, leading: 16, bottom: 0, trailing: 16
-                        )
-                    )
+                    .listRowPreset()
                 
                 // MARK: - Top list
                 
                 topListSection
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(
-                        EdgeInsets(
-                            top: 0, leading: 16, bottom: 0, trailing: 16
-                        )
-                    )
+                    .listRowPreset()
             }
             .listStyle(.plain)
             .background(Color.background)
@@ -237,7 +219,7 @@ extension HomeView {
             viewModel.topList
                 .prefix(viewModel.topCoinsRows())
         ) { item in
-            TopListRow(
+            TopCoinsRow(
                 token: item,
                 currency: viewModel.selectedCurrency
             )
@@ -251,4 +233,8 @@ extension HomeView {
                 )
         }
     }
+}
+
+#Preview {
+    TabListView()
 }

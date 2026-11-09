@@ -7,9 +7,13 @@
 
 import SwiftUI
 
+// MARK: - Cell Position
+
 enum CellPosition {
     case first, middle, last, single
 }
+
+// Extension View
 
 extension View {
     func cellStyle<Item:Equatable>(
@@ -119,5 +123,16 @@ extension View {
                         lineWidth: 0.5
                     )
             )
+    }
+    
+    func listRowPreset() -> some View {
+        self
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 0,
+                trailing: 16))
     }
 }

@@ -60,19 +60,19 @@ struct TrendingCoinsRow: View {
                 )
                 .foregroundStyle(
                     (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
-                        .percentChangeColor)
+                        .itemColor())
                 .font(Font.hashes12.bold())
                 .padding(4)
                 .background(
                     (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
-                        .percentBackgroundColor
+                        .itemColor(isNeedOpacity: true)
                 )
                 .clipShape(Metrics.shapeCr8)
                 .overlay(
                     Metrics.shapeCr8
                         .strokeBorder(
                             (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
-                                .percentBorderColor,
+                                .itemColor(),
                             lineWidth: 0.5
                         )
                 )                
@@ -94,8 +94,4 @@ struct TrendingCoinsRow: View {
         }
         .cellStyle(position: .single)
     }
-}
-
-#Preview {
-    TabListView()
 }

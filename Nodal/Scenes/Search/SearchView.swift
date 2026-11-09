@@ -127,7 +127,7 @@ extension SearchView {
                     viewModel.topListRows()
                 )
         ) { coin in
-            TopListRow(token: coin, currency: viewModel.selectedCurrency)
+            TopCoinsRow(token: coin, currency: viewModel.selectedCurrency)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     viewModel.selectedCoinId = coin.id

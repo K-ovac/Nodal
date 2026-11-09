@@ -8,23 +8,22 @@
 import SwiftUI
 
 extension Double {
-    var percentChangeColor: Color {
-        self >= 0
+    
+    // MARK: - Formatted Color
+    
+    func itemColor(isNeedOpacity: Bool = false, opacity: Double = 0.25) -> Color {
+        if isNeedOpacity {
+            return self >= 0
+            ? Color.enclaveSafe.opacity(opacity)
+            : Color.drainerAlert.opacity(opacity)
+        }
+        
+        return self >= 0
         ? Color.enclaveSafe
         : Color.drainerAlert
     }
     
-    var percentBorderColor: Color {
-        self >= 0
-        ? Color.enclaveSafe
-        : Color.drainerAlert
-    }
-    
-    var percentBackgroundColor: Color {
-        self >= 0
-        ? Color.enclaveSafe.opacity(0.25)
-        : Color.drainerAlert.opacity(0.25)
-    }
+    // MARK: - Formatted Values
     
     func formattedPrice(currency: String) -> String {
         let absValue = abs(self)
