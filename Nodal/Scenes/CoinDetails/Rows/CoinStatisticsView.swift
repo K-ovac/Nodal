@@ -19,7 +19,8 @@ struct CoinStatisticsView: View {
     
     private var circulatingSupplyPercent: String {
         coinMarketdata.maxSupply != nil
-        ? ((coinMarketdata.circulatingSupply * 100) / Double((coinMarketdata.maxSupply ?? 0))).formattedPercentage()
+        ? ((coinMarketdata.circulatingSupply * 100) / Double((coinMarketdata.maxSupply ?? 0)))
+            .formattedPercentage(isChange: false)
         : "∞"
     }
     

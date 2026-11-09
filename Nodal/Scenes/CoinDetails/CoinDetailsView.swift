@@ -182,20 +182,12 @@ extension CoinDetailsView {
                         .padding(.bottom, 4)
                     
                     if coinMetadata.description.en != "" {
-                        Text(coinMetadata.description.en)
-                            .foregroundStyle(Color.secondary)
-                            .font(Font.body13)
-                            .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
-                    } else {
-                        Text("coinDetails.abouToken.empty.title")
-                            .foregroundStyle(Color.secondary)
-                            .font(Font.body13)
-                    }
-                    
-                    Button {
-                        isExpanded.toggle()
-                    } label: {
-                        if coinMetadata.description.en != "" {
+                        VStack(alignment: .leading) {
+                            Text("\(coinMetadata.description.en)")
+                                .foregroundStyle(Color.secondary)
+                                .font(Font.body13)
+                                .lineLimit(viewModel.descriptionLineLimit(isExpanded: isExpanded))
+                            
                             Text(
                                 isExpanded ?
                                  "coinDetails.aboutToken.button.title.less"
@@ -203,13 +195,17 @@ extension CoinDetailsView {
                             )
                             .foregroundStyle(Color.secondary)
                             .font(Font.secondary11)
+                            .padding(.bottom, 8)
                         }
+                        .onTapGesture {
+                            isExpanded.toggle()
+                        }
+                        
+                    } else {
+                        Text("coinDetails.abouToken.empty.title")
+                            .foregroundStyle(Color.secondary)
+                            .font(Font.body13)
                     }
-                    .clipShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.secondary)
-                    .font(Font.secondary11)
-                    .padding(.bottom, 4)
                     
                     coinLinks
                 }
@@ -290,4 +286,8 @@ extension CoinDetailsView {
             .cellStyle(position: .single)
         }
     }
+}
+
+#Preview {
+    CoinDetailsView(coinId: "bitcoin")
 }
