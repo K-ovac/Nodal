@@ -16,17 +16,20 @@ struct SettingRow: View {
     private let iconName: String
     private let title: LocalizedStringKey
     private let value: String?
+    private let color: Color
     
     // MARK: - Init
     
     init(
         iconName: String,
         title: LocalizedStringKey,
-        value: String?
+        value: String?,
+        color: Color
     ) {
         self.iconName = iconName
         self.title = title
         self.value = value
+        self.color = color
     }
     
     // MARK: - Body
@@ -34,12 +37,18 @@ struct SettingRow: View {
     var body: some View {
         HStack {
             //icon
-            Image(systemName: iconName)
-                .font(.title3)
-                .frame(width: 20, alignment: .center)
+            Image(iconName)
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 20, height: 20, alignment: .center)
+                .foregroundStyle(color)
+                .padding(4)
+                .background(color.opacity(0.1))
+                .clipShape(.circle)
             //title
             Text(title)
-                .font(Font.body18)
+                .font(Font.body15)
                 .foregroundStyle(Color.primary)
             
             Spacer()
@@ -48,9 +57,9 @@ struct SettingRow: View {
             
             if let value {
                 HStack {
-                    Text(value.uppercased())
-                        .font(Font.secondary14)
-                        .foregroundStyle(.secondary)
+                    Text(value)
+                        .font(Font.hashes12.bold())
+                        .foregroundStyle(color)
                     Image(systemName: "chevron.right")
                         .resizable()
                         .scaledToFill()

@@ -23,18 +23,15 @@ struct ProfileView: View {
         NavigationStack {
             List {
                 profileCard
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
+                    .listRowPreset()
                 settingsSection
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
+                    .listRowPreset()
                 linksSection
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
+                    .listRowPreset()
             }
-            
-            .background(Color.background)
             .listStyle(.plain)
+            .background(Color.background)
+            
             .toolbar {
                 leadingToolbar
                 trailingToolbar
@@ -71,9 +68,10 @@ extension ProfileView {
             } label: {
                 HStack {
                     Image(systemName: "pencil.line")
+                        .frame(width: 20, height: 20)
                     Text("profile.editButton.title")
                         .foregroundStyle(Color.primary)
-                        .font(Font.header15)
+                        .font(Font.body13.bold())
                         .fixedSize(horizontal: true, vertical: false)
                 }
                 
@@ -102,19 +100,22 @@ extension ProfileView {
             .clipShape(
                 RoundedRectangle(cornerRadius: 16)
             )
+            .padding(.bottom)
     }
     
     private var settingsSection: some View {
-        LazyVStack(alignment: .leading, spacing: 4) {
+        LazyVStack(alignment: .leading, spacing: 1) {
             Text("profile.settings.title")
-                .font(Font.secondary14.bold())
+                .font(Font.body15.bold())
                 .foregroundStyle(Color.gray)
+                .padding(.bottom, 4)
             
             ForEach(viewModel.profileSettings) { setting in
                 SettingRow(
                     iconName: setting.iconName,
                     title: setting.title,
-                    value: setting.value
+                    value: setting.value,
+                    color: setting.color
                 )
                 .cellStyle(for: setting, in: viewModel.profileSettings)
                 .onTapGesture {
@@ -122,6 +123,8 @@ extension ProfileView {
                 }
             }
         }
+        .padding(.bottom)
+        
         .sheet(item: $selectedSetting) { setting in
             NavigationStack {
                 destinationView(for: setting.destination, title: setting.title)
@@ -134,16 +137,18 @@ extension ProfileView {
     //MARK: - Links Section
     
     private var linksSection: some View {
-        LazyVStack(alignment: .leading, spacing: 4) {
+        LazyVStack(alignment: .leading, spacing: 1) {
             Text("profile.links.title")
-                .font(Font.secondary14.bold())
+                .font(Font.body15.bold())
                 .foregroundStyle(Color.gray)
+                .padding(.bottom, 4)
             
             ForEach(viewModel.profileLinks) { link in
                 SettingRow(
                     iconName: link.iconName,
                     title: LocalizedStringKey(link.title),
-                    value: nil
+                    value: nil,
+                    color: link.color
                 )
                 .cellStyle(for: link, in: viewModel.profileLinks)
                 .onTapGesture {
@@ -152,6 +157,8 @@ extension ProfileView {
             }
             
         }
+        .padding(.bottom)
+        
         .sheet(item: $selectedLink) { link in
             if let url = URL(string: link.link) {
                 SafariView(url: url)

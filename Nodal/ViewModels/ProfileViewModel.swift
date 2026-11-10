@@ -44,19 +44,22 @@ final class ProfileViewModel: ObservableObject {
         profileSettings = [
             ProfileSetting(
                 title: "profile.currency.title",
-                iconName: "dollarsign",
+                iconName: "currency",
                 value: selectedCurrency,
+                color: Color.solarGold,
                 destination: .currency
             ),
             ProfileSetting(
                 title: "profile.language.title",
-                iconName: "translate",
+                iconName: "language",
                 value: selectedLanguage.title,
+                color: Color.drainerAlert,
                 destination: .language),
             ProfileSetting(
                 title: "profile.appTheme.title",
-                iconName: "paintbrush",
+                iconName: "palette",
                 value: selectedTheme,
+                color: Color.cautionPermit,
                 destination: .appTheme
             ),
             
@@ -65,13 +68,15 @@ final class ProfileViewModel: ObservableObject {
         profileLinks = [
             ProfileLink(
                 title: "profile.privacyPolicy.title",
-                iconName: "safari",
-                link: LinksConstants.privacyPolicy
+                iconName: "description",
+                link: LinksConstants.privacyPolicy,
+                color: Color.enclaveSafe
             ),
             ProfileLink(
                 title: "profile.rateOurApp.title",
-                iconName: "hand.thumbsup",
-                link: LinksConstants.rateOurApp
+                iconName: "medal",
+                link: LinksConstants.rateOurApp,
+                color: Color.solarGold
             )
         ]
     }

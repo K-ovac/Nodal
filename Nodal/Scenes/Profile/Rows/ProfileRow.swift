@@ -13,62 +13,59 @@ struct ProfileRow: View {
     
     // MARK: - Body
     
-    
-    
     var body: some View {
         ZStack {
-            Color.linearGradient
+            Color.linearGradient.opacity(0.75)
             
-            VStack {
-                HStack(spacing: 16) {
-                    Image(systemName: "person.fill")
+            
+            HStack(spacing: 16) {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 24, height: 24)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.black.opacity(0.4)
+                                 ))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.cautionPermit, lineWidth: 2)
+                    )
+                
+                VStack(alignment: .leading) {
+                    Text("profile.card.username")
+                        .font(.header15)
+                        .foregroundStyle(.white)
+                    Text("profile.card.email")
+                        .font(Font.header15)
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                
+                Spacer()
+                
+                Button {
+                    print("log out")
+                } label: {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 24, height: 24)
+                        .frame(width: 12, height: 12)
+                        .foregroundStyle(Color.white)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.black.opacity(0.4)
-                        ))
+                                     ))
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.cautionPermit, lineWidth: 2)
                         )
-                    
-                    VStack(alignment: .leading) {
-                        Text("profile.card.username")
-                            .font(.header20.bold())
-                            .foregroundStyle(.white)
-                        Text("profile.card.email")
-                            .font(Font.body18)
-                            .foregroundStyle(.white)
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        print("log out")
-                    } label: {
-                        Image(systemName: "rectangle.portrait.and.arrow.right")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 12, height: 12)
-                            .foregroundStyle(Color.white)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.black.opacity(0.4)
-                            ))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.cautionPermit, lineWidth: 2)
-                            )
-                    }
-                    .buttonStyle(.plain)
                 }
+                .buttonStyle(.plain)
             }
             .padding()
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

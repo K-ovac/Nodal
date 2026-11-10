@@ -56,14 +56,15 @@ extension AppThemeView {
     }
     
     private var theme: some View {
-        LazyVStack(spacing: 4) {
+        LazyVStack(spacing: 1) {
             ForEach(AppTheme.allCases) { theme in
                 HStack {
                     Image(systemName: theme.icon)
-                        .font(.title3)
+                        .frame(width: 24, height: 24)
+                    
                     Text(theme.rawValue)
                         .foregroundStyle(Color.primary)
-                        .font(Font.body18)
+                        .font(Font.body15)
                     
                     Spacer()
                     

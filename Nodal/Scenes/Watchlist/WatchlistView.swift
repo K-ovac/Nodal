@@ -11,17 +11,17 @@ import SwiftUI
 
 struct WatchlistView: View {
     
+    @State private var isPresented: Bool = false
+    
     // MARK: - Body
     
     var body: some View {
         NavigationStack {
             List {
                 indexCard
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                    .listRowPreset()
                 coinCard
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
+                    .listRowPreset()
             }
             .listStyle(.plain)
             .background(Color.background)
@@ -29,6 +29,10 @@ struct WatchlistView: View {
             .toolbar {
                 leadingToolbar
                 trailingToolbar
+            }
+            
+            .navigationDestination(isPresented: $isPresented) {
+                SearchView(selectedList: .top)
             }
         }
     }
@@ -45,7 +49,7 @@ extension WatchlistView {
                 Image(systemName: "star.fill")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 18, height: 18)
+                    .frame(width: 20, height: 20)
                     .foregroundStyle(Color.solarGold)
                 Text("watchlist.title")
                     .fixedSize()
@@ -58,11 +62,11 @@ extension WatchlistView {
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-                print("add tapped")
+                isPresented = true
             } label: {
                 Text("watchlist.addCoinButton.title")
                     .foregroundStyle(Color.primary)
-                    .font(Font.header15)
+                    .font(Font.body13.bold())
             }
         }
     }

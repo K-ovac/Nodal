@@ -55,13 +55,15 @@ extension CurrencyView {
     }
     
     private var currencySection: some View {
-        LazyVStack(spacing: 4) {
+        LazyVStack(spacing: 1) {
             ForEach(CurrencyPrice.allCases) { currency in
                 HStack {
                     Image(systemName: currency.icon)
+                        .frame(width: 24, height: 24)
+                    
                     Text(currency.title)
                         .foregroundStyle(Color.primary)
-                        .font(Font.body18)
+                        .font(Font.body15)
                     
                     Spacer()
                     

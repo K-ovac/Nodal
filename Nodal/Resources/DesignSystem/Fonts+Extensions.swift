@@ -12,6 +12,7 @@ extension Font {
     // MARK: - UI BODY / NAVIGATION / DESCRIPTIONS
     
     static var body13 = Font.custom("PlusJakartaSans-Regular", size: 13)
+    static var body15 = Font.custom("PlusJakartaSans-Regular", size: 15)
     static var body18 = Font.custom("PlusJakartaSans-Regular", size: 18)
     
     static var secondary11 = Font.custom("PlusJakartaSans-Regular", size: 11)

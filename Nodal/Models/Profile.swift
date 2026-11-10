@@ -22,6 +22,7 @@ struct ProfileSetting: Identifiable, Equatable {
     let title: LocalizedStringKey
     let iconName: String
     let value: String?
+    let color: Color
     let destination: SettingsDestination
 }
 
@@ -39,4 +40,5 @@ struct ProfileLink: Identifiable, Equatable {
     let title: String
     let iconName: String
     let link: String
+    let color: Color
 }

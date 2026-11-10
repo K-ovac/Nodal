@@ -52,17 +52,17 @@ extension LanguageView {
     }
     
     private var languageSection: some View {
-        LazyVStack(spacing: 4) {
+        LazyVStack(spacing: 1) {
             ForEach(Language.allCases) { lang in
                 HStack {
                     Image(lang.icon)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 20, height: 20)
+                        .frame(width: 24, height: 24)
                         
                     Text(lang.title)
                         .foregroundStyle(Color.primary)
-                        .font(Font.body18)
+                        .font(Font.body15)
                     
                     Spacer()
                     

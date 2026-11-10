@@ -204,7 +204,3 @@ private enum CoinMetrics: String, Identifiable, CaseIterable {
     
     var id: String { rawValue }
 }
-
-#Preview {
-    TabListView()
-}
