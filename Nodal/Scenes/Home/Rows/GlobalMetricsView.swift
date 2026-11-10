@@ -25,7 +25,8 @@ struct GlobalMetricsView: View {
     
     var body: some View {
         ZStack {
-            Color.linearGradient.opacity(0.5)
+            Color.linearGradient
+            Color.black.opacity(0.65)
             
             LazyVStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 4) {
@@ -35,7 +36,7 @@ struct GlobalMetricsView: View {
                         .foregroundStyle(Color.solarGold)
                         .frame(width: 14, height: 14)
                     Text("markets.globalMetrics.title")
-                        .foregroundStyle(Color.primary)
+                        .foregroundStyle(Color.white)
                         .font(Font.header15.bold())
                 }
                 .padding(.leading, 12)

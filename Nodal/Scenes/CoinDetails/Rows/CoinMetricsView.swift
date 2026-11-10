@@ -82,26 +82,16 @@ extension CoinMetricsView {
                     .clipShape(.circle)
             }
             
-            LazyVStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: -4) {
                 Text(coinMetadata.name)
                     .foregroundStyle(Color.primary)
                     .font(Font.header20.bold())
                     .lineLimit(1)
-                
-                // TODO: - доработка с модулем Sign Guard
-                
-                LazyHStack(spacing: 4) {
-                    Image("signGuard")
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 12, height: 12)
-                        .foregroundStyle(Color.enclaveSafe)
                     
-                    Text("coinDetails.metrics.nodalStatus.title (\(nodalVerified.formattedPercentage()))")
-                        .foregroundStyle(Color.enclaveSafe)
+                Text(coinMetadata.symbol.uppercased())
+                        .foregroundStyle(Color.secondary)
                         .font(Font.hashes12.bold())
-                }
+                
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -166,7 +156,7 @@ extension CoinMetricsView {
                     .foregroundStyle(Color.secondary)
                     .font(Font.hashes12.bold())
                 
-                Text(coinMetadata.marketData.low24h.currency(for: currency).formatted(.currency(code: currency)))
+                Text(coinMetadata.marketData.low24h.currency(for: currency).formattedPrice(currency: currency))
                     .bold()
                     .foregroundStyle(Color.primary)
                     .font(Font.hashes12.bold())
@@ -183,7 +173,7 @@ extension CoinMetricsView {
                     .foregroundStyle(Color.secondary)
                     .font(Font.hashes12.bold())
                 
-                Text(coinMetadata.marketData.high24h.currency(for: currency).formatted(.currency(code: currency)))
+                Text(coinMetadata.marketData.high24h.currency(for: currency).formattedPrice(currency: currency))
                     .bold()
                     .foregroundStyle(Color.primary)
                     .font(Font.hashes12.bold())
@@ -207,11 +197,14 @@ extension CoinMetricsView {
     }
 }
 
-
 // MARK: - Enum CoinMetrics
 
 private enum CoinMetrics: String, Identifiable, CaseIterable {
     case price, lowHighRange
     
     var id: String { rawValue }
+}
+
+#Preview {
+    TabListView()
 }

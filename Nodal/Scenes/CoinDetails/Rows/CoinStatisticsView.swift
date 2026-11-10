@@ -129,6 +129,7 @@ extension CoinStatisticsView {
                 .foregroundStyle(subtitleColor)
                 .font(Font.hashes12.bold())
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
     
     // MARK: - Circulating Supply
@@ -178,7 +179,7 @@ extension CoinStatisticsView {
                 Spacer()
                 
                 Text(
-                    "coinDetails.stat.atl.title \((coinMarketdata.atl.currency(for: currency)).formatted(.currency(code: currency))))"
+                    "coinDetails.stat.atl.title \((coinMarketdata.atl.currency(for: currency)).formattedPrice(currency: currency))"
                 )
                 .foregroundStyle(Color.secondary)
                 .font(Font.hashes12.bold())

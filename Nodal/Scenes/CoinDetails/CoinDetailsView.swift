@@ -59,7 +59,7 @@ struct CoinDetailsView: View {
         }
         
         .navigationDestination(isPresented: $isPresented) {
-            SearchView(selectedList: .trending)
+            SearchView(selectedList: .top)
         }
         
         // MARK: - Task fetchCoinDetails
@@ -286,8 +286,4 @@ extension CoinDetailsView {
             .cellStyle(position: .single)
         }
     }
-}
-
-#Preview {
-    CoinDetailsView(coinId: "bitcoin")
 }
