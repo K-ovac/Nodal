@@ -27,6 +27,8 @@ struct ErrorView: View {
         LazyVStack {
             //Error title
             Text("error.load.title")
+                .foregroundStyle(Color.primary)
+                .font(Font.header20)
             
             //Retry Button
             Button {
@@ -35,14 +37,14 @@ struct ErrorView: View {
                 }
             } label: {
                 Text("error.button.retry.title")
-                    .font(.body)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.white)
+                    .font(Font.header15)
             }
-            .padding(.horizontal)
-            .padding(.vertical, 8)
-            .foregroundStyle(.primary)
-            .background(.gray.opacity(0.4))
-            .clipShape(.buttonBorder)
+            .buttonStyle(.plain)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color.linearGradient)
+            .clipShape(.capsule)
         }
     }
 }

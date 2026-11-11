@@ -116,7 +116,8 @@ extension CoinMetricsView {
                     if category() != "" {
                         Text(category())
                             .foregroundStyle(Color.orangeNeon)
-                            .font(Font.header15)
+                            .font(Font.secondary11.bold())
+                            .padding(.vertical, 2)
                             .padding(.horizontal, 8)
                             .background(Color.orangeNeon.opacity(0.1))
                             .clipShape(.capsule)
@@ -239,4 +240,8 @@ private enum CoinMetrics: String, Identifiable, CaseIterable {
     case price, lowHighRange
     
     var id: String { rawValue }
+}
+
+#Preview {
+    TabListView()
 }
