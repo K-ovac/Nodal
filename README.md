@@ -6,9 +6,10 @@
 
 ## 📱 Скриншоты и Демонстрация
 
-|      Главный экран (Markets)       |          Поиск и Фильтры          |           Детали Коина            |              Настройки              |
-| :--------------------------------: | :-------------------------------: | :-------------------------------: | :---------------------------------: |
-| ![Markets Screen](C-Tab/docs/marketsScreen.png) | ![Search Screen](C-Tab/docs/searchScreen.png) | ![Detail Screen](C-Tab/docs/coinDetailsScreen.png) | ![Settings Screen](C-Tab/docs/profileScreen.png) |
+|             Главный экран (Markets)             |                Поиск и Фильтры                |                    Детали Коина                    |                    Настройки                     |
+| :---------------------------------------------: | :-------------------------------------------: | :------------------------------------------------: | :----------------------------------------------: |
+| ![Markets Screen](Nodal/docs/marketsScreen.png) | ![Search Screen](Nodal/docs/searchScreen.png) | ![Detail Screen](Nodal/docs/coinDetailsScreen.png) | ![Settings Screen](Nodal/docs/profileScreen.png) |
+|                                                 |                                               |                                                    |                                                  |
 
 ---
 
