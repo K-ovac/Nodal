@@ -7,14 +7,6 @@
 
 import Foundation
 
-//enum AppEnviropment {
-//    
-//    static let baseURL = "https://pro-api.dastek.xyz/"
-//    #warning("enter your api key")
-//    static let apiKey = "bdr-2kjU43vbh00"
-//    static let apiHeader = "x-nodal-api-key"
-//}
-
 enum AppEnviropment {
     static var baseURL: String {
         return "https://" + (Bundle.main.infoDictionary?["API_BASE_URL"] as? String ?? "")

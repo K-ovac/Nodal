@@ -50,7 +50,7 @@ struct StateView<Content: View>: View {
         switch state {
         case .initial, .loading:
             ProgressView()
-                .frame(maxWidth: .infinity, alignment: .center)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         case .loaded:
             content
         case .failure:

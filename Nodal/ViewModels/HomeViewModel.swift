@@ -19,16 +19,12 @@ final class HomeViewModel: ObservableObject {
     @Published private(set) var trendingCoins: [TrendingCoinItem] = []
     @Published private(set) var globalMetrics: GlobalMetrics?
     
-    @Published var sortDirection: SortDirection = .descending
-    @Published var currentSortType: SortTypes? = nil
-    @Published var rankCrypto: RankCrypto = .top100
-    @Published var priceChange: PriceChange = .day
-    @Published var selectedCoinId: String?
-    @Published var selectedList: TokenLists?
-    @Published var profilePresented = false
     @Published var globalMetricsState: ViewState = .initial
     @Published var trendingCoinsState: ViewState = .initial
     @Published var topListState: ViewState = .initial
+    
+    @Published var selectedCoinId: String?
+    @Published var selectedList: TokenLists?
     
     // MARK: - Properties
     
@@ -95,13 +91,6 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Factory Methods
     
-    func trendingCoinsColumns() -> [GridItem] {
-        [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-    }
-    
     func trendingCoinsRows() -> Int {
         6
     }
@@ -109,62 +98,4 @@ final class HomeViewModel: ObservableObject {
     func topCoinsRows() -> Int {
         10
     }
-    
-    func topListRows() -> Int {
-        switch rankCrypto {
-        case .top20:
-            return 20
-        case .top100:
-            return 100
-        case .top200:
-            return 200
-        case .allTokens:
-            return topList.count
-        }
-    }
-    
-    // MARK: - Sort Methods
-    
-    func toggleSort(by type: SortTypes) {
-        if currentSortType == type {
-            sortDirection.toggle()
-        } else {
-            currentSortType = type
-            sortDirection = .descending
-        }
-        
-        switch type {
-        case .marketCap:
-            topList.sort {
-                sortDirection == .descending ?
-                ($0.marketCap) > ($1.marketCap)
-                : ($0.marketCap) < ($1.marketCap)
-            }
-        case .price:
-            topList.sort {
-                sortDirection == .descending ?
-                ($0.currentPrice) > ($1.currentPrice)
-                : ($0.currentPrice) < ($1.currentPrice)
-            }
-        case .percentChange:
-            topList.sort {
-                sortDirection == .descending ?
-                ($0.priceChangePercentage24h ?? 0) > ($1.priceChangePercentage24h ?? 0)
-                : ($0.priceChangePercentage24h ?? 0) < ($1.priceChangePercentage24h ?? 0)
-            }
-        }
-    }
-    
-//    private func toTopList(for coin: TrendingCoinItem) -> TokenList {
-//        TokenList(
-//            id: coin.item.id,
-//            symbol: coin.item.symbol,
-//            name: coin.item.name,
-//            image: coin.item.small,
-//            currentPrice: coin.item.data.price,
-//            marketCap: <#T##Double#>,
-//            marketCapRank: coin.item.marketCapRank,
-//            priceChangePercentage24h: coin.item.data.priceChangePercentage24h.currency(for: selectedCurrency)
-//        )
-//    }
 }

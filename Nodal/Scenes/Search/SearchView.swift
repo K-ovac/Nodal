@@ -13,16 +13,14 @@ struct SearchView: View {
     
     // MARK: - Properties
     
-    @StateObject private var viewModel = HomeViewModel(
-        homeService: HomeService(
-            networkClient: NetworkClient()
-        ))
-    @State private var searchText: String = ""
+    @StateObject private var viewModel: SearchViewModel
     
-    @State private var selectedList: TokenLists
-    
-    init(selectedList: TokenLists) {
-        self.selectedList = selectedList
+    init(selectedList: TokenLists = .top) {
+        _viewModel = StateObject(
+            wrappedValue: SearchViewModel(
+                homeService: HomeService(
+                    networkClient: NetworkClient()),
+                list: selectedList))
     }
         
     // MARK: - Body
@@ -30,16 +28,7 @@ struct SearchView: View {
     var body: some View {
         List {
             topListSection
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-                .listRowInsets(
-                    EdgeInsets(
-                        top: 0,
-                        leading: 16,
-                        bottom: 0,
-                        trailing: 16
-                    )
-                )
+                .listRowPreset()
         }
         .listStyle(.plain)
         .background(Color.background)
@@ -52,10 +41,10 @@ struct SearchView: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             leadingToolbar
-            principicalToolBar
+            principalToolBar
         }
         .searchable(
-            text: $searchText,
+            text: $viewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .automatic),
             prompt: "Solana, SOL"
         )
@@ -63,10 +52,10 @@ struct SearchView: View {
         // MARK: - task fetchTopList
         
         .task {
-            await viewModel.fetchTopList()
+            await viewModel.fetchData()
         }
         .refreshable {
-            await viewModel.fetchTopList()
+            await viewModel.fetchData()
         }
     }
 }
@@ -81,7 +70,7 @@ extension SearchView {
         }
     }
     
-    private var principicalToolBar: some ToolbarContent {
+    private var principalToolBar: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             Text("topListCoins.title")
                 .foregroundStyle(Color.primary)
@@ -89,24 +78,11 @@ extension SearchView {
         }
     }
     
-    // MARK: - Search Promt
-    
-    private var filteredCoins: [TokenList] {
-        if !searchText.isEmpty {
-            return list(for: selectedList).filter {
-                $0.symbol.localizedCaseInsensitiveContains(searchText) ||
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-        } else {
-            return list(for: selectedList)
-        }
-    }
-    
     // MARK: - Top List Section
     
     private var topListSection: some View {
         Section(
-            header: TopListHeader(selectedList: $selectedList)
+            header: TopListHeader(selectedList: $viewModel.selectedList)
         ) {
             StateView(
                 content: topListContent,
@@ -117,39 +93,21 @@ extension SearchView {
     }
     
     // MARK: - Top List Content
-    
-    // TODO: - доработать отображение трендовых коинов
-    
+        
     private var topListContent: some View {
-        ForEach(
-            filteredCoins
-                .prefix(
-                    viewModel.topListRows()
-                )
-        ) { coin in
-            TopCoinsRow(token: coin, currency: viewModel.selectedCurrency)
+        ForEach(viewModel.filteredCoins) { coin in
+            TopCoinsRow(
+                token: coin,
+                currency: viewModel.selectedCurrency
+            )
                 .contentShape(Rectangle())
                 .onTapGesture {
                     viewModel.selectedCoinId = coin.id
                 }
                 .cellStyle(
                     for: coin,
-                    in: filteredCoins
+                    in: viewModel.filteredCoins
                 )
-        }
-    }
-    
-    // TODO: - во ViewModel как и остальную бизнес-логику
-    
-    private func list(for list: TokenLists) -> [TokenList] {
-        switch list {
-            
-        case .top:
-            return viewModel.topList
-            
-            // TODO: - на трендовые
-        case .trending:
-            return viewModel.topList.filter { $0.marketCapRank % 2 == 0 }
         }
     }
 }

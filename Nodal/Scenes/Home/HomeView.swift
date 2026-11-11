@@ -165,7 +165,7 @@ extension HomeView {
     // MARK: - Trending Coins Content
     
     private var trendingCoinsContent: some View {
-        LazyVGrid(columns: viewModel.trendingCoinsColumns()) {
+        LazyVGrid(columns: Metrics.columns()) {
             ForEach(
                 viewModel.trendingCoins
                     .prefix(viewModel.trendingCoinsRows()),
