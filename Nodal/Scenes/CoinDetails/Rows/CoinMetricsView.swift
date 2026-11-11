@@ -53,7 +53,7 @@ struct CoinMetricsView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 1) {
             
             // MARK: - Coin Price Data
             
@@ -240,8 +240,4 @@ private enum CoinMetrics: String, Identifiable, CaseIterable {
     case price, lowHighRange
     
     var id: String { rawValue }
-}
-
-#Preview {
-    TabListView()
 }
