@@ -15,6 +15,7 @@ struct CoinMetadata: Codable, Identifiable {
     let image: CoinImage
     let marketData: CoinMarketData
     let links: CoinLinks
+    let categories: [String]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,6 +25,7 @@ struct CoinMetadata: Codable, Identifiable {
         case image
         case marketData = "market_data"
         case links
+        case categories
     }
 }
 

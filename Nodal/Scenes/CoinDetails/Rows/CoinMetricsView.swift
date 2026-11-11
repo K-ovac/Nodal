@@ -16,15 +16,27 @@ struct CoinMetricsView: View {
         
     private let coinMetadata: CoinMetadata
     private let currency: String
-    
-    private let nodalVerified = Double.random(in: 0..<100)
-    
+        
     private var priceTrend: Image {
         guard let trend = coinMetadata.marketData.priceChangePercentage24h else { return Image("xmark") }
         
         return trend >= 0
         ? Image("uptrend")
         : Image("downtrend")
+    }
+    
+    private var rangeProgress: Double {
+        let currentPrice = coinMetadata.marketData.currentPrice.currency(for: currency)
+        let lowPrice = coinMetadata.marketData.low24h.currency(for: currency)
+        let highPrice = coinMetadata.marketData.high24h.currency(for: currency)
+        
+        let range = highPrice - lowPrice
+        guard range > 0, !range.isNaN else { return 0 }
+        
+        let progress = (currentPrice - lowPrice) / range
+        guard !progress.isNaN else { return 0 }
+        
+        return min(max(progress, 0), 1)
     }
     
     // MARK: - Init
@@ -64,6 +76,18 @@ struct CoinMetricsView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+    
+    // MARK: - Private Methods
+    
+    private func category() -> String {
+        for category in coinMetadata.categories {
+            if category == "Layer 1 (L1)" {
+                return "L1"
+            }
+        }
+        
+        return ""
+    }
 }
 
 // MARK: - Extension CoinMetricsView
@@ -83,10 +107,23 @@ extension CoinMetricsView {
             }
             
             VStack(alignment: .leading, spacing: -4) {
-                Text(coinMetadata.name)
-                    .foregroundStyle(Color.primary)
-                    .font(Font.header20.bold())
-                    .lineLimit(1)
+                HStack {
+                    Text(coinMetadata.name)
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header20.bold())
+                        .lineLimit(1)
+                    
+                    if category() != "" {
+                        Text(category())
+                            .foregroundStyle(Color.orangeNeon)
+                            .font(Font.header15)
+                            .padding(.horizontal, 8)
+                            .background(Color.orangeNeon.opacity(0.1))
+                            .clipShape(.capsule)
+                            .overlay(Metrics.shapeCapsule.strokeBorder(Color.orangeNeon, lineWidth: 1))
+                    }
+                }
+                
                     
                 Text(coinMetadata.symbol.uppercased())
                         .foregroundStyle(Color.secondary)
@@ -118,10 +155,9 @@ extension CoinMetricsView {
                     : "downtrend"
                 )
                 .renderingMode(.template)
+                .resizable()
                 .scaledToFill()
-                .frame(width: 6, height: 6)
-                .padding(.leading, 4)
-                
+                .frame(width: 16, height: 16)
                 
                 Text("\((coinMetadata.marketData.priceChangePercentage24h ?? 0).formattedPercentage()) coinDetails.metrics.percentage24h.title")
             }
@@ -182,8 +218,8 @@ extension CoinMetricsView {
             Spacer()
             
             ProgressView(
-                value: coinMetadata.marketData.currentPrice.currency(for: currency),
-                total: coinMetadata.marketData.high24h.currency(for: currency)
+                value: rangeProgress,
+                total: 1.0
             )
             .padding(.bottom, 4)
             .progressViewStyle(.linear)
