@@ -18,16 +18,27 @@ struct CoinStatisticsView: View {
     // MARK: - Сalculated Values
     
     private var circulatingSupplyPercent: String {
-        coinMarketdata.maxSupply != nil
-        ? ((coinMarketdata.circulatingSupply * 100) / Double((coinMarketdata.maxSupply ?? 0)))
+        guard let maxSupply = coinMarketdata.maxSupply, maxSupply > 0 else {
+            return "∞"
+        }
+        return ((coinMarketdata.circulatingSupply * 100) / Double(maxSupply))
             .formattedPercentage(isChange: false)
-        : "∞"
+    }
+    
+    private var circulatingProgress: Double {
+        guard let maxSupply = coinMarketdata.maxSupply, maxSupply > 0 else {
+            return 0
+        }
+        let progress = coinMarketdata.circulatingSupply / Double(maxSupply)
+        guard !progress.isNaN else { return 0 }
+        return min(max(progress, 0), 1)
     }
     
     private var maxSupply: String {
-        coinMarketdata.maxSupply != nil
-        ? (coinMarketdata.maxSupply ?? 0).formatted(.number.notation(.compactName))
-        : "∞"
+        guard let maxSupply = coinMarketdata.maxSupply, maxSupply > 0 else {
+            return "∞"
+        }
+        return maxSupply.formatted(.number.notation(.compactName))
     }
     
     private var fdvSubtitle: String {
@@ -157,8 +168,8 @@ extension CoinStatisticsView {
             Spacer()
             
             ProgressView(
-                value: coinMarketdata.circulatingSupply,
-                total: Double(coinMarketdata.maxSupply ?? 0)
+                value: circulatingProgress,
+                total: 1.0
             )
             .progressViewStyle(.linear)
             .tint(Color.linearGradient)
