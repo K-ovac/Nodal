@@ -9,8 +9,11 @@ import SwiftUI
 import Combine
 
 final class AuthViewModel: ObservableObject {
+    @Published var username: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var avatarUrl: String = ""
+    
     @Published var hasError: Bool = false
     @Published var isSigningIn: Bool = false
     

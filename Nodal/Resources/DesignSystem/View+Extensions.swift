@@ -16,12 +16,34 @@ enum CellPosition {
 // Extension View
 
 extension View {
+    
+    @ViewBuilder
+    func applyLiquidGlassEffect() -> some View {
+        if #available(iOS 26.0, *) {
+            self.buttonStyle(.glass)
+        } else {
+            self
+        }
+    }
+    
+    func listRowPreset() -> some View {
+        self
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 0,
+                trailing: 16))
+    }
+    
     func cellStyle<Item:Equatable>(
         for item: Item,
         in items: [Item],
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
-        innerRadius: CGFloat = 0
+        innerRadius: CGFloat = 0,
+        padding: CGFloat = 8
     ) -> some View {
         let position: CellPosition = {
             guard items.count > 1 else { return .single }
@@ -38,7 +60,8 @@ extension View {
             position: position,
             isSelected: isSelected,
             outerRadius: outerRadius,
-            innerRadius: innerRadius
+            innerRadius: innerRadius,
+            padding: padding
         )
     }
     
@@ -46,23 +69,16 @@ extension View {
         position: CellPosition,
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
-        innerRadius: CGFloat = 0
+        innerRadius: CGFloat = 0,
+        padding: CGFloat = 8
     ) -> some View {
         self.stylePreset(
             position: position,
             isSelected: isSelected,
             outerRadius: outerRadius,
-            innerRadius: innerRadius
+            innerRadius: innerRadius,
+            padding: padding
         )
-    }
-    
-    @ViewBuilder
-    func applyLiquidGlassEffect() -> some View {
-        if #available(iOS 26.0, *) {
-            self.buttonStyle(.glass)
-        } else {
-            self
-        }
     }
     
     private func stylePreset(
@@ -70,6 +86,7 @@ extension View {
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
         innerRadius: CGFloat = 0,
+        padding: CGFloat = 8
     ) -> some View {
         let radii: RectangleCornerRadii = {
             switch position {
@@ -111,7 +128,7 @@ extension View {
         
         return self
             .foregroundStyle(.primary)
-            .padding(8)
+            .padding(padding)
             .background(Color.card)
             .clipShape(shape)
             .overlay(
@@ -123,16 +140,5 @@ extension View {
                         lineWidth: 0.5
                     )
             )
-    }
-    
-    func listRowPreset() -> some View {
-        self
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets(
-                top: 0,
-                leading: 16,
-                bottom: 0,
-                trailing: 16))
     }
 }

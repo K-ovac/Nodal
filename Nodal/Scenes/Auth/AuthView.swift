@@ -7,85 +7,144 @@
 
 import SwiftUI
 
-enum AuthState: String, CaseIterable, Identifiable {
-    case signIn, signUp
+struct AuthView: View {
     
-    var id: String { rawValue }
+    @StateObject private var viewModel = AuthViewModel()
     
-    var  signingTitle: LocalizedStringKey {
-        switch self {
-        case .signIn: return "auth.signInButton.title"
-        case .signUp: return "auth.signUpButton.title"
-        }
-    }
-    
-    var signState: LocalizedStringKey {
-        switch self {
-        case .signIn: return "auth.signUpButton.title"
-        case .signUp: return "auth.signInButton.title"
+    var body: some View {
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
+            
+            VStack(alignment: .trailing, spacing: 16) {
+                authState
+                
+                switch viewModel.authState {
+                case .signIn:
+                    signInFields
+                        .textFieldStyle(.roundedBorder)
+                        .disabled(viewModel.isSigningIn)
+                case .createProfile:
+                    signUpFields
+                        .textFieldStyle(.roundedBorder)
+                        .disabled(viewModel.isSigningIn)
+                }
+                
+                Spacer()
+                
+                if viewModel.isSigningIn {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    Button {
+                        viewModel.sign()
+                    } label: {
+                        Text(viewModel.authState.signingTitle)
+                            .foregroundStyle(Color.primary)
+                            .font(Font.body15.bold())
+                            .frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(8)
+                    .overlay(
+                        Metrics.shapeCapsule
+                            .strokeBorder(Color.linearGradient, lineWidth: 1.25))
+                    .disabled(!viewModel.canSignIn)
+                }
+            }
+            .padding()
         }
     }
 }
 
-struct AuthView: View {
-    
-    @StateObject private var viewModel = AuthViewModel()
-        
-    var body: some View {
-        VStack(alignment: .trailing) {
-            VStack(alignment: .leading) {
-                Text("auth.login.title")
-                    .foregroundStyle(Color.secondary)
-                    .font(Font.secondary11.bold())
-                TextField("auth.login.textField.title", text: $viewModel.email)
-                    .textInputAutocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .autocorrectionDisabled(true)
+extension AuthView {
+    private var authState: some View {
+        HStack(spacing: -4) {
+            ForEach(AuthState.allCases) { state in
+                let isSelected = viewModel.authState == state
                 
-                Text("auth.password.title")
-                    .foregroundStyle(Color.secondary)
-                    .font(Font.secondary11.bold())
-                SecureField("auth.password.textField.title", text: $viewModel.password)
-            }
-            .textFieldStyle(.roundedBorder)
-            .disabled(viewModel.isSigningIn)
-            
-            Button {
-                switch viewModel.authState {
-                case .signIn:
-                    return viewModel.authState = .signUp
-                    
-                case .signUp:
-                    return viewModel.authState = .signIn
-                }
-            } label: {
-                Text(viewModel.authState.signState)
-                    .foregroundStyle(Color.cautionPermit)
-                    .font(Font.body15.bold())
-            }
-            
-            if viewModel.isSigningIn {
-                ProgressView()
-                    .progressViewStyle(.circular)
-            } else {
                 Button {
-                    viewModel.sign()
+                    withAnimation(.linear) {
+                        viewModel.authState = state
+                    }
                 } label: {
-                    Text(viewModel.authState.signingTitle)
-                        .foregroundStyle(Color.primary)
-                        .font(Font.body15.bold())
-                        .frame(maxWidth: .infinity)
+                    HStack {
+                        Image(systemName: state.icon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 18)
+                        Text(state.signingTitle)
+                            .font(Font.body15.bold())
+                    }
+                    .foregroundStyle(
+                        isSelected
+                        ? Color.orangeNeon
+                        : Color.primary)
                 }
+                .buttonStyle(.plain)
+                .padding(.vertical, 4)
                 .frame(maxWidth: .infinity)
-                .padding(8)
-                .overlay(
-                    Metrics.shapeCapsule
-                        .strokeBorder(Color.linearGradient, lineWidth: 1.25))
-                .disabled(!viewModel.canSignIn)
-                .padding(.top)
+                .background(
+                    isSelected
+                    ? Color.orangeNeon.opacity(0.1)
+                    : Color.clear)
+                .clipShape(.capsule)
             }
         }
-        .padding()
+        .cellStyle(position: .single, padding: 2)
+    }
+    
+    private var signInFields: some View {
+        VStack(alignment: .leading) {
+            Text("auth.login.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            TextField("auth.login.textField.title", text: $viewModel.email)
+                .textInputAutocapitalization(.none)
+                .keyboardType(.emailAddress)
+                .autocorrectionDisabled(true)
+            
+            Text("auth.password.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            SecureField("auth.password.textField.title", text: $viewModel.password)
+        }
+    }
+    
+    private var signUpFields: some View {
+        VStack(alignment: .leading) {
+            Text("auth.username.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            TextField("auth.username.textField.title", text: $viewModel.email)
+                .textInputAutocapitalization(.none)
+                .keyboardType(.default)
+                .autocorrectionDisabled(true)
+            
+            Text("auth.login.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            TextField("auth.login.textField.title", text: $viewModel.email)
+                .textInputAutocapitalization(.none)
+                .keyboardType(.emailAddress)
+                .autocorrectionDisabled(true)
+            
+            Text("auth.password.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            SecureField("auth.password.textField.title", text: $viewModel.password)
+            
+            
+            Text("auth.avatar.title")
+                .foregroundStyle(Color.secondary)
+                .font(Font.secondary11.bold())
+            LazyVGrid(columns: Metrics
+                .columns(count: 4)) {
+                    ForEach(Avatars.title, id: \.self) { avatar in
+                        Text(avatar)
+                    }
+            }
+        }
     }
 }
 
