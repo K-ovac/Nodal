@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthView: View {
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel = AuthViewModel()
     
@@ -54,10 +55,45 @@ struct AuthView: View {
             }
             .padding()
         }
+        .toolbar {
+            leadingToolBar
+            trailingToolBar
+        }
     }
 }
 
 extension AuthView {
+    private var leadingToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            HStack {
+                Image("nodalIcon")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 24, height: 24)
+                
+                VStack {
+                    Text("auth.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15)
+                    
+                    Text("auth.subtitle")
+                        .foregroundStyle(Color.secondary)
+                        .font(Font.secondary11.bold())
+                }
+            }
+        }
+    }
+    
+    private var trailingToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+            }
+        }
+    }
+    
     private var authState: some View {
         HStack(spacing: -4) {
             ForEach(AuthState.allCases) { state in
