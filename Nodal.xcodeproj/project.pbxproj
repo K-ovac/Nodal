@@ -28,9 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		46B1F813308F9FBB00BB407A /* JetBrainsMono-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "JetBrainsMono-OFL.txt"; sourceTree = "<group>"; };
-		46B1F814308FA00B00BB407A /* PlusJakartaSans-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "PlusJakartaSans-OFL.txt"; sourceTree = "<group>"; };
-		46B1F81B308FA05200BB407A /* SpaceGrotesk-OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SpaceGrotesk-OFL.txt"; sourceTree = "<group>"; };
 		46D172022F96D1D900647BC5 /* Nodal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nodal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D1720F2F96D1DA00647BC5 /* NodalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D172192F96D1DA00647BC5 /* NodalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +63,16 @@
 			path = NodalUITests;
 			sourceTree = "<group>";
 		};
+		46D6325830A8F7CC00C40A00 /* Fonts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		46D6325930A8F7DD00C40A00 /* Avatars */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Avatars;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +104,8 @@
 		46B1F812308F9F9C00BB407A /* Licenses */ = {
 			isa = PBXGroup;
 			children = (
-				46B1F813308F9FBB00BB407A /* JetBrainsMono-OFL.txt */,
-				46B1F814308FA00B00BB407A /* PlusJakartaSans-OFL.txt */,
-				46B1F81B308FA05200BB407A /* SpaceGrotesk-OFL.txt */,
+				46D6325930A8F7DD00C40A00 /* Avatars */,
+				46D6325830A8F7CC00C40A00 /* Fonts */,
 			);
 			path = Licenses;
 			sourceTree = "<group>";

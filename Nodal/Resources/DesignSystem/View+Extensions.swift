@@ -37,6 +37,25 @@ extension View {
                 trailing: 16))
     }
     
+    func selectItem(isSelected: Bool, color: Color) -> some View {
+        self
+            .padding(.horizontal, 8)
+            .padding(.top, 12)
+            .padding(.bottom, 4)
+            .background(
+                isSelected
+                ? color.opacity(0.15)
+                : .clear)
+            .overlay(
+                Metrics.shapeCr16
+                    .strokeBorder(
+                        isSelected
+                        ? color
+                        : .clear,
+                        lineWidth: 1))
+            .clipShape(Metrics.shapeCr16)
+    }
+    
     func cellStyle<Item:Equatable>(
         for item: Item,
         in items: [Item],

@@ -1,0 +1,36 @@
+# Flaticon Assets Attribution
+
+The following assets are used in the C application under the Flaticon Free License (with attribution).
+
+## Avatars
+
+- Avatar 1 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/man-avatar_5556558
+
+- Avatar 2 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/man-avatar_5556487
+
+- Avatar 3 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/man-avatar_5556480
+  
+- Avatar 4 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/woman_5556477
+
+- Avatar 5 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/woman_5556503
+  
+- Avatar 6 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/man-avatar_5556512
+  
+- Avatar 7 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/woman_5556465
+  
+- Avatar 8 — Designed by [Author Name] from Flaticon
+  Source: https://www.flaticon.com/free-icon/woman_5556554
+  
+## License
+
+Assets are used under the Flaticon Free License (with attribution).
+
+https://www.flaticon.com/license/license.pdf
+

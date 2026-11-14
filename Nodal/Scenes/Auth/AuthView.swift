@@ -22,7 +22,7 @@ struct AuthView: View {
                 switch viewModel.authState {
                 case .signIn:
                     signInFields
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(CustomTextFieldStyle())
                         .disabled(viewModel.isSigningIn)
                 case .createProfile:
                     signUpFields
@@ -95,54 +95,63 @@ extension AuthView {
     }
     
     private var signInFields: some View {
-        VStack(alignment: .leading) {
-            Text("auth.login.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            TextField("auth.login.textField.title", text: $viewModel.email)
-                .textInputAutocapitalization(.none)
-                .keyboardType(.emailAddress)
-                .autocorrectionDisabled(true)
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading) {
+                Text("auth.login.title")
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.secondary11.bold())
+                TextField("auth.login.textField.title", text: $viewModel.email)
+                    .textInputAutocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled(true)
+            }
             
-            Text("auth.password.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            SecureField("auth.password.textField.title", text: $viewModel.password)
+            VStack(alignment: .leading) {
+                Text("auth.password.title")
+                    .foregroundStyle(Color.secondary)
+                    .font(Font.secondary11.bold())
+                SecureField("auth.password.textField.title", text: $viewModel.password)
+            }
         }
     }
     
     private var signUpFields: some View {
-        VStack(alignment: .leading) {
-            Text("auth.username.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            TextField("auth.username.textField.title", text: $viewModel.email)
-                .textInputAutocapitalization(.none)
-                .keyboardType(.default)
-                .autocorrectionDisabled(true)
-            
-            Text("auth.login.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            TextField("auth.login.textField.title", text: $viewModel.email)
-                .textInputAutocapitalization(.none)
-                .keyboardType(.emailAddress)
-                .autocorrectionDisabled(true)
-            
-            Text("auth.password.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            SecureField("auth.password.textField.title", text: $viewModel.password)
-            
-            
-            Text("auth.avatar.title")
-                .foregroundStyle(Color.secondary)
-                .font(Font.secondary11.bold())
-            LazyVGrid(columns: Metrics
-                .columns(count: 4)) {
-                    ForEach(Avatars.title, id: \.self) { avatar in
-                        Text(avatar)
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading) {
+                    Text("auth.username.title")
+                        .foregroundStyle(Color.secondary)
+                        .font(Font.secondary11.bold())
+                    TextField("auth.username.textField.title", text: $viewModel.username)
+                        .textInputAutocapitalization(.none)
+                        .keyboardType(.default)
+                        .autocorrectionDisabled(true)
+                }
+                
+                signInFields
+                
+                VStack(alignment: .leading) {
+                    Text("auth.avatar.title")
+                        .foregroundStyle(Color.secondary)
+                        .font(Font.body15.bold())
+                    LazyVGrid(columns: Metrics
+                        .columns(count: 4)) {
+                            ForEach(Avatars.title, id: \.self) { avatar in
+                                let isSelected = viewModel.avatarUrl == avatar
+                                
+                                Image(avatar)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 52, height: 52)
+                                    .selectItem(isSelected: isSelected,
+                                                color: Color.enclaveSafe)
+                                
+                                    .onTapGesture {
+                                        viewModel.avatarUrl = avatar
+                                    }
+                            }
+                        }
+                }
             }
         }
     }
