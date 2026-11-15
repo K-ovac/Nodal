@@ -32,4 +32,10 @@ enum AuthState: String, CaseIterable, Identifiable {
         case .createProfile: return "person.badge.plus"
         }
     }
+    
+    enum AuthViewState: String, CaseIterable, Identifiable {
+        case authorized, unauthorized
+        
+        var id: String { rawValue }
+    }
 }

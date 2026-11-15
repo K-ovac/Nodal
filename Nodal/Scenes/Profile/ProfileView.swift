@@ -96,11 +96,24 @@ extension ProfileView {
     //MARK: - Settings Section
     
     private var profileCard: some View {
-        ProfileRow()
-            .clipShape(
-                RoundedRectangle(cornerRadius: 16)
-            )
-            .padding(.bottom)
+        ProfileRow(isAuthorized: viewModel.isAuthorized) {
+            if viewModel.isAuthorized {
+                viewModel.isAuthorized = false
+            } else {
+                viewModel.isAuthPresented = true
+            }
+        }
+        .clipShape(
+            Metrics.shapeCr16
+        )
+        .padding(.bottom)
+        
+        .sheet(isPresented: $viewModel.isAuthPresented) {
+            NavigationStack {
+                AuthView()
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
     
     private var settingsSection: some View {
@@ -165,4 +178,8 @@ extension ProfileView {
             }
         }
     }
+}
+
+#Preview {
+    TabListView()
 }

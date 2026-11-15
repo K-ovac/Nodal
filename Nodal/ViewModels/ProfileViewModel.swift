@@ -19,6 +19,9 @@ final class ProfileViewModel: ObservableObject {
     @Published private(set) var profileSettings: [ProfileSetting] = []
     @Published private(set) var profileLinks: [ProfileLink] = []
     
+    @Published var isAuthorized: Bool
+    @Published var isAuthPresented: Bool = false
+    
     private var storage = UserDefaultsService.shared
     
     var selectedCurrency: String {
@@ -30,6 +33,10 @@ final class ProfileViewModel: ObservableObject {
     
     var selectedLanguage: Language {
         Language(rawValue: storage.currentLanguage) ?? .en
+    }
+    
+    init(isAuthorized: Bool = true) {
+        self.isAuthorized = isAuthorized
     }
     
     // MARK: - GetProfile

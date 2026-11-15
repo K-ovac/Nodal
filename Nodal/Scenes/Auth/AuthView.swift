@@ -27,7 +27,7 @@ struct AuthView: View {
                         .disabled(viewModel.isSigningIn)
                 case .createProfile:
                     signUpFields
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(CustomTextFieldStyle())
                         .disabled(viewModel.isSigningIn)
                 }
                 
@@ -50,11 +50,21 @@ struct AuthView: View {
                     .overlay(
                         Metrics.shapeCapsule
                             .strokeBorder(Color.linearGradient, lineWidth: 1.25))
-                    .disabled(!viewModel.canSignIn)
+                    .disabled(viewModel.isSigningIn)
                 }
             }
-            .padding()
+            .padding(.horizontal)
         }
+        .alert(isPresented: $viewModel.hasError) {
+            Alert(
+                title: Text("auth.failAuthAlert.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.header15),
+                message: Text("auth.failAuthAlert.message")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.body15.bold()))
+        }
+        
         .toolbar {
             leadingToolBar
             trailingToolBar
@@ -71,7 +81,7 @@ extension AuthView {
                     .scaledToFill()
                     .frame(width: 24, height: 24)
                 
-                VStack {
+                VStack(alignment: .leading) {
                     Text("auth.title")
                         .foregroundStyle(Color.primary)
                         .font(Font.header15)
@@ -80,7 +90,9 @@ extension AuthView {
                         .foregroundStyle(Color.secondary)
                         .font(Font.secondary11.bold())
                 }
+                .fixedSize(horizontal: true, vertical: false)
             }
+            .padding(.horizontal, 8)
         }
     }
     
@@ -140,6 +152,8 @@ extension AuthView {
                     .textInputAutocapitalization(.none)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled(true)
+                    .font(Font.body15.bold())
+                
             }
             
             VStack(alignment: .leading) {
@@ -147,6 +161,7 @@ extension AuthView {
                     .foregroundStyle(Color.secondary)
                     .font(Font.secondary11.bold())
                 SecureField("auth.password.textField.title", text: $viewModel.password)
+                    .font(Font.body15.bold())
             }
         }
     }
@@ -162,6 +177,7 @@ extension AuthView {
                         .textInputAutocapitalization(.none)
                         .keyboardType(.default)
                         .autocorrectionDisabled(true)
+                        .font(Font.body15.bold())
                 }
                 
                 signInFields
@@ -171,7 +187,7 @@ extension AuthView {
                         .foregroundStyle(Color.secondary)
                         .font(Font.body15.bold())
                     LazyVGrid(columns: Metrics
-                        .columns(count: 4)) {
+                        .columns(count: 4), spacing: 4) {
                             ForEach(Avatars.title, id: \.self) { avatar in
                                 let isSelected = viewModel.avatarUrl == avatar
                                 
@@ -187,6 +203,8 @@ extension AuthView {
                                     }
                             }
                         }
+                        .padding(.top, -8)
+                        .padding(.horizontal, -8)
                 }
             }
         }
