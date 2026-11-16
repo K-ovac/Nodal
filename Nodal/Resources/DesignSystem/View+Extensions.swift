@@ -23,6 +23,17 @@ extension View {
             self.buttonStyle(.glass)
         } else {
             self
+                .cellStyle(position: .single)
+        }
+    }
+    
+    @ViewBuilder
+    func shimmer(active: Bool) -> some View {
+        if active {
+            self
+                .modifier(PulsingPlaceholderModifier())
+        } else {
+            self
         }
     }
     

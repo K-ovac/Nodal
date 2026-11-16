@@ -41,11 +41,14 @@ final class ProfileViewModel: ObservableObject {
     
     init(
         authService: AuthServiceProtocol,
-        keychainStorage: AuthTokenStorageProtocol) {
-            self.authService = authService
-            self.keychainStorage = keychainStorage
-            self.isAuthorized = keychainStorage.hasToken
-        }
+        keychainStorage: AuthTokenStorageProtocol
+    ) {
+        self.authService = authService
+        self.keychainStorage = keychainStorage
+        self.isAuthorized = keychainStorage.hasToken
+        
+        loadSettings()
+    }
      
     func signOut() {
         authService.signOut()
@@ -63,9 +66,8 @@ final class ProfileViewModel: ObservableObject {
     func onAuthSuccess() {
         isAuthorized = true
         isAuthPresented = false
-        Task {
-            await getProfile()
-        }
+        
+        Task { await getProfile() }
     }
     
     // MARK: - GetProfile
@@ -90,7 +92,7 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
-    func getSettings() async {
+    func loadSettings() {
         profileSettings = [
             ProfileSetting(
                 title: "profile.currency.title",

@@ -8,9 +8,12 @@
 import SwiftUI
 import Combine
 
+// MARK: - AuthViewModel
 
 @MainActor
 final class AuthViewModel: ObservableObject {
+    
+    // MARK: - Published
     
     @Published var username: String = ""
     @Published var email: String = ""
@@ -21,6 +24,8 @@ final class AuthViewModel: ObservableObject {
     @Published var isSigningIn: Bool = false
     
     @Published var authState: AuthState = .signIn
+    
+    // MARK: - Properties
     
     var isFormValid: Bool {
         switch authState {
@@ -33,10 +38,13 @@ final class AuthViewModel: ObservableObject {
     
     private var baseAuthService: BasicAuthService
     
+    // MARK: - Init
+    
     init(baseAuthService: BasicAuthService) {
         self.baseAuthService = baseAuthService
     }
     
+    // Sign In & Up, Logout methods
     
     func sign() async {
         guard isFormValid else { return }

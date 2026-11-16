@@ -16,7 +16,13 @@ struct ProfileRow: View {
     private var isAuthorized: Bool
     private let onActionTap: () -> Void
     
-    init(user: User? = nil, isAuthorized: Bool, onActionTap: @escaping () -> Void) {
+    // MARK: - Init
+    
+    init(
+        user: User? = nil,
+        isAuthorized: Bool,
+        onActionTap: @escaping () -> Void
+    ) {
         self.user = user
         self.isAuthorized = isAuthorized
         self.onActionTap = onActionTap
@@ -26,8 +32,14 @@ struct ProfileRow: View {
     
     var body: some View {
         VStack {
-            if isAuthorized, let user = user {
-                authorized(user: user)
+            if isAuthorized {
+                if let user = user {
+                    authorized(user: user)
+                } else {
+                    authorized(user: .placeholder)
+                        .shimmer(active: true)
+                        .allowsHitTesting(false)
+                }
             } else {
                 unauthorized
             }
@@ -38,6 +50,9 @@ struct ProfileRow: View {
 }
 
 extension ProfileRow {
+    
+    // MARK: - Unauthorized
+    
     private var unauthorized: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -82,30 +97,33 @@ extension ProfileRow {
         .cellStyle(position: .single, padding: 16)
     }
     
+    // MARK: - Autnhorized
+    
     private func authorized(user: User) -> some View {
         ZStack {
             Color.linearGradient.opacity(0.75)
+            
             HStack(spacing: 16) {
-                Image(user.avatarUrl ?? "avatar_1")
+                Image(user.avatarUrl ?? "")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 24, height: 24)
-                    .padding()
+                    .frame(width: 48, height: 48)
+                    .padding(8)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.black.opacity(0.4))
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.cautionPermit, lineWidth: 2)
+                            .stroke(Color.cautionPermit, lineWidth: 0.5)
                     )
                 
                 VStack(alignment: .leading) {
-                    Text(user.username)
-                        .font(.header15)
+                    Text("@" + user.username)
+                        .font(.body18.bold())
                         .foregroundStyle(.white)
                     Text(user.email)
-                        .font(Font.header15)
+                        .font(Font.body15.bold())
                         .foregroundStyle(.white)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -120,15 +138,16 @@ extension ProfileRow {
                         .scaledToFill()
                         .frame(width: 12, height: 12)
                         .foregroundStyle(Color.white)
-                        .padding()
+                        .padding(12)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.black.opacity(0.4))
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.cautionPermit, lineWidth: 2)
+                                .strokeBorder(Color.cautionPermit, lineWidth: 0.5)
                         )
+                        .unredacted()
                 }
                 .buttonStyle(.plain)
             }

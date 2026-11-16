@@ -12,7 +12,7 @@ struct TabListView: View {
     
     //MARK: - Properties
     
-    @State private var selected: Int = 3
+    @State private var selected: Int = 0
     
     //MARK: - Body
     

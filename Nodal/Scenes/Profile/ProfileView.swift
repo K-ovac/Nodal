@@ -16,6 +16,7 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel(
         authService: BasicAuthService(),
         keychainStorage: AuthTokenStorage.shared)
+    
     @State private var selectedLink: ProfileLink?
     @State private var selectedSetting: ProfileSetting?
     
@@ -41,7 +42,6 @@ struct ProfileView: View {
         }
         .task {
             await viewModel.getProfile()
-            await viewModel.getSettings()
         }
     }
 }
@@ -49,6 +49,8 @@ struct ProfileView: View {
 //MARK: - Extension ProfileView
 
 extension ProfileView {
+    
+    // MARK: - Leading Toolbar
     
     private var leadingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -63,6 +65,8 @@ extension ProfileView {
             .padding(.horizontal, 8)
         }
     }
+    
+    // MARK: - Leading Toolbar
     
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {

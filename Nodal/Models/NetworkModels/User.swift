@@ -15,3 +15,11 @@ struct User: Codable {
 struct WatchlistCoins: Codable {
     let coinId: String
 }
+
+extension User {
+    static let placeholder = User(
+        username: "username",
+        email: "user@example.com",
+        avatarUrl: nil,
+        watchlist: [])
+}
