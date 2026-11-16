@@ -13,7 +13,9 @@ struct ProfileView: View {
     
     //MARK: - Properties
     
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var viewModel = ProfileViewModel(
+        authService: BasicAuthService(),
+        keychainStorage: AuthTokenStorage.shared)
     @State private var selectedLink: ProfileLink?
     @State private var selectedSetting: ProfileSetting?
     
@@ -39,6 +41,7 @@ struct ProfileView: View {
         }
         .task {
             await viewModel.getProfile()
+            await viewModel.getSettings()
         }
     }
 }
@@ -94,11 +97,11 @@ extension ProfileView {
     }
     
     //MARK: - Settings Section
-    
+    @ViewBuilder
     private var profileCard: some View {
-        ProfileRow(isAuthorized: viewModel.isAuthorized) {
+        ProfileRow(user: viewModel.user, isAuthorized: viewModel.isAuthorized) {
             if viewModel.isAuthorized {
-                viewModel.isAuthorized = false
+                viewModel.signOut()
             } else {
                 viewModel.isAuthPresented = true
             }
@@ -110,8 +113,10 @@ extension ProfileView {
         
         .sheet(isPresented: $viewModel.isAuthPresented) {
             NavigationStack {
-                AuthView()
-                    .presentationDetents([.medium, .large])
+                AuthView(onSubmit: {
+                    viewModel.onAuthSuccess()
+                })
+                .presentationDetents([.medium, .large])
             }
         }
     }

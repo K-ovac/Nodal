@@ -9,7 +9,7 @@ import Foundation
 
 struct CoinDetailsRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: AppEnviropment.baseURL + "api/market/coin/" + id)
+        URL(string: AppEnviropment.baseURL + "/api/market/coin/" + id)
     }
     
     var httpMethod: HttpMethod { .get }

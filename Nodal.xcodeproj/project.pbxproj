@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		468FE2A330A9E53B00504C14 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 468FE2A230A9E53B00504C14 /* SwiftKeychainWrapper */; };
 		46C0D126305497EF0013DFF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 46C0D125305497EF0013DFF4 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468FE2A330A9E53B00504C14 /* SwiftKeychainWrapper in Frameworks */,
 				46C0D126305497EF0013DFF4 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +154,7 @@
 			name = Nodal;
 			packageProductDependencies = (
 				46C0D125305497EF0013DFF4 /* Kingfisher */,
+				468FE2A230A9E53B00504C14 /* SwiftKeychainWrapper */,
 			);
 			productName = "C-Tab";
 			productReference = 46D172022F96D1D900647BC5 /* Nodal.app */;
@@ -239,6 +242,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				46C0D124305497EF0013DFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				468FE2A130A9E53B00504C14 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 46D172032F96D1D900647BC5 /* Products */;
@@ -647,6 +651,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		468FE2A130A9E53B00504C14 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 		46C0D124305497EF0013DFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -658,6 +670,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		468FE2A230A9E53B00504C14 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 468FE2A130A9E53B00504C14 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
 		46C0D125305497EF0013DFF4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 46C0D124305497EF0013DFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */;

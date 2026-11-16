@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 // MARK: - ProfileRow
 
 struct ProfileRow: View {
     
+    private var user: User?
     private var isAuthorized: Bool
     private let onActionTap: () -> Void
     
-    init(isAuthorized: Bool, onActionTap: @escaping () -> Void) {
+    init(user: User? = nil, isAuthorized: Bool, onActionTap: @escaping () -> Void) {
+        self.user = user
         self.isAuthorized = isAuthorized
         self.onActionTap = onActionTap
     }
@@ -23,8 +26,8 @@ struct ProfileRow: View {
     
     var body: some View {
         VStack {
-            if isAuthorized {
-                authorized
+            if isAuthorized, let user = user {
+                authorized(user: user)
             } else {
                 unauthorized
             }
@@ -35,61 +38,6 @@ struct ProfileRow: View {
 }
 
 extension ProfileRow {
-    private var authorized: some View {
-        ZStack {
-            Color.linearGradient.opacity(0.75)
-            
-            HStack(spacing: 16) {
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 24, height: 24)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.black.opacity(0.4)
-                                 ))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.cautionPermit, lineWidth: 2)
-                    )
-                
-                VStack(alignment: .leading) {
-                    Text("profile.card.authorized.username")
-                        .font(.header15)
-                        .foregroundStyle(.white)
-                    Text("profile.card.authorized.email")
-                        .font(Font.header15)
-                        .foregroundStyle(.white)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                
-                Spacer()
-                
-                Button {
-                    onActionTap()
-                } label: {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 12, height: 12)
-                        .foregroundStyle(Color.white)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.black.opacity(0.4)
-                                     ))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.cautionPermit, lineWidth: 2)
-                        )
-                }
-                .buttonStyle(.plain)
-            }
-            .padding()
-        }
-    }
-    
     private var unauthorized: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
@@ -132,5 +80,59 @@ extension ProfileRow {
             .padding(.top)
         }
         .cellStyle(position: .single, padding: 16)
+    }
+    
+    private func authorized(user: User) -> some View {
+        ZStack {
+            Color.linearGradient.opacity(0.75)
+            HStack(spacing: 16) {
+                Image(user.avatarUrl ?? "avatar_1")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 24, height: 24)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.black.opacity(0.4))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.cautionPermit, lineWidth: 2)
+                    )
+                
+                VStack(alignment: .leading) {
+                    Text(user.username)
+                        .font(.header15)
+                        .foregroundStyle(.white)
+                    Text(user.email)
+                        .font(Font.header15)
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                
+                Spacer()
+                
+                Button {
+                    onActionTap()
+                } label: {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 12, height: 12)
+                        .foregroundStyle(Color.white)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.black.opacity(0.4))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.cautionPermit, lineWidth: 2)
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+            .padding()
+        }
     }
 }

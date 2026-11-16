@@ -11,7 +11,7 @@ struct HomeRequest: NetworkRequest {
     var currency: String
     
     var endpoint: URL? {
-        URL(string: AppEnviropment.baseURL + "api/market/top?vs_currency=\(currency)")
+        URL(string: AppEnviropment.baseURL + "/api/market/top?vs_currency=\(currency)")
     }
     
     var httpMethod: HttpMethod { .get }
@@ -19,25 +19,17 @@ struct HomeRequest: NetworkRequest {
 
 struct GlobalMetricsRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: AppEnviropment.baseURL + "api/market/global")
+        URL(string: AppEnviropment.baseURL + "/api/market/global")
     }
     
     var httpMethod: HttpMethod { .get }
 }
 
-//struct TopGainersRequest: NetworkRequest {
-//    var endpoint: URL? {
-//        URL(string: AppEnviropment.baseURL + "/v1/cryptocurrency/listings/latest")
-//    }
-//    
-//    var httpMethod: HttpMethod { .get }
-//}
-
 struct TrendingCoinsRequest: NetworkRequest {
     var currency: String
     
     var endpoint: URL? {
-        URL(string: AppEnviropment.baseURL + "api/market/trending?vs_currency=\(currency)")
+        URL(string: AppEnviropment.baseURL + "/api/market/trending?vs_currency=\(currency)")
     }
     
     var httpMethod: HttpMethod { .get }

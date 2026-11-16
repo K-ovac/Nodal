@@ -38,6 +38,7 @@ final class CoinDetailsService: CoinDetailsServiceData {
         
         let response = try await networkClient.parse(
             url: url,
+            method: request.httpMethod.value,
             type: CoinMetadata.self
         )
         

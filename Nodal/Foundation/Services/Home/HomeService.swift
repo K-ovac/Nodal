@@ -42,6 +42,7 @@ final class HomeService: HomeServiceData {
         
         let response = try await networkClient.parse(
             url: url,
+            method: request.httpMethod.value,
             type: [TokenList].self
         )
         
@@ -59,6 +60,7 @@ final class HomeService: HomeServiceData {
         
         let response = try await networkClient.parse(
             url: url,
+            method: request.httpMethod.value,
             type: GlobalMetricsData.self
         )
         
@@ -76,6 +78,7 @@ final class HomeService: HomeServiceData {
         
         let response = try await networkClient.parse(
             url: url,
+            method: request.httpMethod.value,
             type: TrendingCoinsProvider.self
         )
         

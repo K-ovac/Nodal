@@ -10,7 +10,15 @@ import SwiftUI
 struct AuthView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var viewModel = AuthViewModel(
+        baseAuthService: BasicAuthService(
+            networkClient: NetworkClient()))
+    
+    private var onSubmit: () -> Void
+    
+    init(onSubmit: @escaping () -> Void) {
+        self.onSubmit = onSubmit
+    }
     
     var body: some View {
         ZStack {
@@ -39,7 +47,13 @@ struct AuthView: View {
                             .progressViewStyle(.circular)
                     } else {
                         Button {
-                            viewModel.sign()
+                            Task {
+                                await viewModel.sign()
+                                if !viewModel.hasError {
+                                    onSubmit()
+                                    dismiss()
+                                }
+                            }
                         } label: {
                             Text(viewModel.authState.signingTitle)
                                 .foregroundStyle(Color.primary)
@@ -210,8 +224,4 @@ extension AuthView {
             }
         }
     }
-}
-
-#Preview {
-    AuthView()
 }
