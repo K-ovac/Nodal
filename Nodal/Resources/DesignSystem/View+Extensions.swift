@@ -73,7 +73,10 @@ extension View {
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
         innerRadius: CGFloat = 0,
-        padding: CGFloat = 8
+        padding: CGFloat = 8,
+        backgroundColor: Color = Color.card,
+        selectedColor: Color = Color.orangeNeon,
+        notSelectedColor: Color = Color.gray
     ) -> some View {
         let position: CellPosition = {
             guard items.count > 1 else { return .single }
@@ -91,7 +94,10 @@ extension View {
             isSelected: isSelected,
             outerRadius: outerRadius,
             innerRadius: innerRadius,
-            padding: padding
+            padding: padding,
+            backgroundColor: backgroundColor,
+            selectedColor: selectedColor,
+            notSelectedColor: notSelectedColor
         )
     }
     
@@ -100,14 +106,20 @@ extension View {
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
         innerRadius: CGFloat = 0,
-        padding: CGFloat = 8
+        padding: CGFloat = 8,
+        backgroundColor: Color = Color.card,
+        selectedColor: Color = Color.orangeNeon,
+        notSelectedColor: Color = Color.gray
     ) -> some View {
         self.stylePreset(
             position: position,
             isSelected: isSelected,
             outerRadius: outerRadius,
             innerRadius: innerRadius,
-            padding: padding
+            padding: padding,
+            backgroundColor: backgroundColor,
+            selectedColor: selectedColor,
+            notSelectedColor: notSelectedColor
         )
     }
     
@@ -116,7 +128,10 @@ extension View {
         isSelected: Bool = false,
         outerRadius: CGFloat = 16,
         innerRadius: CGFloat = 0,
-        padding: CGFloat = 8
+        padding: CGFloat = 8,
+        backgroundColor: Color = Color.card,
+        selectedColor: Color = Color.orangeNeon,
+        notSelectedColor: Color = Color.gray
     ) -> some View {
         let radii: RectangleCornerRadii = {
             switch position {
@@ -159,14 +174,14 @@ extension View {
         return self
             .foregroundStyle(.primary)
             .padding(padding)
-            .background(Color.card)
+            .background(backgroundColor)
             .clipShape(shape)
             .overlay(
                 shape
                     .strokeBorder(
                         isSelected
-                        ? Color.orangeNeon.opacity(0.6)
-                        : Color.gray.opacity(0.25),
+                        ? selectedColor.opacity(0.6)
+                        : notSelectedColor.opacity(0.25),
                         lineWidth: 0.5
                     )
             )

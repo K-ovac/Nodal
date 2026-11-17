@@ -40,8 +40,27 @@ struct ProfileView: View {
                 trailingToolbar
             }
         }
+        
         .task {
             await viewModel.getProfile()
+        }
+        .alert("profile.logoutAlert.title",
+               isPresented: $viewModel.isLogout) {
+            Button(role: .destructive) {
+                viewModel.signOut()
+            } label: {
+                Text("profile.logoutAlert.logoutButton.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.body15.bold())
+            }
+            
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("profile.logoutAlert.cancelButton.title")
+                    .foregroundStyle(Color.primary)
+                    .font(Font.body15.bold())
+            }
         }
     }
 }
@@ -71,17 +90,18 @@ extension ProfileView {
     private var trailingToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-                //                        dismiss()
+                viewModel.isEditPresented = true
             } label: {
                 HStack {
-                    Image(systemName: "pencil.line")
+                    Image(systemName: "pencil")
+                        .resizable()
                         .frame(width: 20, height: 20)
+                        .foregroundStyle(Color.orangeNeon)
                     Text("profile.editButton.title")
                         .foregroundStyle(Color.primary)
                         .font(Font.body13.bold())
                         .fixedSize(horizontal: true, vertical: false)
                 }
-                
             }
         }
     }
@@ -105,7 +125,7 @@ extension ProfileView {
     private var profileCard: some View {
         ProfileRow(user: viewModel.user, isAuthorized: viewModel.isAuthorized) {
             if viewModel.isAuthorized {
-                viewModel.signOut()
+                viewModel.isLogout = true
             } else {
                 viewModel.isAuthPresented = true
             }
@@ -177,7 +197,6 @@ extension ProfileView {
                     selectedLink = link
                 }
             }
-            
         }
         .padding(.bottom)
         
@@ -187,8 +206,4 @@ extension ProfileView {
             }
         }
     }
-}
-
-#Preview {
-    TabListView()
 }

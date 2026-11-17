@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+// MARK: - AuthView
+
 struct AuthView: View {
+    
+    // MARK: - Properties
+    
     @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel = AuthViewModel(
@@ -16,9 +21,13 @@ struct AuthView: View {
     
     private var onSubmit: () -> Void
     
+    // MARK: - Init
+    
     init(onSubmit: @escaping () -> Void) {
         self.onSubmit = onSubmit
     }
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
@@ -26,7 +35,12 @@ struct AuthView: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .trailing, spacing: 16) {
+                
+                // MARK: - Auth State
+                
                 authState
+                
+                // MARK: - State View
                 
                 ScrollView {
                     switch viewModel.authState {
@@ -42,9 +56,12 @@ struct AuthView: View {
                     
                     Spacer()
                     
+                    // MARK: - Sign View
+                    
                     if viewModel.isSigningIn {
                         ProgressView()
                             .progressViewStyle(.circular)
+                            .padding(.top, 8)
                     } else {
                         Button {
                             Task {
@@ -65,7 +82,7 @@ struct AuthView: View {
                         .overlay(
                             Metrics.shapeCapsule
                                 .strokeBorder(Color.linearGradient, lineWidth: 1.25))
-                        .disabled(viewModel.isSigningIn)
+                        .disabled(!viewModel.isFormValid)
                         .padding(.top, 8)
                     }
                 }
@@ -73,15 +90,28 @@ struct AuthView: View {
             .padding(.horizontal)
         }
         .alert(isPresented: $viewModel.hasError) {
-            Alert(
-                title: Text("auth.failAuthAlert.title")
-                    .foregroundStyle(Color.primary)
-                    .font(Font.header15),
-                message: Text("auth.failAuthAlert.message")
-                    .foregroundStyle(Color.primary)
-                    .font(Font.body15.bold()))
+            
+            // MARK: - Alert
+            
+            switch viewModel.authState {
+            case .signIn:
+                Alert(
+                    title: Text("auth.failAuthAlert.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15),
+                    message: Text("auth.failAuthAlert.message")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body15.bold()))
+            case .createProfile:
+                Alert(
+                    title: Text("auth.failCreateProfileAlert.title")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.header15),
+                    message: Text("auth.failCreateProfileAlert.message")
+                        .foregroundStyle(Color.primary)
+                        .font(Font.body15.bold()))
+            }
         }
-        
         .toolbar {
             leadingToolBar
             trailingToolBar
@@ -89,7 +119,12 @@ struct AuthView: View {
     }
 }
 
+// MARK: - Extension AuthView
+
 extension AuthView {
+    
+    // MARK: - Toolbar Content
+    
     private var leadingToolBar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             HStack {
@@ -122,6 +157,8 @@ extension AuthView {
             }
         }
     }
+    
+    // MARK: - Auth State Content
     
     private var authState: some View {
         HStack(spacing: -4) {
@@ -159,6 +196,8 @@ extension AuthView {
         .cellStyle(position: .single, padding: 2)
     }
     
+    // MARK: - SignIn Content
+    
     private var signInFields: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading) {
@@ -183,6 +222,8 @@ extension AuthView {
         }
     }
     
+    // MARK: - SignUp Content
+    
     private var signUpFields: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading) {
@@ -197,6 +238,12 @@ extension AuthView {
             }
             
             signInFields
+            
+            if !viewModel.isValidPassword {
+                passwordNotation(password: viewModel.password)
+            }
+            
+            // MARK: - Select Avatar Section
             
             VStack(alignment: .leading) {
                 Text("auth.avatar.title")
@@ -222,6 +269,59 @@ extension AuthView {
                     .padding(.top, -8)
                     .padding(.horizontal, -8)
             }
+            .padding(.top, 8)
+        }
+    }
+    
+    // MARK: - Password Notation
+    
+    private func passwordNotation(password: String) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(ValidPassword.allCases) { rule in
+                HStack {
+                    Text(rule.title)
+                        .foregroundStyle(
+                            rule.regex(password: password)
+                            ? Color.enclaveSafe
+                            : Color.drainerAlert)
+                        .font(Font.body13.bold())
+                }
+            }
+        }
+    }
+}
+
+// MARK: - ValidPassword
+
+private enum ValidPassword: String, CaseIterable, Identifiable {
+    case length, letters, digits, symbols
+    
+    var id: String { rawValue }
+    
+    var title: LocalizedStringKey {
+        switch self {
+        case .length:
+            "auth.validPassword.length.title"
+        case .letters:
+            "auth.validPassword.letters.title"
+        case .digits:
+            "auth.validPassword.digits.title"
+        case .symbols:
+            "auth.validPassword.symbols.title"
+        }
+    }
+    
+    func regex(password: String) -> Bool {
+        switch self {
+            
+        case .length:
+            password.count >= 8
+        case .letters:
+            password.contains(/[A-Z]/)
+        case .digits:
+            password.contains(/\d/)
+        case .symbols:
+            password.contains(/[@$!%*?&=+_]/)
         }
     }
 }

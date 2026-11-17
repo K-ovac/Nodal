@@ -21,6 +21,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var user: User?
     @Published var isAuthorized: Bool = false
     @Published var isAuthPresented: Bool = false
+    @Published var isLogout: Bool = false
+    @Published var isEditPresented: Bool = false
     @Published var profileCardState: ViewState = .initial
     
     private var storage = UserDefaultsService.shared
@@ -39,6 +41,8 @@ final class ProfileViewModel: ObservableObject {
         Language(rawValue: storage.currentLanguage) ?? .en
     }
     
+    // MARK: - Init
+    
     init(
         authService: AuthServiceProtocol,
         keychainStorage: AuthTokenStorageProtocol
@@ -50,6 +54,8 @@ final class ProfileViewModel: ObservableObject {
         loadSettings()
     }
      
+    // MARK: - Sign Methods
+    
     func signOut() {
         authService.signOut()
         isAuthorized = false
@@ -70,7 +76,7 @@ final class ProfileViewModel: ObservableObject {
         Task { await getProfile() }
     }
     
-    // MARK: - GetProfile
+    // MARK: - Get Profile
     
     func getProfile() async {
         guard isAuthorized else {
@@ -91,6 +97,8 @@ final class ProfileViewModel: ObservableObject {
             profileCardState = .failure(error)
         }
     }
+    
+    // MARK: - Settings Methods
     
     func loadSettings() {
         profileSettings = [
