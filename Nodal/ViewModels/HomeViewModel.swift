@@ -44,9 +44,11 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Factory Methods
     
     func fetchData() async {
-        await fetchGlobalMetrics()
-        await fetchTrendingCoins()
-        await fetchTopList()
+        async let metrics = fetchGlobalMetrics()
+        async let trending = fetchTrendingCoins()
+        async let top = fetchTopList()
+        
+        let _ = await (metrics, trending, top)
     }
     
     func fetchGlobalMetrics() async {

@@ -79,6 +79,68 @@ struct GlobalMetricsView: View {
 }
 
 extension GlobalMetricsView {
+    
+    // MARK: - Skeleton
+    
+    static var skeleton: some View {
+        ZStack {
+            Color.linearGradient
+            Color.black.opacity(0.65)
+            
+            LazyVStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 4) {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundStyle(Color.solarGold.opacity(0.4))
+                        .frame(width: 14, height: 14)
+                    
+                    Text("markets.globalMetrics.title")
+                        .foregroundStyle(Color.white.opacity(0.7))
+                        .font(Font.header15.bold())
+                }
+                .padding(.leading, 12)
+                .padding(.top, 8)
+                
+                LazyVGrid(columns: Metrics.columns(count: 3)) {
+                    ForEach(0..<3, id: \.self) { index in
+                        LazyVStack(alignment: .leading, spacing: 6) {
+                            Capsule()
+                                .fill(Color.white.opacity(0.2))
+                                .frame(width: 50, height: 10)
+                            
+                            Capsule()
+                                .fill(Color.white.opacity(0.35))
+                                .frame(width: 70, height: 16)
+                            
+                            if index == 1 {
+                                Capsule()
+                                    .fill(Color.white.opacity(0.2))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 6)
+                                    .padding(.top, 2)
+                            } else {
+                                Capsule()
+                                    .fill(Color.white.opacity(0.2))
+                                    .frame(width: 45, height: 10)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .padding(4)
+                        .cellStyle(position: .single)
+                    }
+                }
+                .padding(8)
+            }
+            .padding(8)
+        }
+        .clipShape(Metrics.shapeCr16)
+        .overlay(Metrics.shapeCr16.strokeBorder(Color.solarGold.opacity(0.25), lineWidth: 1))
+        .shimmer(active: true)
+    }
+    
+    // MARK: - Metric Cell
+    
     private func metricCell(
         title: LocalizedStringKey,
         value: String,

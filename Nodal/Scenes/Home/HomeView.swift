@@ -130,7 +130,10 @@ extension HomeView {
             StateView(
                 content: globalMetricsContent,
                 state: viewModel.globalMetricsState,
-                retryAction: viewModel.fetchGlobalMetrics
+                retryAction: viewModel.fetchGlobalMetrics,
+                placeholder: {
+                    GlobalMetricsView.skeleton
+                }
             )
         }
     }
@@ -157,7 +160,14 @@ extension HomeView {
             StateView(
                 content: trendingCoinsContent,
                 state: viewModel.trendingCoinsState,
-                retryAction: viewModel.fetchTrendingCoins
+                retryAction: viewModel.fetchTrendingCoins,
+                placeholder: {
+                    LazyVGrid(columns: Metrics.columns()) {
+                        ForEach(0..<viewModel.trendingCoinsRows(), id: \.self) { _ in
+                            TrendingCoinsRow.skeleton
+                        }
+                    }
+                }
             )
         }
     }
@@ -192,7 +202,16 @@ extension HomeView {
             StateView(
                 content: topListContent,
                 state: viewModel.topListState,
-                retryAction: viewModel.fetchTopList
+                retryAction: viewModel.fetchTopList,
+                placeholder: {
+                    let count = viewModel.topCoinsRows()
+                    ForEach(0..<count, id: \.self) { index in
+                        TopCoinsRow.skeleton
+                            .cellStyle(
+                                position: index == 0 ? .first : (index == count - 1 ? .last : .middle)
+                            )
+                    }
+                }
             )
             
             if viewModel.topListState.isLoaded {

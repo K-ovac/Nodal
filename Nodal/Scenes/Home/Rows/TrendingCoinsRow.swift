@@ -61,7 +61,8 @@ struct TrendingCoinsRow: View {
                 .foregroundStyle(
                     (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
                         .itemColor())
-                .font(Font.hashes12.bold())
+                .font(Font.hashes12.bold()
+                )
                 .padding(4)
                 .background(
                     (coin.data.priceChangePercentage24h.currency(for: currency) ?? 0)
@@ -93,5 +94,48 @@ struct TrendingCoinsRow: View {
             
         }
         .cellStyle(position: .single)
+    }
+}
+
+extension TrendingCoinsRow {
+    
+    // MARK: - Skeleton
+    
+    static var skeleton: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .center) {
+                Circle()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 28, height: 28)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.35))
+                        .frame(width: 40, height: 12)
+                    
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 55, height: 10)
+                }
+                
+                Spacer()
+                
+                Metrics.shapeCr8
+                    .fill(Color.white.opacity(0.15))
+                    .frame(width: 52, height: 22)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Capsule()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 40, height: 10)
+                
+                Capsule()
+                    .fill(Color.white.opacity(0.35))
+                    .frame(width: 70, height: 14)
+            }
+        }
+        .cellStyle(position: .single)
+        .shimmer(active: true)
     }
 }

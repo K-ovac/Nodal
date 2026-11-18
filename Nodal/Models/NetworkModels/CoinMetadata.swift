@@ -33,8 +33,6 @@ struct CoinMetadata: Codable, Identifiable {
 
 struct CoinDescription: Codable {
     let en: String
-    let ru: String
-    let zh: String
 }
 
 // MARK: - Coin Images

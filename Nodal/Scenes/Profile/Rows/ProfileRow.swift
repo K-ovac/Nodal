@@ -36,7 +36,7 @@ struct ProfileRow: View {
                 if let user = user {
                     authorized(user: user)
                 } else {
-                    authorized(user: .placeholder)
+                    skeletonCard
                         .shimmer(active: true)
                         .allowsHitTesting(false)
                 }
@@ -153,5 +153,36 @@ extension ProfileRow {
             }
             .padding()
         }
+    }
+    
+    private var skeletonCard: some View {
+        ZStack {
+            Color.linearGradient.opacity(0.75)
+            
+            HStack(spacing: 16) {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 64, height: 64)
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 120, height: 18)
+                    
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 170, height: 14)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
+                
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 36, height: 36)
+            }
+            .padding()
+        }
+        .modifier(PulsingPlaceholderModifier())
     }
 }

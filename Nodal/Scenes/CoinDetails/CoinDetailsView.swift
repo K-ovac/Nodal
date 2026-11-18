@@ -132,7 +132,10 @@ extension CoinDetailsView {
         StateView(
             content: coinDetailsContent,
             state: viewModel.coinDetailsState,
-            retryAction: viewModel.fetchCoinDetails
+            retryAction: viewModel.fetchCoinDetails,
+            placeholder: {
+                CoinDetailsView.skeleton
+            }
         )
     }
     
@@ -285,5 +288,132 @@ extension CoinDetailsView {
             .buttonStyle(.plain)
             .cellStyle(position: .single)
         }
+    }
+    
+    // MARK: - Skeleton
+    
+    static var skeleton: some View {
+        LazyVStack(alignment: .leading, spacing: 12) {
+            // Metrics card skeleton
+            VStack(alignment: .leading, spacing: 14) {
+                // Coin Header (icon, symbol, rank, name)
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 32, height: 32)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Capsule()
+                                .fill(Color.white.opacity(0.35))
+                                .frame(width: 48, height: 14)
+                            
+                            Capsule()
+                                .fill(Color.solarGold.opacity(0.2))
+                                .frame(width: 30, height: 14)
+                        }
+                        
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: 80, height: 10)
+                    }
+                }
+                
+                // Price & Trend
+                HStack {
+                    Capsule()
+                        .fill(Color.white.opacity(0.35))
+                        .frame(width: 140, height: 24)
+                    
+                    Spacer()
+                    
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 60, height: 16)
+                }
+                
+                // Low / High Range Bar
+                VStack(spacing: 6) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(height: 6)
+                    
+                    HStack {
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: 50, height: 10)
+                        Spacer()
+                        Capsule()
+                            .fill(Color.white.opacity(0.15))
+                            .frame(width: 65, height: 10)
+                        Spacer()
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: 50, height: 10)
+                    }
+                }
+            }
+            .padding(12)
+            .cellStyle(position: .single)
+            
+            // Stats Section Skeleton
+            VStack(alignment: .leading, spacing: 8) {
+                Capsule()
+                    .fill(Color.white.opacity(0.3))
+                    .frame(width: 110, height: 16)
+                    .padding(.top, 4)
+                
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
+                    ForEach(0..<6, id: \.self) { _ in
+                        VStack(alignment: .leading, spacing: 6) {
+                            Capsule()
+                                .fill(Color.white.opacity(0.2))
+                                .frame(width: 70, height: 10)
+                            
+                            Capsule()
+                                .fill(Color.white.opacity(0.35))
+                                .frame(width: 90, height: 14)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(10)
+                        .cellStyle(position: .single)
+                    }
+                }
+            }
+            
+            // Description & Links Skeleton
+            VStack(alignment: .leading, spacing: 10) {
+                Capsule()
+                    .fill(Color.white.opacity(0.3))
+                    .frame(width: 130, height: 16)
+                
+                VStack(alignment: .leading, spacing: 6) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 10)
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 10)
+                    Capsule()
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: 180, height: 10)
+                }
+                
+                HStack(spacing: 8) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(width: 90, height: 28)
+                    Capsule()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(width: 110, height: 28)
+                }
+                .padding(.top, 4)
+            }
+            .padding(12)
+            .cellStyle(position: .single)
+        }
+        .shimmer(active: true)
     }
 }

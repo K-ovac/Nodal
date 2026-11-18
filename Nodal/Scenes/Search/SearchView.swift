@@ -87,7 +87,15 @@ extension SearchView {
             StateView(
                 content: topListContent,
                 state: viewModel.topListState,
-                retryAction: viewModel.fetchTopList
+                retryAction: viewModel.fetchTopList,
+                placeholder: {
+                    ForEach(0..<10, id: \.self) { index in
+                        TopCoinsRow.skeleton
+                            .cellStyle(
+                                position: index == 0 ? .first : (index == 9 ? .last : .middle)
+                            )
+                    }
+                }
             )
         }
     }

@@ -101,3 +101,55 @@ struct TopCoinsRow: View {
         .padding(.trailing, 8)
     }
 }
+
+extension TopCoinsRow {
+    
+    // MARK: - Skeleton
+    
+    static var skeleton: some View {
+        HStack(spacing: 4) {
+            // Rank placeholder
+            Capsule()
+                .fill(Color.white.opacity(0.2))
+                .frame(width: 14, height: 14)
+                .frame(width: 20, alignment: .center)
+            
+            // Icon placeholder
+            Circle()
+                .fill(Color.white.opacity(0.2))
+                .frame(width: 32, height: 32)
+            
+            // Symbol & name placeholders
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 4) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.35))
+                        .frame(width: 44, height: 14)
+                    
+                    Capsule()
+                        .fill(Color.white.opacity(0.15))
+                        .frame(width: 50, height: 14)
+                }
+                
+                Capsule()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 70, height: 10)
+            }
+            
+            Spacer()
+            
+            // Price & percentage placeholders
+            VStack(alignment: .trailing, spacing: 4) {
+                Capsule()
+                    .fill(Color.white.opacity(0.35))
+                    .frame(width: 65, height: 14)
+                
+                Capsule()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 45, height: 10)
+            }
+        }
+        .padding(.trailing, 8)
+        .shimmer(active: true)
+    }
+}
