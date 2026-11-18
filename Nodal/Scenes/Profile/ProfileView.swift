@@ -140,7 +140,7 @@ extension ProfileView {
                 AuthView(onSubmit: {
                     viewModel.onAuthSuccess()
                 })
-                .presentationDetents([.medium, .large])
+                .presentationDetents([.large])
             }
         }
     }
@@ -201,7 +201,7 @@ extension ProfileView {
         .padding(.bottom)
         
         .sheet(item: $selectedLink) { link in
-            if let url = URL(string: link.link) {
+            if let url = URL(string: link.link), !link.link.isEmpty {
                 SafariView(url: url)
             }
         }

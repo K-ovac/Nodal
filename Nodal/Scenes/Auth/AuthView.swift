@@ -53,39 +53,37 @@ struct AuthView: View {
                             .textFieldStyle(CustomTextFieldStyle())
                             .disabled(viewModel.isSigningIn)
                     }
-                    
-                    Spacer()
-                    
-                    // MARK: - Sign View
-                    
-                    if viewModel.isSigningIn {
+                }
+                
+                Spacer()
+                
+                // MARK: - Sign View
+                
+                Button {
+                    Task {
+                        await viewModel.sign()
+                        if !viewModel.hasError {
+                            onSubmit()
+                            dismiss()
+                        }
+                    }
+                } label: {
+                    if !viewModel.isSigningIn {
+                        Text(viewModel.authState.signingTitle)
+                            .foregroundStyle(viewModel.isFormValid ? Color.orangeNeon : Color.gray)
+                            .font(Font.body15.bold())
+                            .frame(maxWidth: .infinity)
+                    } else {
                         ProgressView()
                             .progressViewStyle(.circular)
-                            .padding(.top, 8)
-                    } else {
-                        Button {
-                            Task {
-                                await viewModel.sign()
-                                if !viewModel.hasError {
-                                    onSubmit()
-                                    dismiss()
-                                }
-                            }
-                        } label: {
-                            Text(viewModel.authState.signingTitle)
-                                .foregroundStyle(Color.primary)
-                                .font(Font.body15.bold())
-                                .frame(maxWidth: .infinity)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(8)
-                        .overlay(
-                            Metrics.shapeCapsule
-                                .strokeBorder(Color.linearGradient, lineWidth: 1.25))
-                        .disabled(!viewModel.isFormValid)
-                        .padding(.top, 8)
                     }
+                    
                 }
+                .frame(maxWidth: .infinity)
+                .cellStyle(
+                    position: .single,
+                    isSelected: viewModel.isFormValid)
+                .padding(.bottom)
             }
             .padding(.horizontal)
         }
